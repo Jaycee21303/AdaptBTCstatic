@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AdaptBTC - Adaptive, human-friendly crypto insights for everyone.">
-  <title>AdaptBTC | Adaptive Bitcoin Insights</title>
+  <meta name="description" content="AdaptBTC consulting services for teams and communities.">
+  <title>AdaptBTC | Consulting</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -38,38 +38,69 @@
     <section id="hero" class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <div class="pill">Product Suite</div>
-          <h1>Bitcoin tools, live and focused.</h1>
-          <p class="lead">Real-time network visibility paired with practical accumulation planning.</p>
+          <div class="pill">Consulting</div>
+          <h1>Guidance designed for your learning path.</h1>
+          <p class="lead">Work with AdaptBTC coaches to align education, security, and readiness for your team or community.</p>
           <div class="cta-group">
-            <a class="btn primary" href="tools.html#live-feed">Open Live Feed</a>
-            <a class="btn secondary" href="tools.html#dca">Open DCA Tool</a>
+            <a class="btn primary" href="#consulting">Request a consult</a>
+            <a class="btn secondary" href="tools.html">See our tools</a>
           </div>
         </div>
         <div class="hero-card glass">
           <div class="card-header">
             <div>
-              <p class="muted">BTC Live Learning</p>
-              <h3>Coverage</h3>
+              <p class="muted">Playbook</p>
+              <h3>Security-first onboarding</h3>
             </div>
-            <span class="status good">78%</span>
+            <span class="status neutral">Open</span>
           </div>
-          <div class="chart hero-chart" role="img" aria-label="Stylized coverage chart"></div>
+          <p class="muted">Tailored walkthroughs, team training, and repeatable curriculum setup for confident Bitcoin adoption.</p>
           <div class="metrics condensed">
             <div class="metric">
-              <p class="muted">Network uptime</p>
-              <h4>99.99%</h4>
+              <p class="muted">Workshops</p>
+              <h4>Weekly</h4>
             </div>
             <div class="metric">
-              <p class="muted">Streaming</p>
-              <h4>Live</h4>
+              <p class="muted">Coverage</p>
+              <h4>Global</h4>
             </div>
             <div class="metric">
-              <p class="muted">Signals</p>
-              <h4>On</h4>
+              <p class="muted">Office hours</p>
+              <h4>Ongoing</h4>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="consulting" class="section">
+      <div class="container consulting-cta">
+        <div>
+          <p class="eyebrow">Request a consult</p>
+          <h3>Put the AdaptBTC playbook to work.</h3>
+          <p class="muted">Share your email and focus so we can tailor a consulting path, schedule a walkthrough, and send you the next steps.</p>
+          <ul class="checklist">
+            <li>Security-first onboarding guidance.</li>
+            <li>Team training and curriculum setup.</li>
+            <li>Ongoing office hours and quarterly refreshes.</li>
+          </ul>
+        </div>
+        <form class="card form" id="interestForm">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          <label for="role">Role</label>
+          <select id="role" name="role">
+            <option>Analyst</option>
+            <option>Educator</option>
+            <option>Researcher</option>
+            <option>Community Lead</option>
+            <option>Investor</option>
+          </select>
+          <label for="message">What do you want to explore?</label>
+          <textarea id="message" name="message" rows="3" placeholder="Signals, dashboards, automations..."></textarea>
+          <button type="submit" class="btn primary full">Request access</button>
+          <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -89,27 +120,6 @@
               <p class="muted">Head of Research, Lighthouse Crypto</p>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <p class="muted">Explore more of AdaptBTC</p>
-          <h2>Tools, consulting, and ways to get involved are a click away.</h2>
-          <div class="cta-group">
-            <a class="btn primary" href="tools.html">View tools</a>
-            <a class="btn secondary" href="consulting.html">Talk to us</a>
-            <a class="btn ghost" href="get-involved.html">Get involved</a>
-          </div>
-        </div>
-        <div class="hero-card glass">
-          <div class="card-header">
-            <div>
-              <p class="muted">Live BTC price</p>
-              <h3>Stay updated</h3>
-            </div>
-            <span class="status good" id="homeTickerEcho">--</span>
-          </div>
-          <p class="muted">The header keeps you synced to the latest BTC price. Jump into any AdaptBTC page to see tools that use it in real time.</p>
         </div>
       </div>
     </section>
@@ -132,7 +142,7 @@
         <p class="footer-title">Services</p>
         <a href="consulting.html">Consulting</a>
         <a href="get-involved.html">Get involved</a>
-        <a href="tools.html#analytics">About</a>
+        <a href="#consulting">About</a>
       </div>
       <div class="footer-col">
         <p class="footer-title">Connect</p>

@@ -3,6 +3,7 @@ const navMenu = document.getElementById('navMenu');
 const form = document.getElementById('interestForm');
 const feedback = document.getElementById('formFeedback');
 const btcTicker = document.getElementById('btcTicker');
+const homeTickerEcho = document.getElementById('homeTickerEcho');
 const learningNotice = document.getElementById('learningNotice');
 const learningLinks = document.querySelectorAll('a[href="#learning"]');
 const dcaForm = document.getElementById('dcaForm');
@@ -69,6 +70,10 @@ function renderTicker(priceText) {
   if (!btcTicker) return;
 
   btcTicker.innerHTML = `<span class="ticker-label">BTC</span> <span class="ticker-price">${priceText}</span>`;
+
+  if (homeTickerEcho) {
+    homeTickerEcho.textContent = priceText;
+  }
 }
 
 async function updateTicker() {

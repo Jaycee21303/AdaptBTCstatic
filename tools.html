@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AdaptBTC tools: live dashboards, DCA planning, and analytics.">
+  <title>AdaptBTC | Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-container">
+      <a class="logo" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
+      <nav class="nav" id="navMenu">
+        <span class="ticker" id="btcTicker" aria-live="polite">
+          <span class="ticker-label">BTC</span>
+          <span class="ticker-price">$--</span>
+        </span>
+        <a href="tools.html">Tools</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="get-involved.html">Get Involved</a>
+        <a class="pill-link" href="#learning">Learning Portal</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="toast" id="learningNotice" role="status" aria-live="polite" aria-atomic="true">
+    Learning Portal Coming Soon
+  </div>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <div class="pill">Product Suite</div>
+          <h1>Everything you need to monitor and plan.</h1>
+          <p class="lead">Live BTC coverage, growth planning, and analytics that stay in sync with the header price.</p>
+          <div class="cta-group">
+            <a class="btn primary" href="#live-feed">Jump to live feed</a>
+            <a class="btn secondary" href="#dca">Try the DCA tool</a>
+          </div>
+        </div>
+        <div class="hero-card glass">
+          <div class="card-header">
+            <div>
+              <p class="muted">BTC Live Learning</p>
+              <h3>Coverage</h3>
+            </div>
+            <span class="status good">78%</span>
+          </div>
+          <div class="chart hero-chart" role="img" aria-label="Stylized coverage chart"></div>
+          <div class="metrics condensed">
+            <div class="metric">
+              <p class="muted">Network uptime</p>
+              <h4>99.99%</h4>
+            </div>
+            <div class="metric">
+              <p class="muted">Streaming</p>
+              <h4>Live</h4>
+            </div>
+            <div class="metric">
+              <p class="muted">Signals</p>
+              <h4>On</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tools" class="section">
+      <div class="container section-header">
+        <p class="eyebrow">Toolbox</p>
+        <h2>Live network intelligence plus precision accumulation planning.</h2>
+        <p class="muted">Education, dashboards, and contribution tools matched to how you learn and deploy.</p>
+      </div>
+      <div class="container feature-grid">
+        <article class="card feature" id="live-feed">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 17.5V21" />
+              <circle cx="12" cy="13" r="2.8" />
+              <path d="M7 12c0-2.8 2.2-5 5-5s5 2.2 5 5" />
+              <path d="M4.5 11.5c0-4.1 3.4-7.5 7.5-7.5s7.5 3.4 7.5 7.5" />
+            </svg>
+          </div>
+          <h3>Live data feed</h3>
+          <p>Bitcoin-focused data updates every few seconds so you can trust what you see.</p>
+        </article>
+        <article class="card feature">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 16.5L9.2 11l3.4 3.4L18.5 8" />
+              <path d="M13.5 8.5H19v5.5" />
+              <path d="M4 19.5h15" />
+            </svg>
+          </div>
+          <h3>Streaming</h3>
+          <p>Always-on coverage keeps the stream synced to the latest network shifts.</p>
+        </article>
+        <article class="card feature">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 4.5l6-1.5v16.5l-6 1.5-6-1.5V3l6 1.5z" />
+              <path d="M9 4.5v16.5" />
+              <path d="M15 3v16.5" />
+            </svg>
+          </div>
+          <h3>Planning</h3>
+          <p>Guided milestones and playbooks to align education, security, and readiness.</p>
+        </article>
+        <article class="card feature" id="dca-card">
+          <div class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 12a7.4 7.4 0 0 0-.1-1.1l1.7-1.3-2-3.4-2 .7a7.5 7.5 0 0 0-1.9-1.1l-.3-2.1h-3.8l-.3 2.1a7.5 7.5 0 0 0-1.9 1.1l-2-.7-2 3.4 1.7 1.3a7.4 7.4 0 0 0 0 2.2l-1.7 1.3 2 3.4 2-.7a7.5 7.5 0 0 0 1.9 1.1l.3 2.1h3.8l.3-2.1a7.5 7.5 0 0 0 1.9-1.1l2 .7 2-3.4-1.7-1.3c.1-.3.1-.7.1-1.1z" />
+            </svg>
+          </div>
+          <h3>DCA scenarios</h3>
+          <p>Model accumulation paths with clear, repeatable scenarios you can deploy.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="dca" class="section surface">
+      <div class="container dca-grid">
+        <div>
+          <p class="eyebrow">DCA tool</p>
+          <h2>Plan your recurring Bitcoin buys.</h2>
+          <p class="muted">Use the live BTC price to simulate how your contributions grow over time.</p>
+          <ul class="checklist">
+            <li>Flexible frequency and duration controls.</li>
+            <li>Live BTC price pulled from the header ticker.</li>
+            <li>Projected value based on your growth assumption.</li>
+          </ul>
+        </div>
+        <form class="card form dca-form" id="dcaForm">
+          <label for="dcaAmount">Contribution per buy (USD)</label>
+          <input type="number" id="dcaAmount" name="amount" inputmode="decimal" min="0" step="10" placeholder="200" required>
+
+          <label for="dcaFrequency">Frequency</label>
+          <select id="dcaFrequency" name="frequency">
+            <option value="4.33">Weekly</option>
+            <option value="2.17">Every two weeks</option>
+            <option value="1">Monthly</option>
+          </select>
+
+          <label for="dcaMonths">Duration (months)</label>
+          <input type="number" id="dcaMonths" name="months" min="1" max="60" step="1" value="12" required>
+
+          <label for="dcaGrowth">Expected annual growth (%)</label>
+          <input type="number" id="dcaGrowth" name="growth" inputmode="decimal" min="-50" max="200" step="0.5" value="0">
+
+          <label for="dcaPrice">BTC price used (USD)</label>
+          <input type="number" id="dcaPrice" name="price" inputmode="decimal" step="0.01" placeholder="Live price" aria-describedby="dcaPriceHelper">
+          <p id="dcaPriceHelper" class="muted tiny">Defaults to the live price from the header ticker.</p>
+
+          <button type="submit" class="btn primary full">Calculate plan</button>
+          <div class="dca-results" id="dcaResults" role="status" aria-live="polite">Enter your inputs to see a projection.</div>
+        </form>
+      </div>
+    </section>
+
+    <section id="analytics" class="section surface">
+      <div class="container analytics-grid">
+        <div>
+          <p class="eyebrow">Learning</p>
+          <h2>Clarity across the full market cycle.</h2>
+          <p class="muted">Visualize momentum, risk, and conviction in one adaptive workspace. Export to CSV or share a public snapshot with your team.</p>
+          <ul class="checklist">
+            <li>Adaptive risk bands with historical context.</li>
+            <li>Scenario testing with instant backfills.</li>
+            <li>Mobile-friendly dashboards for on-the-go reviews.</li>
+          </ul>
+          <div class="cta-group">
+            <a class="btn primary" href="#learning">See Analytics</a>
+            <a class="btn ghost" href="#learning">Download PDF</a>
+          </div>
+        </div>
+        <div class="card analytics-card">
+          <div class="card-header">
+            <h3>Live coverage</h3>
+            <span class="status neutral">Open</span>
+          </div>
+          <div class="chart-grid">
+            <div class="chart-box">
+              <p class="muted">Momentum</p>
+              <div class="mini-chart"></div>
+              <p class="figure">63%</p>
+            </div>
+            <div class="chart-box">
+              <p class="muted">Liquidity</p>
+              <div class="mini-chart"></div>
+              <p class="figure">Moderate</p>
+            </div>
+            <div class="chart-box">
+              <p class="muted">Funding</p>
+              <div class="mini-chart"></div>
+              <p class="figure">Neutral</p>
+            </div>
+            <div class="chart-box">
+              <p class="muted">Macro</p>
+              <div class="mini-chart"></div>
+              <p class="figure">Cooling</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="learning" class="section surface">
+      <div class="container testimonial">
+        <div>
+          <p class="eyebrow">Learning portal</p>
+          <h2>Built with analysts, educators, and builders.</h2>
+          <p class="muted">AdaptBTC distills the signal so your team can act fast and stay aligned.</p>
+        </div>
+        <div class="card quote">
+          <p>“AdaptBTC has become our morning standup dashboard. It turns noisy markets into clear choices.”</p>
+          <div class="quote-meta">
+            <div class="avatar">S</div>
+            <div>
+              <p class="strong">Sarah Lin</p>
+              <p class="muted">Head of Research, Lighthouse Crypto</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Adapt<span>BTC</span></div>
+        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
+        <span class="footer-status">Status: Full coverage</span>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Explore</p>
+        <a href="index.html">Home</a>
+        <a href="index.html#learning">Learning</a>
+        <a href="tools.html">Tools</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Services</p>
+        <a href="consulting.html">Consulting</a>
+        <a href="get-involved.html">Get involved</a>
+        <a href="#analytics">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Connect</p>
+        <a href="consulting.html">Community</a>
+        <a href="consulting.html">Contact</a>
+        <a href="consulting.html">Press</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Follow AdaptBTC on X">X</a>
+        <a href="#" aria-label="Follow AdaptBTC on LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Follow AdaptBTC on YouTube">YouTube</a>
+      </div>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
