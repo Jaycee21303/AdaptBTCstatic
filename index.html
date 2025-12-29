@@ -27,6 +27,10 @@
     </div>
   </header>
 
+  <div class="toast" id="learningNotice" role="status" aria-live="polite" aria-atomic="true">
+    Learning Portal Coming Soon
+  </div>
+
   <main>
     <section id="hero" class="hero">
       <div class="container hero-grid">
@@ -177,35 +181,6 @@
           <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
         </form>
       </div>
-
-      <div class="container consulting-cta">
-        <div>
-          <p class="eyebrow">Request a consult</p>
-          <h3>Put the AdaptBTC playbook to work.</h3>
-          <p class="muted">Share your email and focus so we can tailor a consulting path, schedule a walkthrough, and send you the next steps.</p>
-          <ul class="checklist">
-            <li>Security-first onboarding guidance.</li>
-            <li>Team training and curriculum setup.</li>
-            <li>Ongoing office hours and quarterly refreshes.</li>
-          </ul>
-        </div>
-        <form class="card form" id="interestForm">
-          <label for="email">Work email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required>
-          <label for="role">Role</label>
-          <select id="role" name="role">
-            <option>Analyst</option>
-            <option>Educator</option>
-            <option>Researcher</option>
-            <option>Community Lead</option>
-            <option>Investor</option>
-          </select>
-          <label for="message">What do you want to explore?</label>
-          <textarea id="message" name="message" rows="3" placeholder="Signals, dashboards, automations..."></textarea>
-          <button type="submit" class="btn primary full">Request access</button>
-          <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
-        </form>
-      </div>
     </section>
 
     <section id="learning" class="section surface">
@@ -254,23 +229,40 @@
   </main>
 
   <footer class="footer">
-      <div class="container footer-grid">
-        <div>
-          <div class="logo">Adapt<span>BTC</span></div>
-          <p class="muted">Adaptive Bitcoin intelligence built for humans.</p>
-        </div>
-        <div class="footer-links">
-          <a href="#tools">Tools</a>
-          <a href="#analytics">Analytics</a>
-          <a href="#consulting">Consulting</a>
-          <a href="#donate">Donation</a>
-        </div>
-        <div class="footer-actions">
-          <button class="btn secondary">Status</button>
-          <button class="btn ghost">Changelog</button>
-        </div>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Adapt<span>BTC</span></div>
+        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
+        <span class="footer-status">Status: Full coverage</span>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Explore</p>
+        <a href="#hero">Home</a>
+        <a href="#learning">Learning</a>
+        <a href="#tools">Tools</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Services</p>
+        <a href="#consulting">Consulting</a>
+        <a href="#donate">Donation</a>
+        <a href="#analytics">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Connect</p>
+        <a href="#consulting">Community</a>
+        <a href="#consulting">Contact</a>
+        <a href="#consulting">Press</a>
+      </div>
     </div>
-    <p class="muted tiny">© 2024 AdaptBTC. Crafted for GitHub Pages.</p>
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Follow AdaptBTC on X">X</a>
+        <a href="#" aria-label="Follow AdaptBTC on LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Follow AdaptBTC on YouTube">YouTube</a>
+      </div>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>

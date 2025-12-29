@@ -77,6 +77,29 @@ a {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
+.toast {
+  position: fixed;
+  top: 82px;
+  left: 50%;
+  transform: translate(-50%, -12px);
+  background: rgba(12, 99, 255, 0.12);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 9;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 .nav a:hover {
   color: var(--text);
   transform: translateY(-1px);
@@ -97,15 +120,6 @@ a {
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--text);
-}
-
-.ticker {
-  padding: 0.45rem 0.9rem;
-  background: rgba(11, 99, 230, 0.08);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text);
-  font-weight: 700;
 }
 
 .nav-toggle {
@@ -455,34 +469,78 @@ label {
 }
 
 .footer {
-  padding: 2rem 0;
-  text-align: center;
+  padding: 2.5rem 0 2rem;
   border-top: 1px solid var(--border);
   background: #ffffff;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  align-items: flex-start;
   text-align: left;
-  margin-bottom: 1rem;
 }
 
-.footer-links {
+.footer-brand p {
+  margin: 0.6rem 0 0.8rem;
+}
+
+.footer-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(12, 99, 255, 0.08);
+  border: 1px solid var(--border);
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.footer-title {
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+}
+
+.footer-col {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.footer-col a {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.footer-social {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
 }
 
-.footer-actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: flex-end;
+.footer-social a {
+  font-weight: 700;
+  color: var(--text);
 }
 
 .tiny {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--muted);
 }
 

@@ -3,6 +3,8 @@ const navMenu = document.getElementById('navMenu');
 const form = document.getElementById('interestForm');
 const feedback = document.getElementById('formFeedback');
 const btcTicker = document.getElementById('btcTicker');
+const learningNotice = document.getElementById('learningNotice');
+const learningLinks = document.querySelectorAll('a[href="#learning"]');
 
 navToggle?.addEventListener('click', () => {
   navMenu?.classList.toggle('open');
@@ -76,3 +78,16 @@ async function updateTicker() {
 
 updateTicker();
 setInterval(updateTicker, 30000);
+
+function showLearningNotice(event) {
+  if (!learningNotice) return;
+
+  learningNotice.classList.add('show');
+  learningNotice.textContent = 'Learning Portal Coming Soon';
+
+  setTimeout(() => learningNotice.classList.remove('show'), 2800);
+}
+
+learningLinks.forEach((link) => {
+  link.addEventListener('click', showLearningNotice);
+});
