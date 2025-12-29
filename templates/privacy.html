@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Privacy & Data Practices</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/legal.css') }}">
+  <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container legal-page">
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <div class="badge">Privacy</div>
+          <h1>We protect your data the way we protect our Bitcoin operations.</h1>
+          <p class="hero-sub">Clear commitments on what we collect, how we use it, and the controls you keep.</p>
+        </div>
+      </div>
+      <div class="legal-grid">
+        <article class="legal-card">
+          <h2>What we collect</h2>
+          <ul class="legal-list">
+            <li><strong>Form submissions:</strong> names, emails, and context you share on consulting or learning requests.</li>
+            <li><strong>Operational telemetry:</strong> anonymized logs to keep the site responsive and secure.</li>
+            <li><strong>No tracking bloat:</strong> we do not sell data or run ad pixels.</li>
+          </ul>
+        </article>
+        <article class="legal-card">
+          <h2>How we use it</h2>
+          <ul class="legal-list">
+            <li>Respond to consulting and learning inquiries with relevant guidance.</li>
+            <li>Secure platform uptime, including rate limiting and abuse prevention.</li>
+            <li>Improve tools like the DCA Lab and Signal Engine with aggregate insights.</li>
+          </ul>
+        </article>
+        <article class="legal-card">
+          <h2>Where it lives</h2>
+          <ul class="legal-list">
+            <li>Encrypted transit by default for every request.</li>
+            <li>Limited retention with periodic reviews for deletion.</li>
+            <li>Access controls restricted to AdaptBTC operators who need it.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="section-heading">
+        <h2>Your controls</h2>
+        <p class="hero-sub">We keep the knobs obvious so you can move quickly without sacrificing privacy.</p>
+      </div>
+      <div class="legal-grid">
+        <article class="legal-card">
+          <h3>Request deletion</h3>
+          <p>If you have submitted consulting details, email <a href="mailto:support@adaptbtc.com">support@adaptbtc.com</a> to remove them. We confirm within two business days.</p>
+        </article>
+        <article class="legal-card">
+          <h3>Data access</h3>
+          <p>Ask what data we hold about you and we will share a human-readable summary with timestamps and sources.</p>
+        </article>
+        <article class="legal-card">
+          <h3>Cookie stance</h3>
+          <p>We only use cookies necessary to keep sessions secure; analytics are aggregate and privacy-friendly.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="section-heading">
+        <h2>Security practices</h2>
+          <p class="hero-sub">Built with the same operational rigor as our Bitcoin custody recommendations.</p>
+      </div>
+      <div class="legal-grid">
+        <article class="legal-card">
+          <h3>Transport</h3>
+          <p>HTTPS everywhere, certificate monitoring, and rate limits tuned to protect tools from abuse.</p>
+        </article>
+        <article class="legal-card">
+          <h3>Storage</h3>
+          <p>Secrets live in environment variables, never in the repo. Access is logged and reviewed regularly.</p>
+        </article>
+        <article class="legal-card">
+          <h3>Review cadence</h3>
+          <p>Privacy page and runbooks carry a <strong>last reviewed</strong> date so you know when we last audited our stance.</p>
+          <p class="muted small">Last reviewed: 2024-06-01</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>

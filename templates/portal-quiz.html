@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+        <div class="portal-toolbar">
+          <div>
+            <div class="badge">Quiz</div>
+            <h2>{{ course.title }} Quiz</h2>
+            <p class="hero-sub">Earn 80% or higher to pass. Attempts stay within this browser session.</p>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab" href="{{ url_for('portal.lesson', course_id=course.id, order=1) }}">Lessons</a>
+            <a class="pill-tab active" href="{{ url_for('portal.quiz', course_id=course.id) }}">Quiz</a>
+          </div>
+        </div>
+        {% if questions %}
+        <form method="post" class="grid-two">
+          {% for question in questions %}
+          {% set outer_loop = loop %}
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q{{ outer_loop.index }}.</strong> {{ question.prompt }}</p>
+            {% for option in question.options %}
+            <label class="quiz-option">
+              <input type="radio" name="q{{ outer_loop.index0 }}" value="{{ loop.index0 }}" required>
+              <span class="pill">{{ 'ABCD'[loop.index0] }}</span>
+              {{ option }}
+            </label>
+            {% endfor %}
+          </div>
+          {% endfor %}
+          <div style="grid-column: span 2;">
+            <button class="btn" type="submit">Submit Quiz</button>
+          </div>
+        </form>
+        {% else %}
+        <div class="card" style="grid-column: span 2;">
+          <p class="hero-sub">This course does not have quiz questions yet. Please check back soon.</p>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>

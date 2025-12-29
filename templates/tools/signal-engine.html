@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC | Signal Engine</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/signal-engine.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/signal-engine.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container signal-engine-page">
+    <section class="section top-gap" data-animate>
+      <div class="card-lg signal-hero">
+        <div>
+          <p class="badge">Signature Tool</p>
+          <h1>The AdaptBTC Signal Engine</h1>
+          <p class="hero-sub">Our flagship intelligence layer that translates live Bitcoin data into actionable conviction.</p>
+          <div class="hero-meta">
+            <span class="meta-pill">Market health scoring</span>
+            <span class="meta-pill">Adaptive accumulation playbooks</span>
+            <span class="meta-pill">30-day momentum radar</span>
+          </div>
+          <p class="muted" data-signal-status>Loading live metrics…</p>
+        </div>
+        <div class="signal-score">
+          <div class="score-label">Network Confidence</div>
+          <div class="score-value" data-confidence-score>—</div>
+          <div class="score-foot">Blends momentum, liquidity, and stability.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="signal-grid">
+        <div class="card-lg core-panel">
+          <div class="section-heading compact">
+            <p class="badge subtle">Live market core</p>
+            <h2>What the network is telling us now</h2>
+            <p class="muted">Snapshots refresh automatically. Numbers below power the playbook on the right.</p>
+          </div>
+          <div class="core-stats">
+            <div class="stat-block">
+              <div class="label">Spot Price (USD)</div>
+              <div class="value" data-signal-price>$—</div>
+              <div class="hint">Change 24h: <span data-signal-change>—</span></div>
+            </div>
+            <div class="stat-block">
+              <div class="label">Market Cap</div>
+              <div class="value" data-signal-cap>—</div>
+              <div class="hint">Liquidity heat powered by global depth.</div>
+            </div>
+            <div class="stat-block">
+              <div class="label">24h Volume</div>
+              <div class="value" data-signal-volume>—</div>
+              <div class="hint">Signals how much conviction is trading hands.</div>
+            </div>
+            <div class="stat-block">
+              <div class="label">30d Momentum</div>
+              <div class="value" data-signal-momentum>—</div>
+              <div class="hint">Price acceleration over the last month.</div>
+            </div>
+            <div class="stat-block">
+              <div class="label">Volatility Pulse</div>
+              <div class="value" data-signal-volatility>—</div>
+              <div class="hint">Daily return variability over 30 days.</div>
+            </div>
+            <div class="stat-block">
+              <div class="label">Liquidity Score</div>
+              <div class="value" data-signal-liquidity>—</div>
+              <div class="hint">Derived from volume-to-cap efficiency.</div>
+            </div>
+          </div>
+          <div class="signal-footnote">
+            <div class="pill">Live intelligence</div>
+            <p>We pair CoinGecko spot data with our in-browser scoring to surface conviction in seconds.</p>
+          </div>
+        </div>
+
+        <aside class="card-lg playbook-panel">
+          <div class="section-heading compact">
+            <p class="badge subtle">Adaptive accumulation</p>
+            <h3>Build a personalized playbook</h3>
+            <p class="muted">Set your monthly budget and horizon to see how the Signal Engine allocates across base and stretch targets.</p>
+          </div>
+          <form class="playbook-form" id="playbook-form">
+            <label class="form-field">
+              <span>Monthly allocation (USD)</span>
+              <input type="number" id="allocation-input" name="allocation" min="50" step="50" value="500" required>
+            </label>
+            <label class="form-field">
+              <span>Horizon (months)</span>
+              <input type="range" id="horizon-input" name="horizon" min="3" max="36" value="12">
+              <div class="range-value"><span data-horizon-display>12</span> months</div>
+            </label>
+            <label class="form-field">
+              <span>Conviction mode</span>
+              <select id="conviction-mode" name="conviction">
+                <option value="steady">Steady - prioritize capital preservation</option>
+                <option value="balanced" selected>Balanced - follow the signal</option>
+                <option value="aggressive">Aggressive - lean into momentum</option>
+              </select>
+            </label>
+          </form>
+          <div class="playbook-output">
+            <div class="output-row">
+              <div>
+                <div class="label">Projected BTC stacked</div>
+                <div class="value" data-output-btc>—</div>
+                <div class="hint">Based on current price and your cadence.</div>
+              </div>
+              <div>
+                <div class="label">Capital deployed</div>
+                <div class="value" data-output-capital>—</div>
+                <div class="hint">Budget × horizon.</div>
+              </div>
+            </div>
+            <div class="output-row">
+              <div>
+                <div class="label">Signal-based stretch target</div>
+                <div class="value" data-output-stretch>—</div>
+                <div class="hint">Accounts for current momentum.</div>
+              </div>
+              <div>
+                <div class="label">Reserve buffer</div>
+                <div class="value" data-output-buffer>—</div>
+                <div class="hint">Kept in cash for volatility days.</div>
+              </div>
+            </div>
+            <div class="playbook-banner">
+              <div>
+                <p class="badge subtle">Actionable guidance</p>
+                <h4>Print the plan. Execute with discipline.</h4>
+                <p class="muted">Numbers refresh as data changes. Use it live on the trading desk or with your team.</p>
+              </div>
+              <button class="btn btn-outline" type="button" id="refresh-signals">Refresh now</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section compact" data-animate>
+      <div class="signal-diagnostics card-lg">
+        <div class="section-heading compact">
+          <p class="badge subtle">Diagnostic radar</p>
+          <h3>Signals we are monitoring</h3>
+          <p class="muted">Momentum, stability, and participation are distilled into a single conviction score.</p>
+        </div>
+        <div class="diagnostic-grid">
+          <div class="tile">
+            <div class="tile-header">
+              <span class="pill">Momentum</span>
+              <span class="chip" data-chip-momentum>—</span>
+            </div>
+            <p class="muted">Trailing 30-day acceleration. Big swings lift the score when volume confirms.</p>
+          </div>
+          <div class="tile">
+            <div class="tile-header">
+              <span class="pill">Liquidity</span>
+              <span class="chip" data-chip-liquidity>—</span>
+            </div>
+            <p class="muted">Volume-to-cap efficiency. Healthy depth keeps execution tight.</p>
+          </div>
+          <div class="tile">
+            <div class="tile-header">
+              <span class="pill">Stability</span>
+              <span class="chip" data-chip-stability>—</span>
+            </div>
+            <p class="muted">Volatility dampener derived from daily variance.</p>
+          </div>
+          <div class="tile">
+            <div class="tile-header">
+              <span class="pill">Heat Check</span>
+              <span class="chip" data-chip-heat>—</span>
+            </div>
+            <p class="muted">How far price sits from the 30-day mean to avoid chasing tops.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>

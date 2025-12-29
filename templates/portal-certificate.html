@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Certificates</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+        <div class="portal-toolbar">
+          <div>
+            <div class="badge">Certificates & Progress</div>
+            <h2>{{ username }}'s achievements</h2>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab" href="{{ url_for('portal.dashboard') }}">Dashboard</a>
+            <a class="pill-tab active" href="{{ url_for('portal.progress') }}">Certificates</a>
+          </div>
+        </div>
+        <div class="grid-three">
+          {% for course_id, data in course_data.items() %}
+          <div class="certificate-card">
+            <h3>{{ course_id.replace('-', ' ').title() }}</h3>
+            <p>Lessons completed: {{ data.get('lessons_completed', 0) }}</p>
+            <p>Last viewed: Lesson {{ data.get('last_lesson', 1) }}</p>
+            <p>Quiz attempts: {{ (attempts.get(course_id) or [])|length }}</p>
+            <div class="auth-actions">
+              <a class="btn" href="{{ url_for('portal.course_detail', course_id=course_id) }}">Resume</a>
+              <a class="btn btn-outline" href="{{ url_for('portal.certificate', course_id=course_id) }}">Download Certificate</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>
