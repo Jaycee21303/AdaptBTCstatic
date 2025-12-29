@@ -14,6 +14,7 @@
   <main class="container">
     <section class="section">
       <div class="portal-shell" data-animate>
+        <div class="info-banner" data-portal-status>Static preview — progress is saved in this browser.</div>
         <div class="portal-toolbar">
           <div>
             <div class="badge">{{ course.title }}</div>
@@ -31,9 +32,9 @@
             <h4>Lesson outline</h4>
             <ul class="list-clean">
               {% for item in lessons %}
-              <li style="margin-bottom:10px;">
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="{{ course.id }}" data-lesson-order="{{ item.lesson_order }}">
                 <a href="{{ url_for('portal.lesson', course_id=course.id, order=item.lesson_order) }}">Lesson {{ item.lesson_order }}: {{ item.title }}</a>
-                {% if item.lesson_order in completed_lessons %}<span class="pill" style="margin-top:6px;">Completed</span>{% endif %}
+                <span class="pill" data-complete-pill style="margin-top:6px;" {% if item.lesson_order not in completed_lessons %}hidden{% endif %}>Completed</span>
               </li>
               {% endfor %}
             </ul>
@@ -58,8 +59,8 @@
                   <p class="hero-sub">Open the wallet generator, review fee consoles, or pull descriptors without leaving the portal.</p>
                 </div>
                 <div class="portal-actions">
-                  <a class="btn" href="{{ url_for('tool_detail', tool_slug='lightning-suite') }}">Launch tools</a>
-                  <a class="btn btn-outline" href="{{ url_for('wallet_generator') }}">Wallet generator</a>
+                  <a class="btn" href="{{ url_for('tools') }}">Launch tools</a>
+                  <a class="btn btn-outline" href="{{ url_for('tools') }}">Wallet generator</a>
                 </div>
               </div>
               <p class="portal-notes">All exercises run client-side so you can explore freely—no sign-in or database needed.</p>
@@ -95,7 +96,7 @@
               <a class="btn btn-outline" href="{{ url_for('portal.lesson', course_id=course.id, order=prev_next[0]) }}">Previous</a>
               {% endif %}
               <form id="complete-form" method="post" action="{{ url_for('portal.complete_lesson', course_id=course.id, order=current_lesson.lesson_order) }}">
-                <button class="btn" type="button" onclick="markLessonComplete('complete-form')">Mark Complete</button>
+                <button class="btn" type="button" onclick="markLessonComplete('complete-form', '{{ course.id }}', {{ current_lesson.lesson_order }})">Mark Complete</button>
               </form>
               {% if prev_next[1] %}
               <a class="btn" href="{{ url_for('portal.lesson', course_id=course.id, order=prev_next[1]) }}">Next</a>
