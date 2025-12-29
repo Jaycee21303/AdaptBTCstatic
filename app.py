@@ -5,25 +5,58 @@ from email.message import EmailMessage
 
 import requests
 from dotenv import load_dotenv
-from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask import (
+    Flask,
+    jsonify,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+)
 from learning_portal.portal_routes import portal
 
 load_dotenv()
 
-BASE_PATH = os.getenv("BASE_PATH")
-# When running in GitHub Actions without an explicit base path, default to the
-# repository name so generated links work under the project Pages URL.
-if not BASE_PATH and os.getenv("GITHUB_ACTIONS"):
-    repo_name = os.getenv("GITHUB_REPOSITORY", "").split("/")[-1]
-    BASE_PATH = repo_name or None
 
-if BASE_PATH:
-    BASE_PATH = "/" + BASE_PATH.strip("/")
+def _compute_base_path() -> str:
+    """Return the deployment base path for GitHub Pages and local runs."""
+
+    env_base = (os.getenv("BASE_PATH") or "").strip("/")
+    # Default to the repository name so project-scoped GitHub Pages work without config.
+    if not env_base:
+        env_base = "AdaptBTCstatic"
+
+    base_path = f"/{env_base}" if env_base else "/"
+    return base_path if base_path != "//" else "/"
+
+
+BASE_PATH = _compute_base_path()
 
 app = Flask(
-    __name__, template_folder="templates", static_folder="assets", static_url_path="/assets"
+    __name__,
+    template_folder="templates",
+    static_folder="assets",
+    static_url_path="/assets",
 )
-app.config["APPLICATION_ROOT"] = "/"
+app.config["APPLICATION_ROOT"] = BASE_PATH
+app.add_template_global(BASE_PATH, name="BASE_PATH")
+
+
+def _prefix_path(path: str) -> str:
+    """Prepend the base path unless it's already present."""
+
+    if BASE_PATH == "/":
+        return path
+    if path.startswith(BASE_PATH):
+        return path
+    return f"{BASE_PATH.rstrip('/')}{path if path.startswith('/') else f'/{path}'}"
+
+
+def prefixed_url_for(endpoint: str, **values: str) -> str:
+    return _prefix_path(url_for(endpoint, **values))
+
+
+app.jinja_env.globals["url_for"] = prefixed_url_for
 app.secret_key = os.getenv("SECRET_KEY", "dev_secret_key")
 
 # Register Learning Portal blueprint
