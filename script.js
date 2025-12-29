@@ -22,10 +22,18 @@ async function updateTicker() {
   if (!btcTicker) return;
 
   try {
-    const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice/BTC.json');
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+
+    if (!response.ok) {
+      throw new Error('Ticker request failed');
+    }
+
     const data = await response.json();
-    const rate = data?.bpi?.USD?.rate_float;
-    btcTicker.textContent = rate ? `BTC: $${rate.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : 'BTC: --';
+    const rate = data?.bitcoin?.usd;
+
+    btcTicker.textContent = rate
+      ? `BTC: $${Number(rate).toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+      : 'BTC: --';
   } catch (error) {
     btcTicker.textContent = 'BTC: --';
   }
