@@ -19,7 +19,9 @@ form?.addEventListener('submit', (event) => {
 });
 
 async function fetchCoinbasePrice() {
-  const response = await fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot');
+  const response = await fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
+    headers: { Accept: 'application/json' },
+  });
   if (!response.ok) throw new Error('Coinbase request failed');
 
   const data = await response.json();
@@ -30,7 +32,10 @@ async function fetchCoinbasePrice() {
 }
 
 async function fetchCoingeckoPrice() {
-  const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&precision=2');
+  const response = await fetch(
+    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&precision=2',
+    { headers: { Accept: 'application/json' } }
+  );
   if (!response.ok) throw new Error('Coingecko request failed');
 
   const data = await response.json();
@@ -40,19 +45,32 @@ async function fetchCoingeckoPrice() {
   throw new Error('Coingecko returned no price');
 }
 
+async function fetchCoindeskPrice() {
+  const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice/BTC.json', {
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error('Coindesk request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.bpi?.USD?.rate_float ?? data?.bpi?.USD?.rate?.replace(/,/g, ''));
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Coindesk returned no price');
+}
+
 async function updateTicker() {
   if (!btcTicker) return;
 
-  btcTicker.textContent = 'BTC: updating…';
+  btcTicker.textContent = 'BTC $updating…';
 
   try {
-    const price = await fetchCoinbasePrice().catch(fetchCoingeckoPrice);
+    const price = await fetchCoinbasePrice().catch(() => fetchCoingeckoPrice().catch(fetchCoindeskPrice));
 
     btcTicker.textContent = price
-      ? `BTC: $${Number(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      : 'BTC: --';
+      ? `BTC $${Number(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      : 'BTC $--';
   } catch (error) {
-    btcTicker.textContent = 'BTC: --';
+    btcTicker.textContent = 'BTC $--';
   }
 }
 

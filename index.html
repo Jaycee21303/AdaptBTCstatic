@@ -15,10 +15,11 @@
     <div class="container nav-container">
       <div class="logo" aria-label="AdaptBTC logo">Adapt<span>BTC</span></div>
       <nav class="nav" id="navMenu">
-        <span class="ticker" id="btcTicker" aria-live="polite">BTC: --</span>
+        <span class="ticker" id="btcTicker" aria-live="polite">BTC $--</span>
         <a href="#tools">Tools</a>
         <a href="#consulting">Consulting</a>
-        <a href="#donate">Get Involved</a>
+        <a href="#donate">Donation</a>
+        <a class="pill-link" href="#learning">Learning Portal</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
@@ -30,63 +31,67 @@
     <section id="hero" class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <p class="eyebrow">Global Bitcoin education suite</p>
-          <h1>Generate. Secure. Learn.</h1>
-          <p class="lead">Build confidence with blue-accented learning paths, actionable tools, and community guidance designed for every stage of your Bitcoin journey.</p>
+          <div class="pill">Product Suite</div>
+          <h1>Bitcoin tools, live and focused.</h1>
+          <p class="lead">Real-time network visibility paired with practical accumulation planning.</p>
           <div class="cta-group">
-            <button class="btn primary">Explore Modules</button>
-            <button class="btn ghost">View Curriculum</button>
+            <a class="btn primary" href="#live-feed">Open Live Feed</a>
+            <a class="btn secondary" href="#dca">Open DCA Tool</a>
           </div>
         </div>
-        <div class="hero-card">
+        <div class="hero-card glass">
           <div class="card-header">
             <div>
-              <p class="muted">Dashboard preview</p>
-              <h3>Bitcoin education suite</h3>
+              <p class="muted">BTC Live Learning</p>
+              <h3>Coverage</h3>
             </div>
-            <span class="status good">Aligned</span>
+            <span class="status good">78%</span>
           </div>
-          <div class="chart" role="img" aria-label="Stylized sparkline chart"></div>
-          <div class="metrics">
+          <div class="chart hero-chart" role="img" aria-label="Stylized coverage chart"></div>
+          <div class="metrics condensed">
             <div class="metric">
-              <p class="muted">24h Signal</p>
-              <h4>+4.8%</h4>
+              <p class="muted">Network uptime</p>
+              <h4>99.99%</h4>
             </div>
             <div class="metric">
-              <p class="muted">Volatility Band</p>
-              <h4>Low</h4>
+              <p class="muted">Streaming</p>
+              <h4>Live</h4>
             </div>
             <div class="metric">
-              <p class="muted">Momentum</p>
-              <h4>Rising</h4>
+              <p class="muted">Signals</p>
+              <h4>On</h4>
             </div>
           </div>
-          <button class="btn secondary full">See Progress</button>
         </div>
       </div>
     </section>
 
     <section id="tools" class="section">
       <div class="container section-header">
-        <p class="eyebrow">What you get</p>
-        <h2>Signal-first tools for every level of expertise.</h2>
-        <p class="muted">From newcomers to quants, AdaptBTC translates complex on-chain patterns into clear actions.</p>
+        <p class="eyebrow">Toolbox</p>
+        <h2>Live network intelligence plus precision accumulation planning.</h2>
+        <p class="muted">Education, dashboards, and contribution tools matched to how you learn and deploy.</p>
       </div>
       <div class="container feature-grid">
-        <article class="card feature">
+        <article class="card feature" id="live-feed">
           <div class="icon">📡</div>
-          <h3>On-chain radar</h3>
-          <p>Detect whale moves, miner flows, and liquidity shifts with adaptive alerts tuned to your risk profile.</p>
+          <h3>Live data feed</h3>
+          <p>Bitcoin-focused data updates every few seconds so you can trust what you see.</p>
         </article>
         <article class="card feature">
-          <div class="icon">🤝</div>
-          <h3>Community intelligence</h3>
-          <p>Blend market data with sentiment from vetted analysts to see consensus and contrarian takes side-by-side.</p>
+          <div class="icon">📈</div>
+          <h3>Streaming</h3>
+          <p>Always-on coverage keeps the stream synced to the latest network shifts.</p>
         </article>
         <article class="card feature">
-          <div class="icon">⚡</div>
-          <h3>Actionable automations</h3>
-          <p>Trigger workflows—like portfolio rebalances or learning nudges—based on smart thresholds you control.</p>
+          <div class="icon">🗺️</div>
+          <h3>Planning</h3>
+          <p>Guided milestones and playbooks to align education, security, and readiness.</p>
+        </article>
+        <article class="card feature" id="dca">
+          <div class="icon">⚙️</div>
+          <h3>DCA scenarios</h3>
+          <p>Model accumulation paths with clear, repeatable scenarios you can deploy.</p>
         </article>
       </div>
     </section>
@@ -94,7 +99,7 @@
     <section id="analytics" class="section surface">
       <div class="container analytics-grid">
         <div>
-          <p class="eyebrow">Analytics</p>
+          <p class="eyebrow">Learning</p>
           <h2>Clarity across the full market cycle.</h2>
           <p class="muted">Visualize momentum, risk, and conviction in one adaptive workspace. Export to CSV or share a public snapshot with your team.</p>
           <ul class="checklist">
@@ -103,14 +108,14 @@
             <li>Mobile-friendly dashboards for on-the-go reviews.</li>
           </ul>
           <div class="cta-group">
-            <button class="btn primary">See Analytics</button>
-            <button class="btn ghost">Download PDF</button>
+            <a class="btn primary" href="#learning">See Analytics</a>
+            <a class="btn ghost" href="#learning">Download PDF</a>
           </div>
         </div>
         <div class="card analytics-card">
           <div class="card-header">
-            <h3>Cycle map</h3>
-            <span class="status neutral">Consolidating</span>
+            <h3>Live coverage</h3>
+            <span class="status neutral">Open</span>
           </div>
           <div class="chart-grid">
             <div class="chart-box">
@@ -144,31 +149,33 @@
         <h2>Guidance designed for your learning path.</h2>
         <p class="muted">Work with AdaptBTC coaches to align education, security, and readiness for your team or community.</p>
       </div>
-      <div class="container timeline">
-        <div class="timeline-item">
-          <div class="dot"></div>
-          <div>
-            <p class="muted">Security-first onboarding</p>
-            <h3>Customized workshops</h3>
-            <p>Interactive sessions that cover hardware wallets, inheritance planning, and safe coordination for teams.</p>
-          </div>
+      <div class="container consulting-cta">
+        <div>
+          <p class="eyebrow">Request a consult</p>
+          <h3>Put the AdaptBTC playbook to work.</h3>
+          <p class="muted">Share your email and focus so we can tailor a consulting path, schedule a walkthrough, and send you the next steps.</p>
+          <ul class="checklist">
+            <li>Security-first onboarding guidance.</li>
+            <li>Team training and curriculum setup.</li>
+            <li>Ongoing office hours and quarterly refreshes.</li>
+          </ul>
         </div>
-        <div class="timeline-item">
-          <div class="dot"></div>
-          <div>
-            <p class="muted">Program design</p>
-            <h3>Learning sprints</h3>
-            <p>Week-by-week coaching to launch internal academies with measurable progress tracking.</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="dot"></div>
-          <div>
-            <p class="muted">Ongoing support</p>
-            <h3>Adaptive playbooks</h3>
-            <p>Quarterly refreshes with updated security tools, live demos, and office hours for your cohort.</p>
-          </div>
-        </div>
+        <form class="card form" id="interestForm">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          <label for="role">Role</label>
+          <select id="role" name="role">
+            <option>Analyst</option>
+            <option>Educator</option>
+            <option>Researcher</option>
+            <option>Community Lead</option>
+            <option>Investor</option>
+          </select>
+          <label for="message">What do you want to explore?</label>
+          <textarea id="message" name="message" rows="3" placeholder="Signals, dashboards, automations..."></textarea>
+          <button type="submit" class="btn primary full">Request access</button>
+          <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+        </form>
       </div>
 
       <div class="container consulting-cta">
@@ -201,10 +208,10 @@
       </div>
     </section>
 
-    <section class="section surface">
+    <section id="learning" class="section surface">
       <div class="container testimonial">
         <div>
-          <p class="eyebrow">Testimonials</p>
+          <p class="eyebrow">Learning portal</p>
           <h2>Built with analysts, educators, and builders.</h2>
           <p class="muted">AdaptBTC distills the signal so your team can act fast and stay aligned.</p>
         </div>
@@ -224,7 +231,7 @@
     <section id="donate" class="section cta">
       <div class="container cta-grid">
         <div>
-          <p class="eyebrow">Get involved</p>
+          <p class="eyebrow">Donation</p>
           <h2>Support AdaptBTC's education mission.</h2>
           <p class="muted">Your donation fuels open Bitcoin education, community workshops, and new tool development for learners worldwide.</p>
           <ul class="checklist">
@@ -256,7 +263,7 @@
           <a href="#tools">Tools</a>
           <a href="#analytics">Analytics</a>
           <a href="#consulting">Consulting</a>
-          <a href="#donate">Get Involved</a>
+          <a href="#donate">Donation</a>
         </div>
         <div class="footer-actions">
           <button class="btn secondary">Status</button>
