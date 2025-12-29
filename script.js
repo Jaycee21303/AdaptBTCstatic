@@ -5,6 +5,11 @@ const feedback = document.getElementById('formFeedback');
 const btcTicker = document.getElementById('btcTicker');
 const learningNotice = document.getElementById('learningNotice');
 const learningLinks = document.querySelectorAll('a[href="#learning"]');
+const dcaForm = document.getElementById('dcaForm');
+const dcaPriceInput = document.getElementById('dcaPrice');
+const dcaResults = document.getElementById('dcaResults');
+
+let currentBtcPrice = null;
 
 navToggle?.addEventListener('click', () => {
   navMenu?.classList.toggle('open');
@@ -60,19 +65,35 @@ async function fetchCoindeskPrice() {
   throw new Error('Coindesk returned no price');
 }
 
+function renderTicker(priceText) {
+  if (!btcTicker) return;
+
+  btcTicker.innerHTML = `<span class="ticker-label">BTC</span> <span class="ticker-price">${priceText}</span>`;
+}
+
 async function updateTicker() {
   if (!btcTicker) return;
 
-  btcTicker.textContent = 'BTC $updating…';
+  renderTicker('$updating…');
 
   try {
     const price = await fetchCoinbasePrice().catch(() => fetchCoingeckoPrice().catch(fetchCoindeskPrice));
 
-    btcTicker.textContent = price
-      ? `BTC $${Number(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      : 'BTC $--';
+    if (Number.isFinite(price)) {
+      currentBtcPrice = price;
+      const formatted = `$${Number(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      renderTicker(formatted);
+
+      if (dcaPriceInput) {
+        dcaPriceInput.value = price.toFixed(2);
+      }
+
+      return;
+    }
+
+    throw new Error('Invalid price');
   } catch (error) {
-    btcTicker.textContent = 'BTC $--';
+    renderTicker('$--');
   }
 }
 
@@ -91,3 +112,49 @@ function showLearningNotice(event) {
 learningLinks.forEach((link) => {
   link.addEventListener('click', showLearningNotice);
 });
+
+function formatCurrency(value) {
+  return `$${Number(value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
+function formatBtc(value) {
+  return `${Number(value).toFixed(6)} BTC`;
+}
+
+function handleDcaCalculation(event) {
+  event.preventDefault();
+
+  const amount = Number.parseFloat(document.getElementById('dcaAmount')?.value ?? '0');
+  const frequency = Number.parseFloat(document.getElementById('dcaFrequency')?.value ?? '1');
+  const months = Number.parseInt(document.getElementById('dcaMonths')?.value ?? '0', 10);
+  const growth = Number.parseFloat(document.getElementById('dcaGrowth')?.value ?? '0');
+  const priceFromInput = Number.parseFloat(dcaPriceInput?.value ?? '0');
+  const price = Number.isFinite(priceFromInput) && priceFromInput > 0 ? priceFromInput : currentBtcPrice;
+
+  if (!Number.isFinite(price) || price <= 0) {
+    dcaResults.textContent = 'Please wait for the live BTC price or enter your own to calculate.';
+    return;
+  }
+
+  if (!Number.isFinite(amount) || amount <= 0 || !Number.isFinite(months) || months <= 0) {
+    dcaResults.textContent = 'Enter a contribution amount and duration greater than zero.';
+    return;
+  }
+
+  const totalContribution = amount * frequency * months;
+  const btcAccumulated = totalContribution / price;
+  const projectedPrice = price * Math.pow(1 + growth / 100, months / 12);
+  const projectedValue = btcAccumulated * projectedPrice;
+  const cadence = frequency === 1 ? 'each month' : `${frequency.toFixed(2)} times per month`;
+
+  dcaResults.innerHTML = `
+    Investing <strong>${formatCurrency(amount)}</strong> ${cadence}
+    for <strong>${months} month${months === 1 ? '' : 's'}</strong> totals <strong>${formatCurrency(totalContribution)}</strong>.<br>
+    At an average BTC price of <strong>${formatCurrency(price)}</strong>, you would accumulate <strong>${formatBtc(btcAccumulated)}</strong>.<br>
+    With a ${growth}% annual growth assumption, your stack could be worth <strong>${formatCurrency(projectedValue)}</strong> at the end of the period.
+  `;
+}
+
+if (dcaForm && dcaResults) {
+  dcaForm.addEventListener('submit', handleDcaCalculation);
+}

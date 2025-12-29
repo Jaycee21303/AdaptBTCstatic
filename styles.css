@@ -77,6 +77,16 @@ a {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
+.ticker-label {
+  color: var(--muted);
+}
+
+.ticker-price {
+  color: #16a34a;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
 .toast {
   position: fixed;
   top: 82px;
@@ -120,6 +130,35 @@ a {
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--text);
+}
+
+.dca-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.dca-form {
+  gap: 1rem;
+}
+
+.dca-form input[type='number'],
+.dca-form select {
+  font-variant-numeric: tabular-nums;
+}
+
+.dca-results {
+  background: rgba(12, 99, 255, 0.06);
+  border: 1px dashed var(--border);
+  padding: 1rem 1.2rem;
+  border-radius: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.dca-results strong {
+  color: var(--primary);
 }
 
 .nav-toggle {
@@ -327,7 +366,21 @@ a {
 }
 
 .icon {
-  font-size: 1.4rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(12, 99, 255, 0.12), rgba(27, 143, 243, 0.08));
+  color: #0c3580;
+  border: 1px solid #cbd8f5;
+  box-shadow: 0 12px 28px rgba(12, 99, 255, 0.12);
+}
+
+.icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 .analytics-grid {
@@ -568,7 +621,8 @@ label {
 
   .footer-grid,
   .cta-grid,
-  .hero-grid {
+  .hero-grid,
+  .dca-grid {
     grid-template-columns: 1fr;
   }
 
