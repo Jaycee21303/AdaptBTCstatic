@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Lesson</title>
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/portal.css">
+  <script defer src="/assets/js/main.js"></script>
+  <script defer src="/assets/js/portal.js"></script>
+</head>
+<body>
+  <nav class="global-nav shadow-soft">
+  <div class="nav-inner">
+    <a class="brand" href="/">
+      <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+    </a>
+    <div class="nav-right">
+      <div class="btc-ticker" data-btc-ticker aria-live="polite">
+        <div class="ticker-label">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>BTC</span>
+        </div>
+        <div class="ticker-price" data-btc-price>$—</div>
+        <div class="ticker-change" data-btc-change>Loading…</div>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" data-nav-links>
+        <a href="/tools">Tools</a>
+        <a href="/consulting">Consulting</a>
+        <a href="/donation">Donation</a>
+        <a class="pill-link" href="https://adaptbtc.com/learning">Learning Portal</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+        <div class="info-banner" data-portal-status>Static preview — progress is saved in this browser.</div>
+        <div class="portal-toolbar">
+          <div>
+            <div class="badge">Operations Lab: Tools &amp; Automation</div>
+            <h2>Lesson 3: Interactive Labs and Visual Dashboards</h2>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab" href="/portal/dashboard">Dashboard</a>
+            <a class="pill-tab active" href="/portal/courses/operations-lab">Lessons</a>
+            <a class="pill-tab" href="/portal/courses/operations-lab/quiz">Quiz</a>
+          </div>
+        </div>
+
+        <div class="lesson-layout">
+          <aside class="lesson-sidebar">
+            <h4>Lesson outline</h4>
+            <ul class="list-clean">
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="1">
+                <a href="/portal/courses/operations-lab/lesson/1">Lesson 1: Portal Accounts and Data Safety</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="2">
+                <a href="/portal/courses/operations-lab/lesson/2">Lesson 2: Toolchain Tour: Wallets, Consoles, and Compliance</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="3">
+                <a href="/portal/courses/operations-lab/lesson/3">Lesson 3: Interactive Labs and Visual Dashboards</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="4">
+                <a href="/portal/courses/operations-lab/lesson/4">Lesson 4: Capstone: Automated Runbooks</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+            </ul>
+            <a class="btn btn-outline" href="/portal/courses/operations-lab/quiz">Take Quiz</a>
+          </aside>
+          <article class="lesson-content">
+            
+            <h3>Interactive Labs and Visual Dashboards</h3>
+            <div class="lesson-meta">
+              <span class="pill">Interactive chapter</span>
+              <span class="pill">Links to AdaptBTC tools</span>
+              <span class="pill">Canvas graphs rendered live</span>
+            </div>
+            
+            <p>Each lesson page embeds charts that render client-side from structured data attributes, demonstrating progressive disclosure of analytics.</p>
+            
+            <p>Learners can toggle overlay tips to reveal the rationale for privacy-friendly defaults or security guardrails.</p>
+            
+            <p>Generated SVG timelines illustrate transaction lifecycles from mempool broadcast to block inclusion and settlement.</p>
+            
+            <p>Callout boxes link back to your node monitoring dashboard so students correlate theory with real signals.</p>
+            
+            <p>Consistency in typography, spacing, and gradients makes the portal feel premium while staying lightweight.</p>
+            
+            <div class="lesson-diagram"><div class='chart-card'><canvas class="lesson-chart" data-points="22,38,57,84" data-labels="Mempool|RBF|CPFP|Settlement" data-color="#0ea5e9"></canvas><p class='chart-note'>Animated timelines pair with the embedded quiz to reinforce fee escalation paths.</p></div></div>
+            <div class="lesson-callout">
+              <div class="lesson-header">
+                <div>
+                  <div class="badge">Hands-on lab</div>
+                  <p class="hero-sub">Open the wallet generator, review fee consoles, or pull descriptors without leaving the portal.</p>
+                </div>
+                <div class="portal-actions">
+                  <a class="btn" href="/tools">Launch tools</a>
+                  <a class="btn btn-outline" href="/tools">Wallet generator</a>
+                </div>
+              </div>
+              <p class="portal-notes">All exercises run client-side so you can explore freely—no sign-in or database needed.</p>
+            </div>
+            <h4>Examples</h4>
+            <ul class="check-list">
+              
+              <li>A chart animates fee percentile changes after a simulated congestion event, prompting students to pick an RBF strategy.</li>
+              
+              <li>Timeline graphics show how CPFP brings stuck transactions back into miner priority queues.</li>
+              
+            </ul>
+            <h4>Glossary</h4>
+            <ul class="check-list">
+              
+              
+              <li><strong>SVG:</strong> Scalable Vector Graphics, ideal for crisp diagrams that adapt to screen sizes.</li>
+              
+              
+              <li><strong>Progressive Disclosure:</strong> Design approach where complex details appear once a learner is ready for them.</li>
+              
+              
+              <li><strong>Mempool:</strong> Set of unconfirmed transactions known to a node.</li>
+              
+            </ul>
+            <h4>Key Takeaways</h4>
+            <ul class="check-list">
+              
+              <li>Visuals and interactivity make fee strategy and privacy topics stick.</li>
+              
+              <li>Dashboards bridge classroom content with production monitoring.</li>
+              
+              <li>Design polish reduces cognitive load so learners focus on the material.</li>
+              
+            </ul>
+            <div class="lesson-footer">
+              <div class="quiz-meta">
+                <span class="pill">Interactive quiz with A/B/C/D options</span>
+                <span class="pill">Scores stay in this browser session</span>
+              </div>
+              <a class="btn" href="/portal/courses/operations-lab/quiz">Jump to quiz</a>
+            </div>
+            <div class="lesson-actions">
+              
+              <a class="btn btn-outline" href="/portal/courses/operations-lab/lesson/2">Previous</a>
+              
+              <form id="complete-form" method="post" action="/portal/courses/operations-lab/lesson/3/complete">
+                <button class="btn" type="button" onclick="markLessonComplete('complete-form', 'operations-lab', 3)">Mark Complete</button>
+              </form>
+              
+              <a class="btn" href="/portal/courses/operations-lab/lesson/4">Next</a>
+              
+            </div>
+            
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="global-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-mark-wrap">
+        <img src="/assets/img/adaptbtc-logo.svg" alt="AdaptBTC" />
+        <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+      </div>
+      <p class="mission">AdaptBTC makes Bitcoin accessible, practical, and trustworthy for everyone.</p>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Explore</h4>
+        <a href="/">Home</a>
+        <a href="/learning">Learning</a>
+        <a href="/tools">Tools</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="/consulting">Consulting</a>
+        <a href="/donation">Donation</a>
+        <a href="/portal/dashboard">Learning Portal</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <div class="social-row">
+          <span class="social-icon" aria-hidden="true">X</span>
+          <span class="social-icon" aria-hidden="true">GH</span>
+          <span class="social-icon" aria-hidden="true">in</span>
+        </div>
+        <p class="powered">Powered by AdaptBTC</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">© 2024 AdaptBTC. All rights reserved.</div>
+</footer>
+</body>
+</html>

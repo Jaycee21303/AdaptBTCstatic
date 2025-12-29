@@ -7,12 +7,14 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
   <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/portal.js') }}"></script>
 </head>
 <body>
   {% include 'components/navbar.html' %}
   <main class="container">
     <section class="section">
       <div class="portal-shell" data-animate>
+        <div class="info-banner" data-portal-status>Static quiz grading runs entirely in your browser.</div>
         <div class="portal-toolbar">
           <div>
             <div class="badge">Quiz</div>
@@ -25,7 +27,7 @@
           </div>
         </div>
         {% if questions %}
-        <form method="post" class="grid-two">
+        <form method="post" class="grid-two" data-quiz-payload='{{ questions | tojson }}'>
           {% for question in questions %}
           {% set outer_loop = loop %}
           <div class="card" style="grid-column: span 2;">
@@ -43,6 +45,7 @@
             <button class="btn" type="submit">Submit Quiz</button>
           </div>
         </form>
+        <div id="quiz-results" class="card" hidden></div>
         {% else %}
         <div class="card" style="grid-column: span 2;">
           <p class="hero-sub">This course does not have quiz questions yet. Please check back soon.</p>
