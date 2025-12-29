@@ -18,7 +18,7 @@
         <span class="ticker" id="btcTicker" aria-live="polite">BTC: --</span>
         <a href="#tools">Tools</a>
         <a href="#consulting">Consulting</a>
-        <a href="#contact">Get Involved</a>
+        <a href="#donate">Get Involved</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
@@ -170,6 +170,35 @@
           </div>
         </div>
       </div>
+
+      <div class="container consulting-cta">
+        <div>
+          <p class="eyebrow">Request a consult</p>
+          <h3>Put the AdaptBTC playbook to work.</h3>
+          <p class="muted">Share your email and focus so we can tailor a consulting path, schedule a walkthrough, and send you the next steps.</p>
+          <ul class="checklist">
+            <li>Security-first onboarding guidance.</li>
+            <li>Team training and curriculum setup.</li>
+            <li>Ongoing office hours and quarterly refreshes.</li>
+          </ul>
+        </div>
+        <form class="card form" id="interestForm">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          <label for="role">Role</label>
+          <select id="role" name="role">
+            <option>Analyst</option>
+            <option>Educator</option>
+            <option>Researcher</option>
+            <option>Community Lead</option>
+            <option>Investor</option>
+          </select>
+          <label for="message">What do you want to explore?</label>
+          <textarea id="message" name="message" rows="3" placeholder="Signals, dashboards, automations..."></textarea>
+          <button type="submit" class="btn primary full">Request access</button>
+          <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </section>
 
     <section class="section surface">
@@ -192,29 +221,27 @@
       </div>
     </section>
 
-    <section id="contact" class="section cta">
+    <section id="donate" class="section cta">
       <div class="container cta-grid">
         <div>
-          <p class="eyebrow">Get started</p>
-          <h2>Ready to adapt faster?</h2>
-          <p class="muted">Join thousands of investors, educators, and communities building with AdaptBTC insights.</p>
+          <p class="eyebrow">Get involved</p>
+          <h2>Support AdaptBTC's education mission.</h2>
+          <p class="muted">Your donation fuels open Bitcoin education, community workshops, and new tool development for learners worldwide.</p>
+          <ul class="checklist">
+            <li>Fund scholarships for new Bitcoin learners.</li>
+            <li>Back local meetups and virtual clinics.</li>
+            <li>Accelerate new tools built by AdaptBTC.</li>
+          </ul>
         </div>
-        <form class="card form" id="interestForm">
-          <label for="email">Work email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required>
-          <label for="role">Role</label>
-          <select id="role" name="role">
-            <option>Analyst</option>
-            <option>Educator</option>
-            <option>Researcher</option>
-            <option>Community Lead</option>
-            <option>Investor</option>
-          </select>
-          <label for="message">What do you want to explore?</label>
-          <textarea id="message" name="message" rows="3" placeholder="Signals, dashboards, automations..."></textarea>
-          <button type="submit" class="btn primary full">Request access</button>
-          <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
-        </form>
+        <div class="card donation">
+          <p class="muted">Send BTC to:</p>
+          <p class="strong">bc1qadaptbtc4learners0000000000</p>
+          <p class="muted">Or donate via USD to keep the education hub running.</p>
+          <div class="cta-group">
+            <button class="btn primary full">Donate in BTC</button>
+            <button class="btn secondary full">Donate in USD</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -229,7 +256,7 @@
           <a href="#tools">Tools</a>
           <a href="#analytics">Analytics</a>
           <a href="#consulting">Consulting</a>
-          <a href="#contact">Get Involved</a>
+          <a href="#donate">Get Involved</a>
         </div>
         <div class="footer-actions">
           <button class="btn secondary">Status</button>
