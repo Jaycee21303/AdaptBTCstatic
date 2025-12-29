@@ -13,6 +13,7 @@ load_dotenv()
 app = Flask(
     __name__, template_folder="templates", static_folder="assets", static_url_path="/assets"
 )
+app.config["APPLICATION_ROOT"] = "/"
 app.secret_key = os.getenv("SECRET_KEY", "dev_secret_key")
 
 # Register Learning Portal blueprint
