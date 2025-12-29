@@ -1,0 +1,33 @@
+{% set btc_chart_variant = btc_chart_variant|default('hero') %}
+{% set btc_chart_id = btc_chart_id|default('btc-chart-hero') %}
+{% set btc_chart_scope = btc_chart_scope|default('hero') %}
+<div class="btc-hero-panel" data-btc-chart="{{ btc_chart_scope }}">
+  <div class="btc-hero-header">
+    <div>
+      <h2>BTC / USD</h2>
+      <div id="btcLivePrice" data-btc-price>Loading…</div>
+      <div id="btcChange" data-btc-change></div>
+    </div>
+
+    <div class="btc-controls">
+      <button data-range="1">1D</button>
+      <button data-range="7" class="is-active">7D</button>
+      <button data-range="30">1M</button>
+      <button data-range="180">6M</button>
+      <button data-range="365">1Y</button>
+      <button data-range="max">ALL</button>
+      <button id="toggleType" data-chart-toggle>Candles</button>
+    </div>
+  </div>
+
+  <div class="btc-chart-shell">
+    <div class="btc-chart-wrapper {{ btc_chart_variant }}">
+      <canvas id="{{ btc_chart_id }}"></canvas>
+    </div>
+    <div class="btc-hero-meta">
+      <span data-btc-updated>Updated just now</span>
+      <span class="muted">Line + real candlesticks</span>
+    </div>
+    <p class="btc-status" data-btc-status hidden></p>
+  </div>
+</div>

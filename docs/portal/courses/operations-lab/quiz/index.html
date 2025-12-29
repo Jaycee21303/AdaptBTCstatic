@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Quiz</title>
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/global.css">
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/portal.css">
+  <script defer src="/AdaptBTCstatic/assets/js/main.js"></script>
+  <script defer src="/AdaptBTCstatic/assets/js/portal.js"></script>
+</head>
+<body>
+  <nav class="global-nav shadow-soft">
+  <div class="nav-inner">
+    <a class="brand" href="/AdaptBTCstatic/">
+      <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+    </a>
+    <div class="nav-right">
+      <div class="btc-ticker" data-btc-ticker aria-live="polite">
+        <div class="ticker-label">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>BTC</span>
+        </div>
+        <div class="ticker-price" data-btc-price>$—</div>
+        <div class="ticker-change" data-btc-change>Loading…</div>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" data-nav-links>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a class="pill-link" href="https://adaptbtc.com/learning">Learning Portal</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+        <div class="info-banner" data-portal-status>Static quiz grading runs entirely in your browser.</div>
+        <div class="portal-toolbar">
+          <div>
+            <div class="badge">Quiz</div>
+            <h2>Operations Lab: Tools &amp; Automation Quiz</h2>
+            <p class="hero-sub">Earn 80% or higher to pass. Attempts stay within this browser session.</p>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab" href="/AdaptBTCstatic/portal/courses/operations-lab/lesson/1">Lessons</a>
+            <a class="pill-tab active" href="/AdaptBTCstatic/portal/courses/operations-lab/quiz">Quiz</a>
+          </div>
+        </div>
+        
+        <form method="post" class="grid-two" data-quiz-payload='[{"answer": 1, "explanation": "Bcrypt\u2019s adaptive hashing slows brute force attempts and keeps raw passwords out of storage.", "options": ["It makes logins faster", "Hashing protects user secrets even if the database is copied", "It avoids using HTTPS", "It removes the need for backups"], "prompt": "Why does the portal hash passwords with bcrypt instead of storing them directly?"}, {"answer": 1, "explanation": "The portal keeps login state on the server, avoiding sensitive data in the browser.", "options": ["Plaintext passwords", "A server-side key that maps the browser cookie to a username", "Seed phrases", "Hardware wallet firmware"], "prompt": "What does the session manager store to keep users logged in?"}, {"answer": 1, "explanation": "Inline tool links encourage immediate practice with the same utilities offered on the site.", "options": ["They require a separate download", "Each lesson embeds calls-to-action that open the wallet generator, fee consoles, or dashboards", "They only show screenshots", "They block navigation to tools"], "prompt": "How do lessons link to AdaptBTC tooling?"}, {"answer": 1, "explanation": "Lightweight canvas drawings give interactive visuals without extra dependencies.", "options": ["Server-side PDFs", "Client-side canvas rendering driven by data attributes on each lesson", "Static images only", "External analytics vendors"], "prompt": "What powers the lesson graphs displayed under each chapter?"}, {"answer": 1, "explanation": "Quiz scores offer evidence that learners understand the safeguards before handling funds.", "options": ["To slow the process", "To prove readiness before granting wallet access", "To change consensus rules", "To avoid documentation"], "prompt": "Why is it important to tie quiz history to onboarding runbooks?"}, {"answer": 1, "explanation": "Dashboards bridge theory to real signals like confirmation targets and learner progress.", "options": ["They replace backups", "They visualize mempool health, fee pressure, and enrollment metrics", "They mine new blocks", "They remove authentication"], "prompt": "What role do dashboards play in the Operations Lab course?"}, {"answer": 1, "explanation": "Timelines make the effect of fee bumping and package mining concrete and memorable.", "options": ["They slow confirmations", "They show how RBF and CPFP change transaction priority through each stage", "They disable nodes", "They hide mempool data"], "prompt": "How do interactive timelines help learners with fee management?"}, {"answer": 1, "explanation": "Shared design tokens and components keep the learning experience polished across pages.", "options": ["Random fonts", "Aligned spacing, shared gradients, and reusable components across lessons and quizzes", "No CSS", "Hard-coded inline styles only"], "prompt": "What makes the portal design feel consistent and premium?"}]'>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q1.</strong> Why does the portal hash passwords with bcrypt instead of storing them directly?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="0" required>
+              <span class="pill">A</span>
+              It makes logins faster
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="1" required>
+              <span class="pill">B</span>
+              Hashing protects user secrets even if the database is copied
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="2" required>
+              <span class="pill">C</span>
+              It avoids using HTTPS
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="3" required>
+              <span class="pill">D</span>
+              It removes the need for backups
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q2.</strong> What does the session manager store to keep users logged in?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="0" required>
+              <span class="pill">A</span>
+              Plaintext passwords
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="1" required>
+              <span class="pill">B</span>
+              A server-side key that maps the browser cookie to a username
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="2" required>
+              <span class="pill">C</span>
+              Seed phrases
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="3" required>
+              <span class="pill">D</span>
+              Hardware wallet firmware
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q3.</strong> How do lessons link to AdaptBTC tooling?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="0" required>
+              <span class="pill">A</span>
+              They require a separate download
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="1" required>
+              <span class="pill">B</span>
+              Each lesson embeds calls-to-action that open the wallet generator, fee consoles, or dashboards
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="2" required>
+              <span class="pill">C</span>
+              They only show screenshots
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="3" required>
+              <span class="pill">D</span>
+              They block navigation to tools
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q4.</strong> What powers the lesson graphs displayed under each chapter?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="0" required>
+              <span class="pill">A</span>
+              Server-side PDFs
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="1" required>
+              <span class="pill">B</span>
+              Client-side canvas rendering driven by data attributes on each lesson
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="2" required>
+              <span class="pill">C</span>
+              Static images only
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="3" required>
+              <span class="pill">D</span>
+              External analytics vendors
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q5.</strong> Why is it important to tie quiz history to onboarding runbooks?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="0" required>
+              <span class="pill">A</span>
+              To slow the process
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="1" required>
+              <span class="pill">B</span>
+              To prove readiness before granting wallet access
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="2" required>
+              <span class="pill">C</span>
+              To change consensus rules
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="3" required>
+              <span class="pill">D</span>
+              To avoid documentation
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q6.</strong> What role do dashboards play in the Operations Lab course?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="0" required>
+              <span class="pill">A</span>
+              They replace backups
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="1" required>
+              <span class="pill">B</span>
+              They visualize mempool health, fee pressure, and enrollment metrics
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="2" required>
+              <span class="pill">C</span>
+              They mine new blocks
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="3" required>
+              <span class="pill">D</span>
+              They remove authentication
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q7.</strong> How do interactive timelines help learners with fee management?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="0" required>
+              <span class="pill">A</span>
+              They slow confirmations
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="1" required>
+              <span class="pill">B</span>
+              They show how RBF and CPFP change transaction priority through each stage
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="2" required>
+              <span class="pill">C</span>
+              They disable nodes
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="3" required>
+              <span class="pill">D</span>
+              They hide mempool data
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q8.</strong> What makes the portal design feel consistent and premium?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="0" required>
+              <span class="pill">A</span>
+              Random fonts
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="1" required>
+              <span class="pill">B</span>
+              Aligned spacing, shared gradients, and reusable components across lessons and quizzes
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="2" required>
+              <span class="pill">C</span>
+              No CSS
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="3" required>
+              <span class="pill">D</span>
+              Hard-coded inline styles only
+            </label>
+            
+          </div>
+          
+          <div style="grid-column: span 2;">
+            <button class="btn" type="submit">Submit Quiz</button>
+          </div>
+        </form>
+        <div id="quiz-results" class="card" hidden></div>
+        
+      </div>
+    </section>
+  </main>
+  <footer class="global-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-mark-wrap">
+        <img src="/AdaptBTCstatic/assets/img/adaptbtc-logo.svg" alt="AdaptBTC" />
+        <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+      </div>
+      <p class="mission">AdaptBTC makes Bitcoin accessible, practical, and trustworthy for everyone.</p>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Explore</h4>
+        <a href="/AdaptBTCstatic/">Home</a>
+        <a href="/AdaptBTCstatic/learning">Learning</a>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a href="/AdaptBTCstatic/portal/dashboard">Learning Portal</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <div class="social-row">
+          <span class="social-icon" aria-hidden="true">X</span>
+          <span class="social-icon" aria-hidden="true">GH</span>
+          <span class="social-icon" aria-hidden="true">in</span>
+        </div>
+        <p class="powered">Powered by AdaptBTC</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">© 2024 AdaptBTC. All rights reserved.</div>
+</footer>
+</body>
+</html>

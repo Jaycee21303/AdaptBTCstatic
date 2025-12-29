@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC | DCA Tool</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('dca_asset', filename='dca.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="dca-page">
+    <section class="dca-container">
+      <div class="dca-card" data-animate>
+        <div class="card-header">
+          <div class="badge">Tools</div>
+          <h1>Dollar-Cost Averaging Projection</h1>
+          <p class="subhead">Plan your Bitcoin accumulation with live projections and flexible DCA settings.</p>
+        </div>
+        <div class="dca-grid">
+          <div class="controls">
+            <div class="result-box live-price-box">
+              <p class="muted">Current BTC price (live)</p>
+              <p id="current-price" class="result-highlight">$30,000</p>
+              <p id="price-status" class="price-status muted">Updating…</p>
+            </div>
+            <div class="control-group">
+              <label for="current-btc">Current BTC owned</label>
+              <div class="input-wrap">
+                <input id="current-btc" type="number" min="0" step="0.0001" value="0.25">
+                <span class="suffix">BTC</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="goal-btc">Goal BTC amount</label>
+              <div class="input-wrap">
+                <input id="goal-btc" type="number" min="0" step="0.0001" value="1">
+                <span class="suffix">BTC</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="dca-amount">DCA contribution amount</label>
+              <div class="input-wrap">
+                <input id="dca-amount" type="number" min="0" step="10" value="100">
+                <span class="suffix">USD</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="frequency">DCA frequency</label>
+              <select id="frequency">
+                <option value="daily">Daily</option>
+                <option value="weekly" selected>Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="mode">Prediction mode</label>
+              <select id="mode">
+                <option value="reserved">Reserved (15% yearly growth)</option>
+                <option value="moderate" selected>Moderate (30% yearly growth)</option>
+                <option value="bullish">Bullish (50% yearly growth)</option>
+              </select>
+            </div>
+            <div class="result-box">
+              <p class="muted">Estimated time to reach goal</p>
+              <p id="goal-timeline" class="result-highlight">Calculating…</p>
+            </div>
+          </div>
+          <div class="chart-area">
+            <div class="chart-frame">
+              <canvas id="dca-chart" aria-label="Projected Bitcoin accumulation chart" role="img"></canvas>
+            </div>
+            <p class="chart-note">Projections simulate contributions and price paths over the next 10 years. Update inputs to refresh instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+  <script src="{{ url_for('dca_asset', filename='dca.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin Mempool | AdaptBTC</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mempool.css') }}">
+  <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+  <script defer src="{{ url_for('static', filename='js/mempool.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container mempool-container">
+    <section class="section">
+      <div class="mempool-hero card" data-animate>
+        <div>
+          <div class="badge">Network intelligence</div>
+          <h1>Bitcoin Mempool</h1>
+          <p class="hero-sub">Live fee pressure, mempool depth, and unconfirmed transaction flow.</p>
+          <p id="mempool-status" class="status-text">Loading mempool data…</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn" href="{{ url_for('network_fees') }}">Fee Estimator</a>
+          <a class="btn btn-outline" href="https://mempool.space/" target="_blank" rel="noopener">View on mempool.space</a>
+        </div>
+      </div>
+      <div class="chip-row" data-animate>
+        <div class="chip">
+          <p class="label">Mempool size</p>
+          <strong id="chip-mempool-size">—</strong>
+          <small class="muted">virtual MB</small>
+        </div>
+        <div class="chip">
+          <p class="label">Unconfirmed TXs</p>
+          <strong id="chip-mempool-count">—</strong>
+          <small class="muted">transactions</small>
+        </div>
+        <div class="chip">
+          <p class="label">Total fees</p>
+          <strong id="chip-total-fees">—</strong>
+          <small class="muted">BTC</small>
+        </div>
+        <div class="chip">
+          <p class="label">Fastest</p>
+          <strong id="chip-fee-fast">—</strong>
+          <small class="muted">sat/vB</small>
+        </div>
+        <div class="chip">
+          <p class="label">~30 min</p>
+          <strong id="chip-fee-half">—</strong>
+          <small class="muted">sat/vB</small>
+        </div>
+        <div class="chip">
+          <p class="label">~1 hour</p>
+          <strong id="chip-fee-hour">—</strong>
+          <small class="muted">sat/vB</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mempool-grid" data-animate>
+      <div class="grid-main">
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <p class="muted">Live depth</p>
+              <h2>Mempool bytes by fee level</h2>
+            </div>
+            <span id="chart-status" class="status-text">Polling mempool…</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="mempool-chart" aria-label="Mempool fee stack" role="img"></canvas>
+          </div>
+          <div class="chart-footnote">
+            <p class="muted small">Buckets auto-aggregate: 1→1280+ sat/vB. Scroll or pinch to zoom. Cached data will be highlighted if upstream is momentarily unavailable.</p>
+          </div>
+        </div>
+        <div class="lower-grid">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <p class="muted">Guidance</p>
+                <h3>Fee recommendations</h3>
+              </div>
+              <span id="fee-guidance-status" class="status-text">Loading…</span>
+            </div>
+            <div class="guidance-grid" id="fee-guidance">
+              <div class="guidance-item">
+                <p class="label">Fastest (~next block)</p>
+                <strong id="guidance-fast">—</strong>
+                <p class="muted small">Keep transactions ahead of current pressure.</p>
+              </div>
+              <div class="guidance-item">
+                <p class="label">~Within 3 blocks</p>
+                <strong id="guidance-half">—</strong>
+                <p class="muted small">Balanced urgency for near-term confirmation.</p>
+              </div>
+              <div class="guidance-item">
+                <p class="label">~Within 6 blocks</p>
+                <strong id="guidance-hour">—</strong>
+                <p class="muted small">Budget-friendly when time is flexible.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <p class="muted">Throughput</p>
+                <h3>Recent blocks</h3>
+              </div>
+              <span id="block-status" class="status-text">Loading blocks…</span>
+            </div>
+            <div class="chart-wrapper compact">
+              <canvas id="block-chart" aria-label="Mempool block projection" role="img"></canvas>
+              <div id="block-fallback" class="fallback muted small" hidden>Block data unavailable right now.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-side">
+        <div class="card feed-card">
+          <div class="card-header">
+            <div>
+              <p class="muted">Live feed</p>
+              <h3>Unconfirmed Transactions</h3>
+            </div>
+            <span id="feed-status" class="status-text">Streaming…</span>
+          </div>
+          <div class="feed-list" id="tx-feed" aria-live="polite"></div>
+          <div id="feed-empty" class="fallback muted small" hidden>Waiting for the next wave of transactions…</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>

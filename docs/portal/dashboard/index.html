@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Dashboard</title>
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/global.css">
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/portal.css">
+  <script defer src="/AdaptBTCstatic/assets/js/main.js"></script>
+</head>
+<body>
+  <nav class="global-nav shadow-soft">
+  <div class="nav-inner">
+    <a class="brand" href="/AdaptBTCstatic/">
+      <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+    </a>
+    <div class="nav-right">
+      <div class="btc-ticker" data-btc-ticker aria-live="polite">
+        <div class="ticker-label">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>BTC</span>
+        </div>
+        <div class="ticker-price" data-btc-price>$—</div>
+        <div class="ticker-change" data-btc-change>Loading…</div>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" data-nav-links>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a class="pill-link" href="https://adaptbtc.com/learning">Learning Portal</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+            <div class="portal-toolbar">
+              <div>
+                <div class="badge">Dashboard</div>
+                <h2>Welcome, Open Learner fc2997</h2>
+            <p class="hero-sub">Jump into every course without creating an account.</p>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab active" href="/AdaptBTCstatic/portal/dashboard">Overview</a>
+            <a class="pill-tab" href="/AdaptBTCstatic/portal/courses">Courses</a>
+            <a class="pill-tab" href="/AdaptBTCstatic/portal/progress">Certificates</a>
+          </div>
+        </div>
+
+        <div class="grid-three">
+          
+          
+          
+          
+          
+          <div class="card">
+            <div class="flex-between">
+              <h3>Bitcoin 101 Fundamentals</h3>
+              <span class="badge">0 lessons</span>
+            </div>
+            <p>A practitioner-friendly introduction to Bitcoin that explains how the network works, why decentralization matters, and how to verify your own transactions without relying on custodians.</p>
+            <div class="progress-bar"><span style="width: 0.0%"></span></div>
+            <p class="progress-text">0.0% of 18 lessons</p>
+            <a class="btn" href="/AdaptBTCstatic/portal/courses/bitcoin-101">Continue</a>
+          </div>
+          
+          
+          
+          
+          
+          <div class="card">
+            <div class="flex-between">
+              <h3>Bitcoin Security Essentials</h3>
+              <span class="badge">0 lessons</span>
+            </div>
+            <p>Operational security for individuals and teams who want to protect keys, minimize single points of failure, and respond well to incidents without losing funds or critical data.</p>
+            <div class="progress-bar"><span style="width: 0.0%"></span></div>
+            <p class="progress-text">0.0% of 16 lessons</p>
+            <a class="btn" href="/AdaptBTCstatic/portal/courses/security-essentials">Continue</a>
+          </div>
+          
+          
+          
+          
+          
+          <div class="card">
+            <div class="flex-between">
+              <h3>Operations Lab: Tools &amp; Automation</h3>
+              <span class="badge">0 lessons</span>
+            </div>
+            <p>Hands-on playbooks that connect AdaptBTC tools with production-ready workflows, including wallet automation, reporting dashboards, and uptime checks.</p>
+            <div class="progress-bar"><span style="width: 0.0%"></span></div>
+            <p class="progress-text">0.0% of 4 lessons</p>
+            <a class="btn" href="/AdaptBTCstatic/portal/courses/operations-lab">Continue</a>
+          </div>
+          
+        </div>
+
+        <div class="portal-banner">
+          <div>
+            <p class="badge">Live Learning Signals</p>
+            <h3>Track how teams use AdaptBTC tools while they learn</h3>
+            <p class="hero-sub">Charts below render in the browser and refresh when you retry quizzes or rerun the wallet generator drills.</p>
+            <div class="portal-flex">
+              <span class="pill">Wallet generator drills</span>
+              <span class="pill">Quiz attempts kept in this browser</span>
+              <span class="pill">Node + fee monitoring dashboards</span>
+            </div>
+          </div>
+          <a class="btn btn-light" href="/AdaptBTCstatic/tools">Open Tools Library</a>
+        </div>
+
+        <div class="portal-grid">
+          <div class="chart-card" data-chart data-points="28,54,72,91" data-labels="Signups|Active learners|Quiz passes|Certificates" data-color="#2563eb">
+            <div class="card-head">
+              <div class="badge">Portal Health</div>
+              <p class="hero-sub">No accounts needed—everything loads instantly in your browser.</p>
+            </div>
+            <canvas class="lesson-chart"></canvas>
+          </div>
+          <div class="chart-card" data-chart data-points="22,44,63,88" data-labels="Wallet lab|Fee drills|Node checks|Consults" data-color="#16a34a">
+            <div class="card-head">
+              <div class="badge">Tool Engagement</div>
+              <p class="hero-sub">Each lesson links to AdaptBTC utilities so practice happens without leaving the portal.</p>
+            </div>
+            <canvas class="lesson-chart"></canvas>
+          </div>
+          <div class="chart-card" data-chart data-points="18,32,58,79" data-labels="RBF runs|CPFP labs|Descriptor reviews|Runbooks" data-color="#7c3aed">
+            <div class="card-head">
+              <div class="badge">Ops Lab Velocity</div>
+              <p class="hero-sub">Progressive disclosure keeps the interface polished while still surfacing advanced drills.</p>
+            </div>
+            <canvas class="lesson-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="portal-cta-ghost">
+          <div>
+            <h4>Need a refresher before production changes?</h4>
+            <p class="hero-sub">Open the wallet generator, export a descriptor, and retake the Operations Lab quiz—no sign-in required.</p>
+          </div>
+          <div class="portal-actions">
+            <a class="btn" href="/AdaptBTCstatic/tools">Launch Wallet Generator</a>
+            <a class="btn btn-outline" href="/AdaptBTCstatic/portal/courses/operations-lab/quiz">Take Ops Lab Quiz</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="global-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-mark-wrap">
+        <img src="/AdaptBTCstatic/assets/img/adaptbtc-logo.svg" alt="AdaptBTC" />
+        <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+      </div>
+      <p class="mission">AdaptBTC makes Bitcoin accessible, practical, and trustworthy for everyone.</p>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Explore</h4>
+        <a href="/AdaptBTCstatic/">Home</a>
+        <a href="/AdaptBTCstatic/learning">Learning</a>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a href="/AdaptBTCstatic/portal/dashboard">Learning Portal</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <div class="social-row">
+          <span class="social-icon" aria-hidden="true">X</span>
+          <span class="social-icon" aria-hidden="true">GH</span>
+          <span class="social-icon" aria-hidden="true">in</span>
+        </div>
+        <p class="powered">Powered by AdaptBTC</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">© 2024 AdaptBTC. All rights reserved.</div>
+</footer>
+</body>
+</html>

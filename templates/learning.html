@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Learning | Master Bitcoin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container">
+    <section class="section">
+      <div class="hero-edu" data-animate>
+        <div>
+          <div class="badge">Learning Portal</div>
+          <h1>Master Bitcoin — From Zero to Expert.</h1>
+          <p class="hero-sub">A premium education journey inspired by Binance Academy and Stripe Docs—open access, no accounts, just straight into the lessons.</p>
+          <div class="hero-cta">
+            <a class="btn" href="{{ url_for('portal.dashboard') }}">Enter Learning Portal</a>
+          </div>
+          <div class="chip-row" style="margin-top:12px;">
+            <span class="pill">No email required</span>
+            <span class="pill">Structured curriculum</span>
+            <span class="pill">Certification-ready</span>
+          </div>
+        </div>
+        <div class="tool-preview gradient-border">
+          <div class="flex-between">
+            <strong>Course Momentum</strong>
+            <span class="ribbon-badge">Live progress</span>
+          </div>
+          <div class="summary">
+            <div class="stat-card">
+              <p class="label">Active learners</p>
+              <h3>1,240</h3>
+              <p class="progress-text">this quarter</p>
+            </div>
+            <div class="stat-card">
+              <p class="label">Completion rate</p>
+              <h3>82%</h3>
+              <p class="progress-text">finish first path</p>
+            </div>
+            <div class="stat-card">
+              <p class="label">Avg. quiz score</p>
+              <h3>88%</h3>
+              <p class="progress-text">on certification</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="section-heading">
+        <h2>Pick your track.</h2>
+        <p class="tagline">Progress bars, difficulty badges, and lessons at a glance.</p>
+      </div>
+      <div class="course-grid">
+        <div class="course-card">
+          <div class="icon-circle">①</div>
+          <h3>Bitcoin 101</h3>
+          <p>Beginner-friendly fundamentals with clear definitions.</p>
+          <div class="meta">
+            <span class="badge">Beginner</span>
+            <span>12 lessons</span>
+          </div>
+          <div class="progress-bar"><span style="width: 45%"></span></div>
+          <div class="progress-text">Open access</div>
+          <a class="btn" href="{{ url_for('portal.course_detail', course_id='bitcoin-101') }}">Start Course</a>
+        </div>
+        <div class="course-card">
+          <div class="icon-circle">②</div>
+          <h3>Security & Self-Custody</h3>
+          <p>Safeguard assets with wallets, multisig, and operational hygiene.</p>
+          <div class="meta">
+            <span class="badge badge-muted">Intermediate</span>
+            <span>10 lessons</span>
+          </div>
+          <div class="progress-bar"><span style="width: 28%"></span></div>
+          <div class="progress-text">Open access</div>
+          <a class="btn" href="{{ url_for('portal.course_detail', course_id='security-essentials') }}">Start Secure Track</a>
+        </div>
+        <div class="course-card">
+          <div class="icon-circle">③</div>
+          <h3>Lightning Network Essentials</h3>
+          <p>Understand channels, routing, liquidity, and operational metrics.</p>
+          <div class="meta">
+            <span class="badge badge-muted">Advanced</span>
+            <span>9 lessons</span>
+          </div>
+          <div class="progress-bar"><span style="width: 62%"></span></div>
+          <div class="progress-text">Open access</div>
+          <a class="btn" href="{{ url_for('portal.courses') }}">Browse Lessons</a>
+        </div>
+        <div class="course-card">
+          <div class="icon-circle">④</div>
+          <h3>Bitcoin for Businesses</h3>
+          <p>Treasury, compliance, invoicing, and reporting best practices.</p>
+          <div class="meta">
+            <span class="badge badge-muted">All levels</span>
+            <span>8 lessons</span>
+          </div>
+          <div class="progress-bar"><span style="width: 12%"></span></div>
+          <div class="progress-text">Open access</div>
+          <a class="btn" href="{{ url_for('portal.courses') }}">Start track</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="section-heading">
+        <h2>Why the AdaptBTC Learning Portal?</h2>
+      </div>
+      <div class="benefits">
+        <div class="benefit-card">
+          <div class="icon-circle">LEARN</div>
+          <div>
+            <strong>Free education</strong>
+            <p>Access every lesson and quiz without a paywall.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-circle">CERT</div>
+          <div>
+            <strong>Earn certifications</strong>
+            <p>Finish quizzes to unlock branded certificates.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-circle">OPEN</div>
+          <div>
+            <strong>Instant access</strong>
+            <p>No usernames, passwords, or databases required to start.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-circle">QUIZ</div>
+          <div>
+            <strong>Real quizzes</strong>
+            <p>Scenario-based checks to verify understanding.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="icon-circle">LN</div>
+          <div>
+            <strong>Lightning ready</strong>
+            <p>Concepts aligned with the AdaptBTC tool suite.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="portal-cta">
+        <div>
+          <h2>Enter Learning Portal →</h2>
+          <p>Dive into every lesson and quiz for free—no sign-up flow or saved passwords.</p>
+        </div>
+        <a class="btn" href="{{ url_for('portal.dashboard') }}">Open Portal</a>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>

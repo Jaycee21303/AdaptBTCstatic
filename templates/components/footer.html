@@ -1,0 +1,35 @@
+<footer class="global-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-mark-wrap">
+        <img src="{{ url_for('static', filename='img/adaptbtc-logo.svg') }}" alt="AdaptBTC" />
+        <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+      </div>
+      <p class="mission">AdaptBTC makes Bitcoin accessible, practical, and trustworthy for everyone.</p>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Explore</h4>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('learning') }}">Learning</a>
+        <a href="{{ url_for('tools') }}">Tools</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="{{ url_for('consulting') }}">Consulting</a>
+        <a href="{{ url_for('donation') }}">Donation</a>
+        <a href="{{ url_for('portal.dashboard') }}">Learning Portal</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <div class="social-row">
+          <span class="social-icon" aria-hidden="true">X</span>
+          <span class="social-icon" aria-hidden="true">GH</span>
+          <span class="social-icon" aria-hidden="true">in</span>
+        </div>
+        <p class="powered">Powered by AdaptBTC</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">© 2024 AdaptBTC. All rights reserved.</div>
+</footer>
