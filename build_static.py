@@ -1,6 +1,8 @@
 from pathlib import Path
 import shutil
 
+from flask import render_template
+
 from app import app
 from backend.logic.lesson_engine import list_courses, list_lessons
 
@@ -58,6 +60,21 @@ def capture_route(client, route: str) -> None:
     print(f"✔ wrote {dest}")
 
 
+def write_404_page() -> None:
+    """Render the 404 error page for GitHub Pages fallback routing."""
+
+    # Render the template directly instead of through the test client so we can
+    # emit a 404.html file even though the response would carry a 404 status.
+    with app.app_context():
+        with app.test_request_context():
+            html = render_template("errors/404.html")
+
+    dest = OUTPUT_DIR / "404.html"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(html)
+    print(f"✔ wrote {dest}")
+
+
 def build_portal_routes(client) -> None:
     for course in list_courses():
         course_id = course.get("id")
@@ -83,5 +100,7 @@ if __name__ == "__main__":
         build_portal_routes(client)
         for route in PAGE_PATHS:
             capture_route(client, route)
+
+    write_404_page()
 
     print("Static site build complete. Upload contents of 'docs' to GitHub Pages.")
