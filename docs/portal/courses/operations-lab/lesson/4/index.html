@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Lesson</title>
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/global.css">
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/portal.css">
+  <script defer src="/AdaptBTCstatic/assets/js/main.js"></script>
+  <script defer src="/AdaptBTCstatic/assets/js/portal.js"></script>
+</head>
+<body>
+  <nav class="global-nav shadow-soft">
+  <div class="nav-inner">
+    <a class="brand" href="/AdaptBTCstatic/">
+      <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+    </a>
+    <div class="nav-right">
+      <div class="btc-ticker" data-btc-ticker aria-live="polite">
+        <div class="ticker-label">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>BTC</span>
+        </div>
+        <div class="ticker-price" data-btc-price>$—</div>
+        <div class="ticker-change" data-btc-change>Loading…</div>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" data-nav-links>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a class="pill-link" href="https://adaptbtc.com/learning">Learning Portal</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+        <div class="info-banner" data-portal-status>Static preview — progress is saved in this browser.</div>
+        <div class="portal-toolbar">
+          <div>
+            <div class="badge">Operations Lab: Tools &amp; Automation</div>
+            <h2>Lesson 4: Capstone: Automated Runbooks</h2>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab" href="/AdaptBTCstatic/portal/dashboard">Dashboard</a>
+            <a class="pill-tab active" href="/AdaptBTCstatic/portal/courses/operations-lab">Lessons</a>
+            <a class="pill-tab" href="/AdaptBTCstatic/portal/courses/operations-lab/quiz">Quiz</a>
+          </div>
+        </div>
+
+        <div class="lesson-layout">
+          <aside class="lesson-sidebar">
+            <h4>Lesson outline</h4>
+            <ul class="list-clean">
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="1">
+                <a href="/AdaptBTCstatic/portal/courses/operations-lab/lesson/1">Lesson 1: Portal Accounts and Data Safety</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="2">
+                <a href="/AdaptBTCstatic/portal/courses/operations-lab/lesson/2">Lesson 2: Toolchain Tour: Wallets, Consoles, and Compliance</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="3">
+                <a href="/AdaptBTCstatic/portal/courses/operations-lab/lesson/3">Lesson 3: Interactive Labs and Visual Dashboards</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="operations-lab" data-lesson-order="4">
+                <a href="/AdaptBTCstatic/portal/courses/operations-lab/lesson/4">Lesson 4: Capstone: Automated Runbooks</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" hidden>Completed</span>
+              </li>
+              
+            </ul>
+            <a class="btn btn-outline" href="/AdaptBTCstatic/portal/courses/operations-lab/quiz">Take Quiz</a>
+          </aside>
+          <article class="lesson-content">
+            
+            <h3>Capstone: Automated Runbooks</h3>
+            <div class="lesson-meta">
+              <span class="pill">Interactive chapter</span>
+              <span class="pill">Links to AdaptBTC tools</span>
+              <span class="pill">Canvas graphs rendered live</span>
+            </div>
+            
+            <p>The capstone challenges learners to design a runbook that combines lesson checklists, wallet generator outputs, and quiz results into a repeatable workflow.</p>
+            
+            <p>Students map each step to an AdaptBTC tool and identify where human review is required versus automation.</p>
+            
+            <p>An example script demonstrates how to pull quiz history to verify readiness before granting hot wallet access.</p>
+            
+            <p>Graphs summarize how long each step should take so teams can benchmark onboarding velocity.</p>
+            
+            <p>Completion unlocks a certificate and a downloadable JSON template for reuse inside your organization.</p>
+            
+            <div class="lesson-diagram"><div class='chart-card'><canvas class="lesson-chart" data-points="18,36,52,70,96" data-labels="Register|Wallet Lab|Quiz|Runbook|Certificate" data-color="#16a34a"></canvas><p class='chart-note'>Step-by-step velocity chart to plan smooth onboarding.</p></div></div>
+            <div class="lesson-callout">
+              <div class="lesson-header">
+                <div>
+                  <div class="badge">Hands-on lab</div>
+                  <p class="hero-sub">Open the wallet generator, review fee consoles, or pull descriptors without leaving the portal.</p>
+                </div>
+                <div class="portal-actions">
+                  <a class="btn" href="/AdaptBTCstatic/tools">Launch tools</a>
+                  <a class="btn btn-outline" href="/AdaptBTCstatic/tools">Wallet generator</a>
+                </div>
+              </div>
+              <p class="portal-notes">All exercises run client-side so you can explore freely—no sign-in or database needed.</p>
+            </div>
+            <h4>Examples</h4>
+            <ul class="check-list">
+              
+              <li>An operations lead builds a checklist that starts with portal registration, moves through wallet drills, and ends with a signed certificate.</li>
+              
+              <li>A developer wraps wallet generator output into a deployment pipeline to seed staging environments nightly.</li>
+              
+            </ul>
+            <h4>Glossary</h4>
+            <ul class="check-list">
+              
+              
+              <li><strong>Runbook:</strong> Detailed, repeatable instructions for executing operational tasks reliably.</li>
+              
+              
+              <li><strong>Automation:</strong> Use of scripts or tools to perform tasks with minimal manual intervention.</li>
+              
+              
+              <li><strong>Benchmark:</strong> Baseline measurement used to compare performance over time.</li>
+              
+            </ul>
+            <h4>Key Takeaways</h4>
+            <ul class="check-list">
+              
+              <li>Runbooks keep production behavior aligned with training guidance.</li>
+              
+              <li>Automation should still surface checkpoints for human approval where risk is high.</li>
+              
+              <li>Capturing time-to-completion helps forecast staffing needs for new deployments.</li>
+              
+            </ul>
+            <div class="lesson-footer">
+              <div class="quiz-meta">
+                <span class="pill">Interactive quiz with A/B/C/D options</span>
+                <span class="pill">Scores stay in this browser session</span>
+              </div>
+              <a class="btn" href="/AdaptBTCstatic/portal/courses/operations-lab/quiz">Jump to quiz</a>
+            </div>
+            <div class="lesson-actions">
+              
+              <a class="btn btn-outline" href="/AdaptBTCstatic/portal/courses/operations-lab/lesson/3">Previous</a>
+              
+              <form id="complete-form" method="post" action="/AdaptBTCstatic/portal/courses/operations-lab/lesson/4/complete">
+                <button class="btn" type="button" onclick="markLessonComplete('complete-form', 'operations-lab', 4)">Mark Complete</button>
+              </form>
+              
+            </div>
+            
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="global-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-mark-wrap">
+        <img src="/AdaptBTCstatic/assets/img/adaptbtc-logo.svg" alt="AdaptBTC" />
+        <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+      </div>
+      <p class="mission">AdaptBTC makes Bitcoin accessible, practical, and trustworthy for everyone.</p>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Explore</h4>
+        <a href="/AdaptBTCstatic/">Home</a>
+        <a href="/AdaptBTCstatic/learning">Learning</a>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a href="/AdaptBTCstatic/portal/dashboard">Learning Portal</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <div class="social-row">
+          <span class="social-icon" aria-hidden="true">X</span>
+          <span class="social-icon" aria-hidden="true">GH</span>
+          <span class="social-icon" aria-hidden="true">in</span>
+        </div>
+        <p class="powered">Powered by AdaptBTC</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">© 2024 AdaptBTC. All rights reserved.</div>
+</footer>
+</body>
+</html>

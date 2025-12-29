@@ -1,0 +1,156 @@
+.dca-page {
+  background: #f7f8fb;
+  min-height: 100vh;
+  padding: 40px 16px 64px;
+  color: #0f172a;
+}
+
+.dca-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dca-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(31, 41, 55, 0.08);
+  padding: 32px;
+}
+
+.card-header h1 {
+  margin: 8px 0 4px;
+  font-size: 28px;
+}
+
+.card-header .subhead {
+  margin: 0;
+  color: #4b5563;
+  max-width: 720px;
+}
+
+.dca-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.controls {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.control-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.control-group input,
+.control-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+}
+
+.control-group input:focus,
+.control-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap .suffix {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.result-box {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.result-highlight {
+  margin: 4px 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.live-price-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.price-status {
+  margin: 0;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.chart-area {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.chart-frame {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  height: 480px;
+  flex: 0 0 auto;
+}
+
+#dca-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-note {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+@media (max-width: 960px) {
+  .dca-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dca-card {
+    padding: 20px;
+  }
+
+  .controls {
+    padding: 16px;
+  }
+}
