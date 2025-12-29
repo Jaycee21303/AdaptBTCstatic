@@ -99,6 +99,15 @@ a {
   color: var(--text);
 }
 
+.ticker {
+  padding: 0.45rem 0.9rem;
+  background: rgba(11, 99, 230, 0.08);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-weight: 700;
+}
+
 .nav-toggle {
   display: none;
   background: none;
@@ -209,7 +218,7 @@ a {
   color: var(--primary);
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   margin-bottom: 0.75rem;
 }
 
