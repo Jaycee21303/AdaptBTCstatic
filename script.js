@@ -86,7 +86,7 @@ async function updateTicker() {
 
     if (Number.isFinite(price)) {
       currentBtcPrice = price;
-      const formatted = `$${Number(price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      const formatted = `$${Number(price).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
       renderTicker(formatted);
 
       if (dcaPriceInput) {
