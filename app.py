@@ -10,6 +10,16 @@ from learning_portal.portal_routes import portal
 
 load_dotenv()
 
+BASE_PATH = os.getenv("BASE_PATH")
+# When running in GitHub Actions without an explicit base path, default to the
+# repository name so generated links work under the project Pages URL.
+if not BASE_PATH and os.getenv("GITHUB_ACTIONS"):
+    repo_name = os.getenv("GITHUB_REPOSITORY", "").split("/")[-1]
+    BASE_PATH = repo_name or None
+
+if BASE_PATH:
+    BASE_PATH = "/" + BASE_PATH.strip("/")
+
 app = Flask(
     __name__, template_folder="templates", static_folder="assets", static_url_path="/assets"
 )
