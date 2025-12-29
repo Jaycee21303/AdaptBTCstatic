@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC | Exchange Price Comparison</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/exchange-compare.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/exchange-compare.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container exchange-page">
+    <section class="section top-gap" data-animate>
+      <div class="card-lg exchange-hero">
+        <div>
+          <p class="badge">New Tool</p>
+          <h1>Spot the best execution in seconds</h1>
+          <p class="hero-sub">Live Coinbase, Binance, and Kraken quotes side by side with spread math baked in.</p>
+          <div class="hero-meta">
+            <span class="meta-pill">Server-side price fetching</span>
+            <span class="meta-pill">Spread + basis points</span>
+            <span class="meta-pill">Auto-refresh</span>
+          </div>
+          <p class="muted" data-compare-status>Polling exchanges…</p>
+        </div>
+        <div class="spread-card">
+          <div class="label">Tightest Spread</div>
+          <div class="value" data-spread-percent>—</div>
+          <div class="hint">Basis points: <span data-spread-bps>—</span></div>
+          <div class="hint">Low: <span data-spread-low>—</span> | High: <span data-spread-high>—</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-animate>
+      <div class="card-lg">
+        <div class="section-heading compact">
+          <p class="badge subtle">Exchange lens</p>
+          <h3>Compare live quotes before you hit buy</h3>
+          <p class="muted">Server-side requests avoid browser CORS limits and keep data reliable.</p>
+        </div>
+        <div class="table-head">
+          <div class="col">Exchange</div>
+          <div class="col">Price (USD)</div>
+          <div class="col">Distance from best</div>
+          <div class="col">Source</div>
+        </div>
+        <div class="table-body" data-compare-body>
+          <div class="skeleton-row">Loading prices…</div>
+        </div>
+        <div class="table-footer">
+          <div>
+            <p class="muted">Quotes refresh every minute. Click reload for an immediate update.</p>
+            <p class="muted errors" data-compare-errors></p>
+          </div>
+          <button class="btn btn-outline" type="button" id="compare-refresh">Reload now</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact" data-animate>
+      <div class="card-lg guidance">
+        <div>
+          <p class="badge subtle">Execution playbook</p>
+          <h3>How to use the comparison feed</h3>
+          <p class="muted">Identify the best venue, sanity-check liquidity, and route your order with confidence.</p>
+        </div>
+        <div class="guidance-grid">
+          <div class="guide-tile">
+            <div class="pill">Check spread</div>
+            <p>Use basis points to gauge slippage risk. Under 10 bps? You’re looking at a tight book.</p>
+          </div>
+          <div class="guide-tile">
+            <div class="pill">Verify source</div>
+            <p>We fetch direct REST endpoints from each exchange for transparent provenance.</p>
+          </div>
+          <div class="guide-tile">
+            <div class="pill">Act quickly</div>
+            <p>Prices refresh automatically. When a delta appears, you can capture the mispricing instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>

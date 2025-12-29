@@ -1,0 +1,143 @@
+/* Base wrapper */
+.btc-chart-wrapper {
+  width: 100%;
+  max-width: 100%;
+  height: 500px;
+  max-height: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Canvas hard-lock */
+.btc-chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.btc-chart-shell {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  display: grid;
+  gap: 12px;
+  height: auto;
+  flex: 0 0 auto;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  width: 100%;
+  overflow: hidden;
+}
+
+.btc-hero {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background: linear-gradient(180deg, #f8fafc, #eef2ff);
+  border-radius: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
+  display: grid;
+  gap: 18px;
+}
+
+.btc-hero-panel {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.btc-hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btc-hero-header h2 {
+  margin: 0;
+}
+
+#btcLivePrice {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+#btcChange {
+  font-weight: 700;
+}
+
+.btc-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btc-controls button {
+  border: none;
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.75rem;
+  transition: all 0.18s ease;
+}
+
+.btc-controls button:hover {
+  background: #e2e8f0;
+}
+
+.btc-controls button.is-active {
+  background: rgba(59, 130, 246, 0.14);
+  color: #1d4ed8;
+  box-shadow: none;
+}
+
+.btc-hero-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: var(--gray-600);
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.btc-status {
+  margin: 0;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.btc-status.is-error {
+  color: #dc2626;
+}
+
+@media (max-width: 900px) {
+  .btc-chart-wrapper {
+    height: 460px;
+    max-height: 460px;
+  }
+}
+
+@media (max-width: 768px) {
+  .btc-chart-wrapper {
+    max-width: 100%;
+    height: 420px;
+    max-height: 420px;
+  }
+
+  .btc-hero {
+    padding: 20px;
+  }
+}

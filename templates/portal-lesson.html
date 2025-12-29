@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Lesson</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portal.css') }}">
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/portal.js') }}"></script>
+</head>
+<body>
+  {% include 'components/navbar.html' %}
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+        <div class="info-banner" data-portal-status>Static preview — progress is saved in this browser.</div>
+        <div class="portal-toolbar">
+          <div>
+            <div class="badge">{{ course.title }}</div>
+            <h2>Lesson {{ current_lesson.lesson_order if current_lesson else 1 }}: {{ current_lesson.title if current_lesson else 'Select a lesson' }}</h2>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab" href="{{ url_for('portal.dashboard') }}">Dashboard</a>
+            <a class="pill-tab active" href="{{ url_for('portal.course_detail', course_id=course.id) }}">Lessons</a>
+            <a class="pill-tab" href="{{ url_for('portal.quiz', course_id=course.id) }}">Quiz</a>
+          </div>
+        </div>
+
+        <div class="lesson-layout">
+          <aside class="lesson-sidebar">
+            <h4>Lesson outline</h4>
+            <ul class="list-clean">
+              {% for item in lessons %}
+              <li style="margin-bottom:10px;" data-lesson-item data-course-id="{{ course.id }}" data-lesson-order="{{ item.lesson_order }}">
+                <a href="{{ url_for('portal.lesson', course_id=course.id, order=item.lesson_order) }}">Lesson {{ item.lesson_order }}: {{ item.title }}</a>
+                <span class="pill" data-complete-pill style="margin-top:6px;" {% if item.lesson_order not in completed_lessons %}hidden{% endif %}>Completed</span>
+              </li>
+              {% endfor %}
+            </ul>
+            <a class="btn btn-outline" href="{{ url_for('portal.quiz', course_id=course.id) }}">Take Quiz</a>
+          </aside>
+          <article class="lesson-content">
+            {% if current_lesson %}
+            <h3>{{ current_lesson.title }}</h3>
+            <div class="lesson-meta">
+              <span class="pill">Interactive chapter</span>
+              <span class="pill">Links to AdaptBTC tools</span>
+              <span class="pill">Canvas graphs rendered live</span>
+            </div>
+            {% for paragraph in current_lesson.content.split('\n\n') %}
+            <p>{{ paragraph }}</p>
+            {% endfor %}
+            <div class="lesson-diagram">{{ current_lesson.diagram|safe }}</div>
+            <div class="lesson-callout">
+              <div class="lesson-header">
+                <div>
+                  <div class="badge">Hands-on lab</div>
+                  <p class="hero-sub">Open the wallet generator, review fee consoles, or pull descriptors without leaving the portal.</p>
+                </div>
+                <div class="portal-actions">
+                  <a class="btn" href="{{ url_for('tools') }}">Launch tools</a>
+                  <a class="btn btn-outline" href="{{ url_for('tools') }}">Wallet generator</a>
+                </div>
+              </div>
+              <p class="portal-notes">All exercises run client-side so you can explore freely—no sign-in or database needed.</p>
+            </div>
+            <h4>Examples</h4>
+            <ul class="check-list">
+              {% for example in current_lesson.examples.split('\n') %}
+              <li>{{ example }}</li>
+              {% endfor %}
+            </ul>
+            <h4>Glossary</h4>
+            <ul class="check-list">
+              {% for item in current_lesson.glossary.split('\n') %}
+              {% set parts = item.split(':') %}
+              <li><strong>{{ parts[0] }}:</strong> {{ parts[1] }}</li>
+              {% endfor %}
+            </ul>
+            <h4>Key Takeaways</h4>
+            <ul class="check-list">
+              {% for take in current_lesson.takeaways.split('\n') %}
+              <li>{{ take }}</li>
+              {% endfor %}
+            </ul>
+            <div class="lesson-footer">
+              <div class="quiz-meta">
+                <span class="pill">Interactive quiz with A/B/C/D options</span>
+                <span class="pill">Scores stay in this browser session</span>
+              </div>
+              <a class="btn" href="{{ url_for('portal.quiz', course_id=course.id) }}">Jump to quiz</a>
+            </div>
+            <div class="lesson-actions">
+              {% if prev_next[0] %}
+              <a class="btn btn-outline" href="{{ url_for('portal.lesson', course_id=course.id, order=prev_next[0]) }}">Previous</a>
+              {% endif %}
+              <form id="complete-form" method="post" action="{{ url_for('portal.complete_lesson', course_id=course.id, order=current_lesson.lesson_order) }}">
+                <button class="btn" type="button" onclick="markLessonComplete('complete-form', '{{ course.id }}', {{ current_lesson.lesson_order }})">Mark Complete</button>
+              </form>
+              {% if prev_next[1] %}
+              <a class="btn" href="{{ url_for('portal.lesson', course_id=course.id, order=prev_next[1]) }}">Next</a>
+              {% endif %}
+            </div>
+            {% else %}
+            <p>Select a lesson to begin.</p>
+            {% endif %}
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'components/footer.html' %}
+</body>
+</html>

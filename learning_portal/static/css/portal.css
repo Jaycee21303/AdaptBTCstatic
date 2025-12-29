@@ -1,0 +1,16 @@
+body { font-family: 'Open Sans', Arial, sans-serif; background: #f4f8fb; color: #1c1f23; }
+.navbar { background: #0d47a1; padding: 12px 20px; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+.navbar a { color: #fff; margin-right: 14px; text-decoration: none; font-weight: 600; }
+.container { max-width: 1100px; margin: 30px auto; background: #fff; padding: 20px 24px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+.btn { display: inline-block; padding: 10px 16px; background: #0d47a1; color: #fff; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; }
+.btn.secondary { background: #e3f2fd; color: #0d47a1; }
+.card { border: 1px solid #e1e7ee; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.progress { background: #e3f2fd; height: 8px; border-radius: 6px; overflow: hidden; }
+.progress .bar { background: #0d47a1; height: 8px; }
+.lesson-nav { display: flex; justify-content: space-between; margin-top: 18px; }
+.quiz-option { border: 1px solid #dbe3ec; padding: 12px; border-radius: 8px; margin-bottom: 8px; }
+.alert { padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; }
+.alert.success { background: #e8f5e9; color: #2e7d32; }
+.alert.warning { background: #fff3e0; color: #f57c00; }
+.alert.danger { background: #ffebee; color: #c62828; }
+.dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }

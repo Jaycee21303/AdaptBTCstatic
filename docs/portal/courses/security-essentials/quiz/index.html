@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC Portal | Quiz</title>
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/global.css">
+  <link rel="stylesheet" href="/AdaptBTCstatic/assets/css/portal.css">
+  <script defer src="/AdaptBTCstatic/assets/js/main.js"></script>
+  <script defer src="/AdaptBTCstatic/assets/js/portal.js"></script>
+</head>
+<body>
+  <nav class="global-nav shadow-soft">
+  <div class="nav-inner">
+    <a class="brand" href="/AdaptBTCstatic/">
+      <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+    </a>
+    <div class="nav-right">
+      <div class="btc-ticker" data-btc-ticker aria-live="polite">
+        <div class="ticker-label">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>BTC</span>
+        </div>
+        <div class="ticker-price" data-btc-price>$—</div>
+        <div class="ticker-change" data-btc-change>Loading…</div>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" data-nav-links>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a class="pill-link" href="https://adaptbtc.com/learning">Learning Portal</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  <main class="container">
+    <section class="section">
+      <div class="portal-shell" data-animate>
+        <div class="info-banner" data-portal-status>Static quiz grading runs entirely in your browser.</div>
+        <div class="portal-toolbar">
+          <div>
+            <div class="badge">Quiz</div>
+            <h2>Bitcoin Security Essentials Quiz</h2>
+            <p class="hero-sub">Earn 80% or higher to pass. Attempts stay within this browser session.</p>
+          </div>
+          <div class="portal-nav">
+            <a class="pill-tab" href="/AdaptBTCstatic/portal/courses/security-essentials/lesson/1">Lessons</a>
+            <a class="pill-tab active" href="/AdaptBTCstatic/portal/courses/security-essentials/quiz">Quiz</a>
+          </div>
+        </div>
+        
+        <form method="post" class="grid-two" data-quiz-payload='[{"answer": 1, "explanation": "Threat modeling clarifies what you defend and how, guiding prioritized mitigations.", "options": ["Eliminate all risk", "Identify assets, adversaries, and controls that reduce risk", "Speed up transactions", "Comply with taxes"], "prompt": "What is the primary goal of threat modeling?"}, {"answer": 1, "explanation": "Metal backups endure physical hazards that destroy paper, preserving recovery data.", "options": ["They are cheaper", "They resist fire and water better than paper", "They are easier to photograph", "They allow online sharing"], "prompt": "Why are metal backups recommended for seeds?"}, {"answer": 1, "explanation": "Multisig spreads trust so no single compromised key can move funds alone.", "options": ["Lower transaction fees", "Distribution of key control to avoid single points of failure", "Faster confirmations", "Unlimited supply"], "prompt": "What advantage does multisig offer?"}, {"answer": 1, "explanation": "Limiting RPC to trusted origins and requiring authentication minimizes attack surface.", "options": ["Expose it to the internet", "Restrict to trusted networks and authenticate requests", "Disable logs", "Share credentials"], "prompt": "How should RPC access to a node be handled?"}, {"answer": 1, "explanation": "Containment involves isolating risky systems and issuing new keys to stop unauthorized access.", "options": ["Ignore it", "Isolate affected wallets and rotate credentials", "Post on social media", "Increase block size"], "prompt": "What is a common first step when key compromise is suspected?"}, {"answer": 1, "explanation": "Minimizing carried secrets and planning for coercion reduces risk during travel.", "options": ["Carrying all seeds together", "Using duress setups and storing primary keys at home", "Disabling PINs", "Using hotel safes without locks"], "prompt": "Which practice improves travel security with hardware wallets?"}, {"answer": 1, "explanation": "Drills reveal missing steps or corrupted data before a real emergency occurs.", "options": ["To waste time", "To verify backups are complete and usable under stress", "To lower fees", "To speed up mining"], "prompt": "Why conduct backup restore drills?"}, {"answer": 1, "explanation": "Watchtowers detect and respond to dishonest closures while you are offline.", "options": ["Proof-of-work", "Watchtowers monitoring for revoked commitments", "Bigger blocks", "Seed reuse"], "prompt": "What secures Lightning channel state when you are offline?"}, {"answer": 1, "explanation": "Proof-of-reserves builds trust by showing holdings that match or exceed user balances.", "options": ["To speed up confirmations", "To demonstrate that a custodian controls assets equal to liabilities", "To mine blocks", "To sign emails"], "prompt": "What is proof-of-reserves used for?"}, {"answer": 1, "explanation": "E2EE keeps transaction approvals and incident updates confidential and authentic.", "options": ["It reduces battery usage", "It prevents service providers or attackers from reading sensitive coordination", "It mines coins", "It replaces backups"], "prompt": "Why favor end-to-end encryption for operational communication?"}, {"answer": 1, "explanation": "Practice exposes unclear roles, missing data, and unrealistic assumptions before real incidents occur.", "options": ["They slow teams", "They rehearse scenarios to uncover gaps in plans and tools", "They replace audits", "They remove the need for backups"], "prompt": "How do tabletop exercises help security?"}, {"answer": 1, "explanation": "Tiering balances convenience against security by isolating long-term holdings from frequent spends.", "options": ["For aesthetics", "To align access speed with risk exposure and controls", "To increase taxes", "To share keys widely"], "prompt": "What is a key reason to separate hot, warm, and cold storage tiers?"}, {"answer": 1, "explanation": "Change management with signatures and logs creates accountability and auditability.", "options": ["Unsigned emails", "Documented approvals and signed change logs", "Verbal rumors", "Automatic deployment without review"], "prompt": "What should accompany policy changes?"}, {"answer": 1, "explanation": "Hardware MFA makes phishing and credential stuffing harder by requiring physical presence.", "options": ["Password reuse", "Hardware-based multifactor authentication", "Sharing seeds", "Plaintext credential storage"], "prompt": "Which human factor control reduces credential theft?"}, {"answer": 1, "explanation": "Stable, reputable peers lower the likelihood of channel disputes and failed payments.", "options": ["Peers set block rewards", "Reliable peers improve uptime, routing success, and reduce risk of bad states", "Peers change subsidies", "Peers sign your taxes"], "prompt": "Why is peer selection important for Lightning nodes?"}]'>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q1.</strong> What is the primary goal of threat modeling?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="0" required>
+              <span class="pill">A</span>
+              Eliminate all risk
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="1" required>
+              <span class="pill">B</span>
+              Identify assets, adversaries, and controls that reduce risk
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="2" required>
+              <span class="pill">C</span>
+              Speed up transactions
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q0" value="3" required>
+              <span class="pill">D</span>
+              Comply with taxes
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q2.</strong> Why are metal backups recommended for seeds?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="0" required>
+              <span class="pill">A</span>
+              They are cheaper
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="1" required>
+              <span class="pill">B</span>
+              They resist fire and water better than paper
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="2" required>
+              <span class="pill">C</span>
+              They are easier to photograph
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="3" required>
+              <span class="pill">D</span>
+              They allow online sharing
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q3.</strong> What advantage does multisig offer?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="0" required>
+              <span class="pill">A</span>
+              Lower transaction fees
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="1" required>
+              <span class="pill">B</span>
+              Distribution of key control to avoid single points of failure
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="2" required>
+              <span class="pill">C</span>
+              Faster confirmations
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="3" required>
+              <span class="pill">D</span>
+              Unlimited supply
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q4.</strong> How should RPC access to a node be handled?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="0" required>
+              <span class="pill">A</span>
+              Expose it to the internet
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="1" required>
+              <span class="pill">B</span>
+              Restrict to trusted networks and authenticate requests
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="2" required>
+              <span class="pill">C</span>
+              Disable logs
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="3" required>
+              <span class="pill">D</span>
+              Share credentials
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q5.</strong> What is a common first step when key compromise is suspected?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="0" required>
+              <span class="pill">A</span>
+              Ignore it
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="1" required>
+              <span class="pill">B</span>
+              Isolate affected wallets and rotate credentials
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="2" required>
+              <span class="pill">C</span>
+              Post on social media
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q4" value="3" required>
+              <span class="pill">D</span>
+              Increase block size
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q6.</strong> Which practice improves travel security with hardware wallets?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="0" required>
+              <span class="pill">A</span>
+              Carrying all seeds together
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="1" required>
+              <span class="pill">B</span>
+              Using duress setups and storing primary keys at home
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="2" required>
+              <span class="pill">C</span>
+              Disabling PINs
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q5" value="3" required>
+              <span class="pill">D</span>
+              Using hotel safes without locks
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q7.</strong> Why conduct backup restore drills?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="0" required>
+              <span class="pill">A</span>
+              To waste time
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="1" required>
+              <span class="pill">B</span>
+              To verify backups are complete and usable under stress
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="2" required>
+              <span class="pill">C</span>
+              To lower fees
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q6" value="3" required>
+              <span class="pill">D</span>
+              To speed up mining
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q8.</strong> What secures Lightning channel state when you are offline?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="0" required>
+              <span class="pill">A</span>
+              Proof-of-work
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="1" required>
+              <span class="pill">B</span>
+              Watchtowers monitoring for revoked commitments
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="2" required>
+              <span class="pill">C</span>
+              Bigger blocks
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q7" value="3" required>
+              <span class="pill">D</span>
+              Seed reuse
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q9.</strong> What is proof-of-reserves used for?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q8" value="0" required>
+              <span class="pill">A</span>
+              To speed up confirmations
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q8" value="1" required>
+              <span class="pill">B</span>
+              To demonstrate that a custodian controls assets equal to liabilities
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q8" value="2" required>
+              <span class="pill">C</span>
+              To mine blocks
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q8" value="3" required>
+              <span class="pill">D</span>
+              To sign emails
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q10.</strong> Why favor end-to-end encryption for operational communication?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q9" value="0" required>
+              <span class="pill">A</span>
+              It reduces battery usage
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q9" value="1" required>
+              <span class="pill">B</span>
+              It prevents service providers or attackers from reading sensitive coordination
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q9" value="2" required>
+              <span class="pill">C</span>
+              It mines coins
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q9" value="3" required>
+              <span class="pill">D</span>
+              It replaces backups
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q11.</strong> How do tabletop exercises help security?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q10" value="0" required>
+              <span class="pill">A</span>
+              They slow teams
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q10" value="1" required>
+              <span class="pill">B</span>
+              They rehearse scenarios to uncover gaps in plans and tools
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q10" value="2" required>
+              <span class="pill">C</span>
+              They replace audits
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q10" value="3" required>
+              <span class="pill">D</span>
+              They remove the need for backups
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q12.</strong> What is a key reason to separate hot, warm, and cold storage tiers?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q11" value="0" required>
+              <span class="pill">A</span>
+              For aesthetics
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q11" value="1" required>
+              <span class="pill">B</span>
+              To align access speed with risk exposure and controls
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q11" value="2" required>
+              <span class="pill">C</span>
+              To increase taxes
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q11" value="3" required>
+              <span class="pill">D</span>
+              To share keys widely
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q13.</strong> What should accompany policy changes?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q12" value="0" required>
+              <span class="pill">A</span>
+              Unsigned emails
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q12" value="1" required>
+              <span class="pill">B</span>
+              Documented approvals and signed change logs
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q12" value="2" required>
+              <span class="pill">C</span>
+              Verbal rumors
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q12" value="3" required>
+              <span class="pill">D</span>
+              Automatic deployment without review
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q14.</strong> Which human factor control reduces credential theft?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q13" value="0" required>
+              <span class="pill">A</span>
+              Password reuse
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q13" value="1" required>
+              <span class="pill">B</span>
+              Hardware-based multifactor authentication
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q13" value="2" required>
+              <span class="pill">C</span>
+              Sharing seeds
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q13" value="3" required>
+              <span class="pill">D</span>
+              Plaintext credential storage
+            </label>
+            
+          </div>
+          
+          
+          <div class="card" style="grid-column: span 2;">
+            <p><strong>Q15.</strong> Why is peer selection important for Lightning nodes?</p>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q14" value="0" required>
+              <span class="pill">A</span>
+              Peers set block rewards
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q14" value="1" required>
+              <span class="pill">B</span>
+              Reliable peers improve uptime, routing success, and reduce risk of bad states
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q14" value="2" required>
+              <span class="pill">C</span>
+              Peers change subsidies
+            </label>
+            
+            <label class="quiz-option">
+              <input type="radio" name="q14" value="3" required>
+              <span class="pill">D</span>
+              Peers sign your taxes
+            </label>
+            
+          </div>
+          
+          <div style="grid-column: span 2;">
+            <button class="btn" type="submit">Submit Quiz</button>
+          </div>
+        </form>
+        <div id="quiz-results" class="card" hidden></div>
+        
+      </div>
+    </section>
+  </main>
+  <footer class="global-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand-mark-wrap">
+        <img src="/AdaptBTCstatic/assets/img/adaptbtc-logo.svg" alt="AdaptBTC" />
+        <span class="brand-text">Adapt<span class="accent">BTC</span></span>
+      </div>
+      <p class="mission">AdaptBTC makes Bitcoin accessible, practical, and trustworthy for everyone.</p>
+    </div>
+    <div class="footer-columns">
+      <div>
+        <h4>Explore</h4>
+        <a href="/AdaptBTCstatic/">Home</a>
+        <a href="/AdaptBTCstatic/learning">Learning</a>
+        <a href="/AdaptBTCstatic/tools">Tools</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="/AdaptBTCstatic/consulting">Consulting</a>
+        <a href="/AdaptBTCstatic/donation">Donation</a>
+        <a href="/AdaptBTCstatic/portal/dashboard">Learning Portal</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <div class="social-row">
+          <span class="social-icon" aria-hidden="true">X</span>
+          <span class="social-icon" aria-hidden="true">GH</span>
+          <span class="social-icon" aria-hidden="true">in</span>
+        </div>
+        <p class="powered">Powered by AdaptBTC</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">© 2024 AdaptBTC. All rights reserved.</div>
+</footer>
+</body>
+</html>
