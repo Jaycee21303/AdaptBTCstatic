@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdaptBTC</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 20% 20%, #1a4d8f22, transparent 40%),
+                  radial-gradient(circle at 80% 10%, #ff8c0022, transparent 35%),
+                  radial-gradient(circle at 30% 80%, #14c19a22, transparent 35%),
+                  #0e1117;
+      color: #e8edf2;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 1.5rem;
+    }
+    .card {
+      max-width: 720px;
+      background: rgba(15, 18, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      box-shadow: 0 12px 50px rgba(0, 0, 0, 0.35);
+      padding: 2.5rem 2rem;
+      backdrop-filter: blur(10px);
+    }
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      letter-spacing: -0.02em;
+    }
+    p {
+      margin: 0 0 1.25rem;
+      line-height: 1.6;
+      color: #c7d1dc;
+      font-size: 1.05rem;
+    }
+    .accent {
+      color: #4fd1c5;
+      font-weight: 700;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+    }
+    .button {
+      padding: 0.9rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: linear-gradient(120deg, #4fd1c5, #3b82f6);
+      color: #0c1117;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.35);
+    }
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 38px rgba(59, 130, 246, 0.45);
+    }
+    .ghost {
+      background: transparent;
+      color: #e8edf2;
+      box-shadow: none;
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    footer {
+      margin-top: 1.8rem;
+      font-size: 0.95rem;
+      color: #9aa7b9;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>AdaptBTC</h1>
+    <p>
+      Welcome to <span class="accent">AdaptBTC</span> — a concise landing page for sharing Bitcoin-first learning,
+      consulting, and tools. This static site is ready for GitHub Pages, no backend required.
+    </p>
+    <p>
+      Keep this link handy; we’ll use it to distribute updates, publish resources, and host our guides in one place.
+    </p>
+    <div class="actions">
+      <a class="button" href="https://twitter.com/adaptbtc" target="_blank" rel="noreferrer">Follow on X</a>
+      <a class="button ghost" href="mailto:hello@adaptbtc.com">Contact</a>
+    </div>
+    <footer>
+      Built for GitHub Pages • Serving a single, fast HTML file.
+    </footer>
+  </main>
+</body>
+</html>
