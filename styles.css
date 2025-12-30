@@ -354,6 +354,32 @@ a {
   font-size: 1.05rem;
 }
 
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.chart-card canvas {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid var(--border);
+  background: radial-gradient(circle at 20% 20%, rgba(12, 99, 255, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(11, 191, 99, 0.06), transparent 30%),
+    #f9fbff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.chart-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
