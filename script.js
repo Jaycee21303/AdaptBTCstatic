@@ -24,6 +24,9 @@ const dcaContributionTotal = document.getElementById('dcaContributionTotal');
 const dcaCostBasis = document.getElementById('dcaCostBasis');
 const dcaTimeline = document.getElementById('dcaTimeline');
 const dcaGrowthNote = document.getElementById('dcaGrowthNote');
+const dcaMonthlyDeploy = document.getElementById('dcaMonthlyDeploy');
+const dcaScenarioRange = document.getElementById('dcaScenarioRange');
+const dcaStartPriceLabel = document.getElementById('dcaStartPriceLabel');
 const dcaChart = document.getElementById('dcaChart');
 
 const CACHE_KEY = 'adaptbtc_price_cache_v1';
@@ -80,6 +83,7 @@ function renderPrice(value, change) {
   const priceText = Number.isFinite(value) ? formatPrice(value) : '$--';
   headerPrice && (headerPrice.textContent = priceText);
   heroPrice && (heroPrice.textContent = priceText);
+  dcaStartPriceLabel && (dcaStartPriceLabel.textContent = Number.isFinite(value) ? `Live: ${priceText}` : 'Live price');
 
   if (Number.isFinite(value)) {
     livePrice = value;
@@ -312,12 +316,16 @@ function calculateDca(event) {
   dcaContributionTotal && (dcaContributionTotal.textContent = formatCurrency(totalContributions));
   dcaCostBasis && (dcaCostBasis.textContent = formatCurrency(costBasis));
   dcaTimeline && (dcaTimeline.textContent = `${(months / 12).toFixed(1)} years`);
+  dcaMonthlyDeploy && (dcaMonthlyDeploy.textContent = formatCurrency(monthlyContribution));
+  dcaScenarioRange &&
+    (dcaScenarioRange.textContent = `${profiles.bear.toFixed(1)}% to ${profiles.bull.toFixed(1)}% CAGR`);
+  dcaStartPriceLabel && (dcaStartPriceLabel.textContent = `Pricing: ${formatCurrency(price)}`);
   dcaGrowthNote &&
     (dcaGrowthNote.textContent = `Bear ${profiles.bear.toFixed(1)}% · Base ${profiles.base.toFixed(1)}% · Bull ${profiles.bull.toFixed(1)}% CAGR`);
   dcaResults &&
-    (dcaResults.textContent = `Projection uses ${formatCurrency(price)} starting price with ${formatCurrency(
+    (dcaResults.textContent = `Projection uses ${formatCurrency(price)} start, ${formatCurrency(
       monthlyContribution
-    )} contributed each month.`);
+    )} monthly, and a ${profiles.base.toFixed(1)}% base CAGR across ${months} months.`);
 
   drawChart({
     bear: bearSeries.values,
