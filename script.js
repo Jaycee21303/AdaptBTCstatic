@@ -4,13 +4,18 @@ const form = document.getElementById('interestForm');
 const feedback = document.getElementById('formFeedback');
 const btcTicker = document.getElementById('btcTicker');
 const homeTickerEcho = document.getElementById('homeTickerEcho');
+const heroLivePrice = document.getElementById('heroLivePrice');
 const learningNotice = document.getElementById('learningNotice');
 const learningLinks = document.querySelectorAll('a[href="#learning"]');
 const dcaForm = document.getElementById('dcaForm');
 const dcaPriceInput = document.getElementById('dcaPrice');
 const dcaResults = document.getElementById('dcaResults');
+const btcChartCanvas = document.getElementById('btcChart');
+const chartUpdated = document.getElementById('chartUpdated');
 
 let currentBtcPrice = null;
+let chartPoints = [];
+let heroPriceDisplay = '$--';
 
 navToggle?.addEventListener('click', () => {
   navMenu?.classList.toggle('open');
@@ -74,6 +79,11 @@ function renderTicker(priceText) {
   if (homeTickerEcho) {
     homeTickerEcho.textContent = priceText;
   }
+
+  if (heroLivePrice) {
+    heroPriceDisplay = priceText;
+    heroLivePrice.textContent = priceText;
+  }
 }
 
 async function updateTicker() {
@@ -104,6 +114,133 @@ async function updateTicker() {
 
 updateTicker();
 setInterval(updateTicker, 30000);
+
+async function fetchBtcHistory() {
+  const response = await fetch(
+    'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&precision=2',
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Coingecko history failed');
+
+  const data = await response.json();
+  const prices = Array.isArray(data?.prices) ? data.prices : [];
+
+  return prices
+    .filter((point) => Array.isArray(point) && point.length >= 2)
+    .map(([time, price]) => ({ time, price: Number(price) }))
+    .filter((point) => Number.isFinite(point.price));
+}
+
+function drawBtcChart(data) {
+  if (!btcChartCanvas || !data.length) return;
+
+  const ctx = btcChartCanvas.getContext('2d');
+  const width = btcChartCanvas.width;
+  const height = btcChartCanvas.height;
+  const padding = 28;
+
+  ctx.clearRect(0, 0, width, height);
+
+  const prices = data.map((point) => point.price);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const range = maxPrice - minPrice || 1;
+
+  const scaleX = (width - padding * 2) / Math.max(data.length - 1, 1);
+  const scaleY = (height - padding * 2) / range;
+
+  const normalizedPoints = data.map((point, index) => {
+    const x = padding + index * scaleX;
+    const y = height - padding - (point.price - minPrice) * scaleY;
+    return { ...point, x, y };
+  });
+
+  chartPoints = normalizedPoints;
+
+  const gradient = ctx.createLinearGradient(0, padding, 0, height);
+  gradient.addColorStop(0, 'rgba(12, 99, 255, 0.24)');
+  gradient.addColorStop(1, 'rgba(12, 99, 255, 0.04)');
+
+  ctx.beginPath();
+  normalizedPoints.forEach((point, index) => {
+    if (index === 0) {
+      ctx.moveTo(point.x, point.y);
+    } else {
+      ctx.lineTo(point.x, point.y);
+    }
+  });
+  ctx.strokeStyle = '#0c63ff';
+  ctx.lineWidth = 2.25;
+  ctx.stroke();
+
+  ctx.lineTo(normalizedPoints.at(-1).x, height - padding + 6);
+  ctx.lineTo(normalizedPoints[0].x, height - padding + 6);
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+}
+
+function handleChartHover(event) {
+  if (!btcChartCanvas || !chartPoints.length) return;
+
+  const rect = btcChartCanvas.getBoundingClientRect();
+  const cursorX = event.clientX - rect.left;
+  const nearest = chartPoints.reduce((closest, point) => {
+    const distance = Math.abs(point.x - cursorX);
+    return distance < closest.distance ? { point, distance } : closest;
+  }, { point: chartPoints[0], distance: Number.POSITIVE_INFINITY }).point;
+
+  const formattedPrice = `$${nearest.price.toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  })}`;
+
+  if (heroLivePrice) {
+    heroLivePrice.textContent = formattedPrice;
+  }
+
+  if (chartUpdated) {
+    chartUpdated.textContent = `Hovered • ${new Date(nearest.time).toLocaleString()}`;
+  }
+}
+
+function resetChartHover() {
+  if (heroLivePrice) {
+    heroLivePrice.textContent = heroPriceDisplay;
+  }
+
+  if (chartUpdated) {
+    chartUpdated.textContent = 'Live • auto-refreshed';
+  }
+}
+
+async function updateBtcChart() {
+  if (!btcChartCanvas) return;
+
+  try {
+    const history = await fetchBtcHistory();
+    if (history.length) {
+      drawBtcChart(history);
+
+      const latest = history.at(-1);
+      if (chartUpdated && latest) {
+        chartUpdated.textContent = `Live • updated ${new Date(latest.time).toLocaleString()}`;
+      }
+    }
+  } catch (error) {
+    if (chartUpdated) {
+      chartUpdated.textContent = 'Chart unavailable right now';
+    }
+  }
+}
+
+if (btcChartCanvas) {
+  btcChartCanvas.addEventListener('mousemove', handleChartHover);
+  btcChartCanvas.addEventListener('mouseleave', resetChartHover);
+  updateBtcChart();
+  setInterval(updateBtcChart, 300000);
+}
 
 function showLearningNotice(event) {
   if (!learningNotice) return;
