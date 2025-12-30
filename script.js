@@ -18,6 +18,7 @@ const chartUpdated = document.getElementById('chartUpdated');
 let currentBtcPrice = null;
 let chartPoints = [];
 let heroPriceDisplay = '$--';
+const cachedPriceKey = 'btcLastPrice';
 
 navToggle?.addEventListener('click', () => {
   navMenu?.classList.toggle('open');
@@ -61,13 +62,13 @@ async function fetchCoinbasePrice() {
     cache: 'no-store',
     mode: 'cors',
   });
-  if (!response.ok) throw new Error('Coincap request failed');
+  if (!response.ok) throw new Error('Coinbase request failed');
 
   const data = await response.json();
-  const amount = parseFloat(data?.data?.priceUsd);
+  const amount = parseFloat(data?.data?.amount ?? data?.data?.priceUsd);
   if (Number.isFinite(amount)) return amount;
 
-  throw new Error('Coincap returned no price');
+  throw new Error('Coinbase returned no price');
 }
 
 async function fetchBinancePrice() {
@@ -100,6 +101,39 @@ async function fetchBitfinexPrice() {
   throw new Error('Bitfinex returned no price');
 }
 
+async function fetchCoindeskPrice() {
+  const response = await fetchWithTimeout('https://api.coindesk.com/v1/bpi/currentprice/BTC.json', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
+  });
+  if (!response.ok) throw new Error('Coindesk request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.bpi?.USD?.rate_float);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Coindesk returned no price');
+}
+
+async function fetchCoingeckoPrice() {
+  const response = await fetchWithTimeout(
+    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+    {
+      headers: { Accept: 'application/json' },
+      cache: 'no-store',
+      mode: 'cors',
+    }
+  );
+  if (!response.ok) throw new Error('Coingecko request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.bitcoin?.usd);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Coingecko returned no price');
+}
+
 function renderTicker(priceText) {
   if (btcTickerPrice) {
     btcTickerPrice.textContent = priceText;
@@ -110,33 +144,102 @@ function renderTicker(priceText) {
   }
 }
 
+function readCachedTicker() {
+  if (typeof localStorage === 'undefined') return null;
+
+  try {
+    const raw = localStorage.getItem(cachedPriceKey);
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw);
+    if (Number.isFinite(parsed?.value)) {
+      return { value: Number(parsed.value), time: parsed?.time ? new Date(parsed.time) : null };
+    }
+  } catch (error) {
+    // ignore cache errors
+  }
+
+  return null;
+}
+
+function persistTicker(value) {
+  if (typeof localStorage === 'undefined') return;
+
+  try {
+    localStorage.setItem(
+      cachedPriceKey,
+      JSON.stringify({ value, time: new Date().toISOString() })
+    );
+  } catch (error) {
+    // ignore storage failures
+  }
+}
+
 async function updateTicker() {
   if (!btcTicker) return;
+
+  const cached = readCachedTicker();
+  if (!Number.isFinite(currentBtcPrice) && cached?.value) {
+    const formatted = `$${Number(cached.value).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    })}`;
+    heroPriceDisplay = formatted;
+    renderTicker(formatted);
+
+    if (priceTimestamp && cached.time) {
+      priceTimestamp.textContent = `Cached • ${cached.time.toLocaleString()}`;
+    }
+
+    if (tickerStatus) {
+      tickerStatus.textContent = 'Using saved price while syncing';
+    }
+  }
 
   try {
     tickerStatus && (tickerStatus.textContent = 'Syncing live data');
 
-    const price = await fetchBinancePrice()
-      .then((value) => ({ value, source: 'Binance' }))
-      .catch(() => fetchCoinbasePrice().then((value) => ({ value, source: 'Coinbase' })))
-      .catch(() => fetchCoincapPrice().then((value) => ({ value, source: 'Coincap' })))
-      .catch(() => fetchBitfinexPrice().then((value) => ({ value, source: 'Bitfinex' })));
+    const sources = [
+      { fetcher: fetchBinancePrice, label: 'Binance' },
+      { fetcher: fetchCoinbasePrice, label: 'Coinbase' },
+      { fetcher: fetchCoincapPrice, label: 'Coincap' },
+      { fetcher: fetchCoingeckoPrice, label: 'Coingecko' },
+      { fetcher: fetchBitfinexPrice, label: 'Bitfinex' },
+      { fetcher: fetchCoindeskPrice, label: 'Coindesk' },
+    ];
 
-    if (price && Number.isFinite(price.value)) {
-      currentBtcPrice = price.value;
-      const formatted = `$${Number(price.value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    let resolvedPrice = null;
+
+    for (const source of sources) {
+      try {
+        const value = await source.fetcher();
+        resolvedPrice = { value, source: source.label };
+        break;
+      } catch (error) {
+        // Try the next source silently
+      }
+    }
+
+    if (resolvedPrice && Number.isFinite(resolvedPrice.value)) {
+      currentBtcPrice = resolvedPrice.value;
+      const formatted = `$${Number(resolvedPrice.value).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}`;
+      heroPriceDisplay = formatted;
       renderTicker(formatted);
+      persistTicker(resolvedPrice.value);
 
       if (priceTimestamp) {
         priceTimestamp.textContent = new Date().toLocaleString();
       }
 
       if (tickerStatus) {
-        tickerStatus.textContent = `Live via ${price.source}`;
+        tickerStatus.textContent = `Live via ${resolvedPrice.source}`;
       }
 
       if (dcaPriceInput) {
-        dcaPriceInput.value = price.value.toFixed(2);
+        dcaPriceInput.value = resolvedPrice.value.toFixed(2);
       }
 
       return;
@@ -153,6 +256,23 @@ async function updateTicker() {
 
       if (tickerStatus) {
         tickerStatus.textContent = 'Showing cached price';
+      }
+      return;
+    }
+
+    if (cached?.value) {
+      const fallback = `$${Number(cached.value).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}`;
+      renderTicker(fallback);
+
+      if (tickerStatus) {
+        tickerStatus.textContent = 'Using saved price';
+      }
+
+      if (priceTimestamp && cached.time) {
+        priceTimestamp.textContent = `Cached • ${cached.time.toLocaleString()}`;
       }
       return;
     }
