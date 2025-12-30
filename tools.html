@@ -36,32 +36,63 @@
           <h1>Unlock The Power of Bitcoin </h1>
           <p class="lead">Live BTC coverage, growth planning, and analytics that stay in sync with the header price.</p>
           <div class="cta-group">
-            <a class="btn primary" href="#live-feed">Jump to live feed</a>
-            <a class="btn secondary" href="#dca">Try the DCA tool</a>
+            <a class="btn primary" href="#dca">Try the DCA tool</a>
           </div>
         </div>
-        <div class="hero-card glass">
+        <div class="hero-card glass dca-hero-card">
           <div class="card-header">
             <div>
-              <p class="muted">BTC Live Learning</p>
-              <h3>Coverage</h3>
+              <p class="muted tiny">DCA example</p>
+              <h3>BTC growth over time</h3>
             </div>
-            <span class="status good">78%</span>
+            <span class="status good">Illustration</span>
           </div>
-          <div class="chart hero-chart" role="img" aria-label="Stylized coverage chart"></div>
-          <div class="metrics condensed">
-            <div class="metric">
-              <p class="muted">Network uptime</p>
-              <h4>99.99%</h4>
+          <div class="chart-wrapper">
+            <svg class="dca-chart" viewBox="0 0 320 160" role="img" aria-label="Sample BTC growth line over twelve months">
+              <defs>
+                <linearGradient id="dcaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(12, 99, 255, 0.25)" />
+                  <stop offset="100%" stop-color="rgba(12, 99, 255, 0)" />
+                </linearGradient>
+                <linearGradient id="valueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0bbf63" />
+                  <stop offset="100%" stop-color="#0c63ff" />
+                </linearGradient>
+              </defs>
+              <path class="chart-fill" d="M0 138 L0 120 L40 110 L80 118 L120 102 L160 96 L200 82 L240 74 L280 58 L320 46 L320 138 Z" fill="url(#dcaGradient)" />
+              <path class="chart-line" d="M0 120 L40 110 L80 118 L120 102 L160 96 L200 82 L240 74 L280 58 L320 46" stroke="url(#valueGradient)" />
+              <path class="chart-dca" d="M0 134 L40 132 L80 128 L120 124 L160 118 L200 110 L240 100 L280 90 L320 78" />
+              <circle cx="280" cy="58" r="4" class="chart-dot" />
+              <circle cx="320" cy="46" r="4" class="chart-dot" />
+            </svg>
+            <div class="chart-legend">
+              <span class="legend-pill">BTC price path</span>
+              <span class="legend-pill accent">DCA value</span>
             </div>
-            <div class="metric">
-              <p class="muted">Streaming</p>
-              <h4>Live</h4>
+          </div>
+          <div class="plan-grid">
+            <div class="plan-stat">
+              <p class="muted tiny">Contribution</p>
+              <h4>$200 / week</h4>
+              <p class="muted tiny">Auto-debited Fridays</p>
             </div>
-            <div class="metric">
-              <p class="muted">Signals</p>
-              <h4>On</h4>
+            <div class="plan-stat">
+              <p class="muted tiny">Duration</p>
+              <h4>12 months</h4>
+              <p class="muted tiny">48 total buys</p>
             </div>
+            <div class="plan-stat">
+              <p class="muted tiny">Projected BTC</p>
+              <h4>≈0.46 BTC</h4>
+              <p class="muted tiny">Assumes steady buys</p>
+            </div>
+          </div>
+          <div class="plan-highlight">
+            <div>
+              <p class="muted tiny">Hypothetical growth</p>
+              <h4>+$8,250 vs holding cash</h4>
+            </div>
+            <p class="muted tiny">Made-up illustration to show how the DCA tool works.</p>
           </div>
         </div>
       </div>
