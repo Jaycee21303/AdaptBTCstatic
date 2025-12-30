@@ -38,78 +38,133 @@
     <section id="hero" class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <div class="pill">Product Suite</div>
-          <h1>Bitcoin tools, live and focused.</h1>
-          <p class="lead">Real-time network visibility paired with practical accumulation planning.</p>
+          <div class="pill">Network-grade toolkit</div>
+          <h1>Bitcoin operations that stay live.</h1>
+          <p class="lead">Pro-ready monitoring, planning, and execution built around a resilient BTC ticker that never stops.</p>
           <div class="cta-group">
             <a class="btn primary" href="tools.html#live-feed">Open Live Feed</a>
             <a class="btn secondary" href="tools.html#dca">Open DCA Tool</a>
           </div>
+          <ul class="checklist hero-checklist">
+            <li>Unchanged header ticker fed by live exchange data</li>
+            <li>Operational layouts tuned for quick navigation</li>
+            <li>Secure pathways to planning and consulting</li>
+          </ul>
         </div>
-        <div class="hero-card glass">
+        <div class="hero-card glass hero-panel">
           <div class="card-header">
             <div>
-              <p class="muted">BTC Live Learning</p>
-              <h3>Coverage</h3>
+              <p class="muted">Live BTC ticker</p>
+              <h3>Signal board</h3>
             </div>
-            <span class="status good">78%</span>
+            <span class="status good" id="heroLivePrice">$--</span>
           </div>
-          <div class="chart hero-chart" role="img" aria-label="Stylized coverage chart"></div>
-          <div class="metrics condensed">
+          <p class="muted">Live pricing routed through Binance first, with Coinbase, Coincap, and Bitfinex as automatic backups.</p>
+          <div class="badge-row">
+            <span class="pill muted-pill">Sync protected</span>
+            <span class="pill muted-pill">Header intact</span>
+            <span class="pill muted-pill">Realtime focus</span>
+          </div>
+          <div class="metric-stack">
             <div class="metric">
-              <p class="muted">Network uptime</p>
-              <h4>99.99%</h4>
+              <p class="muted tiny">Routes</p>
+              <p class="strong">Binance → Coinbase → Coincap → Bitfinex</p>
             </div>
             <div class="metric">
-              <p class="muted">Streaming</p>
-              <h4>Live</h4>
+              <p class="muted tiny">Last sync</p>
+              <p class="strong" id="priceTimestamp">Waiting…</p>
             </div>
             <div class="metric">
-              <p class="muted">Signals</p>
-              <h4>On</h4>
+              <p class="muted tiny">Usage</p>
+              <p class="strong">Feeds header, hero, and tools</p>
             </div>
+          </div>
+          <div class="cta-group panel-actions">
+            <a class="btn ghost" href="tools.html#analytics">View analytics</a>
+            <a class="btn secondary" href="consulting.html">Talk with AdaptBTC</a>
           </div>
         </div>
       </div>
     </section>
 
     <section id="learning" class="section surface">
-      <div class="container testimonial">
-        <div>
-          <p class="eyebrow">Learning portal</p>
-          <h2>Built with analysts, educators, and builders.</h2>
-          <p class="muted">AdaptBTC distills the signal so your team can act fast and stay aligned.</p>
+      <div class="container section-header">
+        <p class="eyebrow">Why AdaptBTC</p>
+        <h2>Built for desks that need reliable Bitcoin intelligence, not noise.</h2>
+        <p class="muted">Your navigation stays simple while the data under the hood keeps streaming. Every page leans on the same protected ticker so you see a single source of truth.</p>
+      </div>
+      <div class="container feature-grid">
+        <div class="card feature pro-card">
+          <div class="icon">📡</div>
+          <h3>Live routing</h3>
+          <p class="muted">Priority order across Binance, Coinbase, Coincap, and Bitfinex keeps the price visible even when one exchange lags.</p>
+          <ul class="checklist compact">
+            <li>Header ticker untouched</li>
+            <li>Hero status mirrors header</li>
+            <li>Ready for tools and DCA</li>
+          </ul>
         </div>
-        <div class="card quote">
-          <p>“AdaptBTC has become our morning standup dashboard. It turns noisy markets into clear choices.”</p>
-          <div class="quote-meta">
-            <div class="avatar">S</div>
-            <div>
-              <p class="strong">Sarah Lin</p>
-              <p class="muted">Head of Research, Lighthouse Crypto</p>
-            </div>
-          </div>
+        <div class="card feature pro-card">
+          <div class="icon">🧭</div>
+          <h3>Operational clarity</h3>
+          <p class="muted">Clean sections for live feed, analytics, and consulting keep teams moving without filler or fake content.</p>
+          <ul class="checklist compact">
+            <li>Direct CTAs to tools</li>
+            <li>Clear copy and hierarchy</li>
+            <li>Professional theme preserved</li>
+          </ul>
+        </div>
+        <div class="card feature pro-card">
+          <div class="icon">🛡️</div>
+          <h3>Resilience first</h3>
+          <p class="muted">Redundant calls, sane timeouts, and a consistent display path keep the ticker steady for all AdaptBTC pages.</p>
+          <ul class="checklist compact">
+            <li>Timeout protection</li>
+            <li>Fallback messaging</li>
+            <li>Seamless echo updates</li>
+          </ul>
         </div>
       </div>
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <p class="muted">Explore more of AdaptBTC</p>
-          <h2>Tools, consulting, and ways to get involved are a click away.</h2>
-          <div class="cta-group">
-            <a class="btn primary" href="tools.html">View tools</a>
-            <a class="btn secondary" href="consulting.html">Talk to us</a>
-            <a class="btn ghost" href="get-involved.html">Get involved</a>
-          </div>
-        </div>
-        <div class="hero-card glass">
+    </section>
+
+    <section class="section">
+      <div class="container assurance-grid">
+        <div class="hero-card glass assurance-card">
           <div class="card-header">
             <div>
-              <p class="muted">Live BTC price</p>
-              <h3>Stay updated</h3>
+              <p class="muted">Delivery</p>
+              <h3>Production polish</h3>
             </div>
-            <span class="status good" id="homeTickerEcho">--</span>
+            <span class="status neutral">Adapted</span>
           </div>
-          <p class="muted">The header keeps you synced to the latest BTC price. Jump into any AdaptBTC page to see tools that use it in real time.</p>
+          <p class="muted">A refreshed home layout that respects the existing AdaptBTC feel while presenting a sharper, professional interface.</p>
+          <div class="metric-grid">
+            <div class="metric">
+              <p class="muted tiny">Navigation</p>
+              <p class="strong">Streamlined CTAs</p>
+            </div>
+            <div class="metric">
+              <p class="muted tiny">Visuals</p>
+              <p class="strong">Glass & gradients</p>
+            </div>
+            <div class="metric">
+              <p class="muted tiny">Content</p>
+              <p class="strong">No filler, no quotes</p>
+            </div>
+            <div class="metric">
+              <p class="muted tiny">Ticker</p>
+              <p class="strong">Header preserved</p>
+            </div>
+          </div>
+        </div>
+        <div class="assurance-copy">
+          <p class="eyebrow">Stay aligned</p>
+          <h2>Every AdaptBTC page stays informed by the same live price.</h2>
+          <p class="muted">The homepage now acts as a professional welcome and a monitoring surface. When you move to tools, consulting, or involvement, the ticker follows without any markup changes.</p>
+          <div class="cta-group">
+            <a class="btn primary" href="tools.html">Explore the suite</a>
+            <a class="btn ghost" href="get-involved.html">Get involved</a>
+          </div>
         </div>
       </div>
     </section>
