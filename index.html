@@ -3,197 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AdaptBTC - Adaptive, human-friendly crypto insights for everyone.">
-  <title>AdaptBTC | Adaptive Bitcoin Insights</title>
+  <meta name="description" content="AdaptBTC – Operational Bitcoin readiness, tools, and guidance without hype.">
+  <title>AdaptBTC | Operational Bitcoin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="container nav-container">
-      <a class="logo" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Adapt<span>BTC</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav class="nav" id="navMenu">
-        <span class="ticker" id="btcTicker" aria-live="polite">
+        <span class="ticker" aria-live="polite">
           <span class="ticker-label">BTC</span>
-          <span class="ticker-price">$--</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
         </span>
         <a href="tools.html">Tools</a>
         <a href="consulting.html">Consulting</a>
         <a href="get-involved.html">Get Involved</a>
-        <a class="pill-link" href="#learning">Learning Portal</a>
+        <a class="pill-link" href="#">Learning Portal</a>
       </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
 
-  <div class="toast" id="learningNotice" role="status" aria-live="polite" aria-atomic="true">
-    Learning Portal Coming Soon
-  </div>
-
   <main>
-    <section id="hero" class="hero">
+    <section class="hero">
       <div class="container hero-grid">
-        <div class="hero-text">
-          <p class="eyebrow">Live BTC readiness</p>
-          <h1>Operational Bitcoin coverage without the noise.</h1>
-          <p class="lead">A clean, professional home for AdaptBTC with a header ticker that stays untouched and fed by real exchange data.</p>
-          <div class="cta-group">
-            <a class="btn primary" href="tools.html#live-feed">Open Live Feed</a>
-            <a class="btn secondary" href="tools.html#dca">Plan DCA</a>
+        <div class="hero-copy">
+          <p class="kicker">Bitcoin tools &amp; readiness</p>
+          <h1>Operational Bitcoin starts here.</h1>
+          <p class="subhead">Tools and guidance for adopting Bitcoin correctly — without hype or signals.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#">Run Readiness Check</a>
+            <a class="btn secondary" href="tools.html">View Bitcoin Tools</a>
           </div>
-          <ul class="checklist hero-checklist">
-            <li>Header ticker kept intact and always refreshed</li>
-            <li>Direct paths to analytics, tools, and consulting</li>
-            <li>Plain, modern layout with no filler</li>
+          <ul class="bullet-list">
+            <li><span class="check-icon">✓</span> Live BTC ticker stays in header</li>
+            <li><span class="check-icon">✓</span> Practical utilities first: wallets, DCA, Lightning, inspection</li>
+            <li><span class="check-icon">✓</span> Professional layout built for trust, not hype</li>
           </ul>
         </div>
-        <figure class="hero-visual">
-          <div class="hero-visual-flag">Signal-free spotlight</div>
-          <img
-            class="hero-graphic"
-            src="assets/hero-graphic.svg"
-            alt="AdaptBTC toolset illustration"
-            onerror="this.classList.add('is-hidden'); this.nextElementSibling.classList.add('is-visible');"
-          />
-          <div class="hero-visual-placeholder" aria-hidden="true">
-            <div class="placeholder-glow"></div>
-            <div class="placeholder-card">
-              <span class="placeholder-dot"></span>
-              <div class="placeholder-lines">
-                <span></span>
-                <span></span>
+        <div class="status-panel" aria-live="polite">
+          <div class="panel-header">
+            <div class="panel-title">AdaptBTC Status</div>
+            <span class="tag-pill">Signal-free</span>
+          </div>
+          <div class="panel-price-row">
+            <span class="panel-price" id="heroPrice">$--</span>
+            <span class="panel-change" id="heroChange">+0.00%</span>
+          </div>
+          <div class="status-grid">
+            <div class="mini-card">
+              <span class="mini-icon">₿</span>
+              <div>
+                <p class="mini-label">BTC</p>
+                <p class="mini-value">Live</p>
               </div>
-              <span class="placeholder-chip">BTC</span>
+            </div>
+            <div class="mini-card">
+              <span class="mini-icon">●</span>
+              <div>
+                <p class="mini-label">Healthy</p>
+                <p class="mini-value">Steady</p>
+              </div>
+            </div>
+            <div class="mini-card">
+              <span class="mini-icon">◦</span>
+              <div>
+                <p class="mini-label">Secure</p>
+                <p class="mini-value">Monitored</p>
+              </div>
+            </div>
+            <div class="mini-card">
+              <span class="mini-icon">✓</span>
+              <div>
+                <p class="mini-label">Ready</p>
+                <p class="mini-value">Operational</p>
+              </div>
             </div>
           </div>
-          <figcaption class="muted tiny">Polished visuals that keep the header ticker front and center.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section id="learning" class="section surface">
-      <div class="container section-header">
-        <p class="eyebrow">Why AdaptBTC</p>
-        <h2>Built for desks that need reliable Bitcoin intelligence, not noise.</h2>
-        <p class="muted">Your navigation stays simple while the data under the hood keeps streaming. Every page leans on the same protected ticker so you see a single source of truth.</p>
-      </div>
-      <div class="container feature-grid">
-        <div class="card feature pro-card">
-          <div class="icon">📡</div>
-          <h3>Live routing</h3>
-          <p class="muted">Priority order across Binance, Coinbase, Coincap, and Bitfinex keeps the price visible even when one exchange lags.</p>
-          <ul class="checklist compact">
-            <li>Header ticker untouched</li>
-            <li>Hero status mirrors header</li>
-            <li>Ready for tools and DCA</li>
-          </ul>
-        </div>
-        <div class="card feature pro-card">
-          <div class="icon">🧭</div>
-          <h3>Operational clarity</h3>
-          <p class="muted">Clean sections for live feed, analytics, and consulting keep teams moving without filler or fake content.</p>
-          <ul class="checklist compact">
-            <li>Direct CTAs to tools</li>
-            <li>Clear copy and hierarchy</li>
-            <li>Professional theme preserved</li>
-          </ul>
-        </div>
-        <div class="card feature pro-card">
-          <div class="icon">🛡️</div>
-          <h3>Resilience first</h3>
-          <p class="muted">Redundant calls, sane timeouts, and a consistent display path keep the ticker steady for all AdaptBTC pages.</p>
-          <ul class="checklist compact">
-            <li>Timeout protection</li>
-            <li>Fallback messaging</li>
-            <li>Seamless echo updates</li>
-          </ul>
+          <div class="panel-footer">
+            <span class="block-label">Block</span>
+            <span class="block-value">—</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container assurance-grid">
-        <div class="hero-card assurance-card">
-          <div class="card-header">
-            <div>
-              <p class="muted">Delivery</p>
-              <h3>Production polish</h3>
-            </div>
-            <span class="status neutral">Adapted</span>
+      <div class="container">
+        <div class="section-header">
+          <p class="kicker">Readiness pillars</p>
+          <h2>Readiness pillars</h2>
+          <p>Simple, practical steps — custody, usage, and security.</p>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <span class="card-icon">H</span>
+            <h3>Hold</h3>
+            <p>Custody, wallet backups</p>
+            <a href="tools.html">Open Tool →</a>
           </div>
-          <p class="muted">A refreshed home layout that respects the existing AdaptBTC feel while presenting a sharper, professional interface.</p>
-          <div class="metric-grid">
-            <div class="metric">
-              <p class="muted tiny">Navigation</p>
-              <p class="strong">Streamlined CTAs</p>
-            </div>
-            <div class="metric">
-              <p class="muted tiny">Visuals</p>
-              <p class="strong">Clean, minimal panels</p>
-            </div>
-            <div class="metric">
-              <p class="muted tiny">Content</p>
-              <p class="strong">No filler, no quotes</p>
-            </div>
-            <div class="metric">
-              <p class="muted tiny">Ticker</p>
-              <p class="strong">Header preserved</p>
-            </div>
+          <div class="card">
+            <span class="card-icon">U</span>
+            <h3>Use</h3>
+            <p>Payments, Lightning</p>
+            <a href="tools.html">View Bitcoin Tools →</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">S</span>
+            <h3>Secure</h3>
+            <p>Diagnostics, recovery, audits</p>
+            <a href="tools.html">Open Tool →</a>
           </div>
         </div>
-        <div class="assurance-copy">
-          <p class="eyebrow">Stay aligned</p>
-          <h2>Every AdaptBTC page stays informed by the same live price.</h2>
-          <p class="muted">The homepage now acts as a professional welcome and a monitoring surface. When you move to tools, consulting, or involvement, the ticker follows without any markup changes.</p>
-          <div class="cta-group">
-            <a class="btn primary" href="tools.html">Explore the suite</a>
-            <a class="btn ghost" href="get-involved.html">Get involved</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="kicker">Bitcoin tools</p>
+          <h2>Bitcoin tools</h2>
+          <p>No accounts. No opinions. Just utilities you can use right now.</p>
+        </div>
+        <div class="card-grid">
+          <div class="card">
+            <span class="card-icon">①</span>
+            <h3>Wallet Generator</h3>
+            <p>Create secure wallet seeds without noise.</p>
+            <a href="tools.html">Open Tool →</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">②</span>
+            <h3>DCA Planner</h3>
+            <p>Plan recurring buys with calm projections.</p>
+            <a href="tools.html">Open Tool →</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">③</span>
+            <h3>Address Inspector</h3>
+            <p>Verify and inspect addresses before sending.</p>
+            <a href="tools.html">Open Tool →</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">④</span>
+            <h3>Lightning Invoice</h3>
+            <p>Create clean invoices for quick settlement.</p>
+            <a href="tools.html">Open Tool →</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">⑤</span>
+            <h3>Readiness Check</h3>
+            <p>Run a guided review of your Bitcoin setup.</p>
+            <a href="tools.html">Open Tool →</a>
+          </div>
+          <div class="card">
+            <span class="card-icon">⑥</span>
+            <h3>Network Status</h3>
+            <p>Quick signal on fees and chain conditions.</p>
+            <a href="tools.html">Open Tool →</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <div class="logo">Adapt<span>BTC</span></div>
-        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
-        <span class="footer-status">Status: Full coverage</span>
+  <section class="data-strip">
+    <div class="container strip-inner" aria-live="polite">
+      <div>
+        <span class="strip-label">BTC</span>
+        <span class="strip-value" id="stripPrice">$--</span>
       </div>
-      <div class="footer-col">
-        <p class="footer-title">Explore</p>
-        <a href="index.html">Home</a>
-        <a href="index.html#learning">Learning</a>
-        <a href="tools.html">Tools</a>
+      <div>
+        <span class="strip-label">24h</span>
+        <span class="strip-value" id="stripChange">0.00%</span>
       </div>
-      <div class="footer-col">
-        <p class="footer-title">Services</p>
-        <a href="consulting.html">Consulting</a>
-        <a href="get-involved.html">Get involved</a>
-        <a href="tools.html#analytics">About</a>
+      <div>
+        <span class="strip-label">Block</span>
+        <span class="strip-value">—</span>
       </div>
-      <div class="footer-col">
-        <p class="footer-title">Connect</p>
-        <a href="consulting.html">Community</a>
-        <a href="consulting.html">Contact</a>
-        <a href="consulting.html">Press</a>
+      <div>
+        <span class="strip-label">Fees</span>
+        <span class="strip-value">Normal</span>
       </div>
     </div>
-    <div class="container footer-bottom">
-      <p class="muted tiny">Powered by AdaptBTC</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Follow AdaptBTC on X">X</a>
-        <a href="#" aria-label="Follow AdaptBTC on LinkedIn">LinkedIn</a>
-        <a href="#" aria-label="Follow AdaptBTC on YouTube">YouTube</a>
-      </div>
-      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
-    </div>
-  </footer>
+  </section>
 
   <script src="script.js"></script>
 </body>
