@@ -57,7 +57,7 @@ async function fetchCoincapPrice() {
 }
 
 async function fetchCoinbasePrice() {
-  const response = await fetchWithTimeout('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
+  const response = await fetchWithTimeout('https://api.coinbase.com/v2/exchange-rates?currency=BTC', {
     headers: { Accept: 'application/json' },
     cache: 'no-store',
     mode: 'cors',
@@ -65,7 +65,7 @@ async function fetchCoinbasePrice() {
   if (!response.ok) throw new Error('Coinbase request failed');
 
   const data = await response.json();
-  const amount = parseFloat(data?.data?.amount ?? data?.data?.priceUsd);
+  const amount = parseFloat(data?.data?.rates?.USD ?? data?.data?.rates?.usd);
   if (Number.isFinite(amount)) return amount;
 
   throw new Error('Coinbase returned no price');
@@ -134,6 +134,59 @@ async function fetchCoingeckoPrice() {
   throw new Error('Coingecko returned no price');
 }
 
+async function fetchKrakenPrice() {
+  const response = await fetchWithTimeout('https://api.kraken.com/0/public/Ticker?pair=XBTUSD', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
+  });
+  if (!response.ok) throw new Error('Kraken request failed');
+
+  const data = await response.json();
+  const pair = data?.result?.XXBTZUSD || data?.result?.XBTUSD;
+  const amount = pair ? parseFloat(pair.c?.[0]) : NaN;
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Kraken returned no price');
+}
+
+async function fetchBitstampPrice() {
+  const response = await fetchWithTimeout('https://www.bitstamp.net/api/v2/ticker/btcusd', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
+  });
+  if (!response.ok) throw new Error('Bitstamp request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.last);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Bitstamp returned no price');
+}
+
+async function fetchBlockchainInfoPrice() {
+  const response = await fetchWithTimeout('https://blockchain.info/ticker', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
+  });
+  if (!response.ok) throw new Error('Blockchain.info request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.USD?.last);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Blockchain.info returned no price');
+}
+
+function formatPrice(value, fractionDigits = 0) {
+  return `$${Number(value).toLocaleString(undefined, {
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  })}`;
+}
+
 function renderTicker(priceText) {
   if (btcTickerPrice) {
     btcTickerPrice.textContent = priceText;
@@ -180,10 +233,7 @@ async function updateTicker() {
 
   const cached = readCachedTicker();
   if (!Number.isFinite(currentBtcPrice) && cached?.value) {
-    const formatted = `$${Number(cached.value).toLocaleString(undefined, {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    })}`;
+    const formatted = formatPrice(cached.value);
     heroPriceDisplay = formatted;
     renderTicker(formatted);
 
@@ -200,11 +250,14 @@ async function updateTicker() {
     tickerStatus && (tickerStatus.textContent = 'Syncing live data');
 
     const sources = [
-      { fetcher: fetchBinancePrice, label: 'Binance' },
-      { fetcher: fetchCoinbasePrice, label: 'Coinbase' },
-      { fetcher: fetchCoincapPrice, label: 'Coincap' },
       { fetcher: fetchCoingeckoPrice, label: 'Coingecko' },
+      { fetcher: fetchCoinbasePrice, label: 'Coinbase' },
+      { fetcher: fetchBinancePrice, label: 'Binance' },
+      { fetcher: fetchCoincapPrice, label: 'Coincap' },
+      { fetcher: fetchKrakenPrice, label: 'Kraken' },
+      { fetcher: fetchBitstampPrice, label: 'Bitstamp' },
       { fetcher: fetchBitfinexPrice, label: 'Bitfinex' },
+      { fetcher: fetchBlockchainInfoPrice, label: 'Blockchain.info' },
       { fetcher: fetchCoindeskPrice, label: 'Coindesk' },
     ];
 
@@ -216,16 +269,13 @@ async function updateTicker() {
         resolvedPrice = { value, source: source.label };
         break;
       } catch (error) {
-        // Try the next source silently
+        console.warn(`Ticker source ${source.label} failed:`, error);
       }
     }
 
     if (resolvedPrice && Number.isFinite(resolvedPrice.value)) {
       currentBtcPrice = resolvedPrice.value;
-      const formatted = `$${Number(resolvedPrice.value).toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      })}`;
+      const formatted = formatPrice(resolvedPrice.value);
       heroPriceDisplay = formatted;
       renderTicker(formatted);
       persistTicker(resolvedPrice.value);
@@ -248,10 +298,7 @@ async function updateTicker() {
     throw new Error('Invalid price');
   } catch (error) {
     if (Number.isFinite(currentBtcPrice)) {
-      const fallback = `$${Number(currentBtcPrice).toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      })}`;
+      const fallback = formatPrice(currentBtcPrice);
       renderTicker(fallback);
 
       if (tickerStatus) {
@@ -261,10 +308,7 @@ async function updateTicker() {
     }
 
     if (cached?.value) {
-      const fallback = `$${Number(cached.value).toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      })}`;
+      const fallback = formatPrice(cached.value);
       renderTicker(fallback);
 
       if (tickerStatus) {
