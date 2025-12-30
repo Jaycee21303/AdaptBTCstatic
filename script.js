@@ -3,6 +3,7 @@ const navMenu = document.getElementById('navMenu');
 const form = document.getElementById('interestForm');
 const feedback = document.getElementById('formFeedback');
 const btcTicker = document.getElementById('btcTicker');
+const btcTickerPrice = document.querySelector('#btcTicker .ticker-price');
 const homeTickerEcho = document.getElementById('homeTickerEcho');
 const heroLivePrice = document.getElementById('heroLivePrice');
 const learningNotice = document.getElementById('learningNotice');
@@ -51,6 +52,19 @@ async function fetchCoincapPrice() {
   throw new Error('Coincap returned no price');
 }
 
+async function fetchCoinbasePrice() {
+  const response = await fetchWithTimeout('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error('Coincap request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.data?.priceUsd);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Coincap returned no price');
+}
+
 async function fetchBinancePrice() {
   const response = await fetchWithTimeout('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT', {
     headers: { Accept: 'application/json' },
@@ -78,9 +92,9 @@ async function fetchBitfinexPrice() {
 }
 
 function renderTicker(priceText) {
-  if (!btcTicker) return;
-
-  btcTicker.innerHTML = `<span class="ticker-label">BTC</span> <span class="ticker-price">${priceText}</span>`;
+  if (btcTickerPrice) {
+    btcTickerPrice.textContent = priceText;
+  }
 
   if (homeTickerEcho) {
     homeTickerEcho.textContent = priceText;
@@ -95,11 +109,10 @@ function renderTicker(priceText) {
 async function updateTicker() {
   if (!btcTicker) return;
 
-  renderTicker('$updating…');
-
   try {
-    const price = await fetchCoincapPrice()
-      .catch(() => fetchBinancePrice())
+    const price = await fetchBinancePrice()
+      .catch(() => fetchCoinbasePrice())
+      .catch(() => fetchCoincapPrice())
       .catch(() => fetchBitfinexPrice());
 
     if (Number.isFinite(price)) {
@@ -150,6 +163,23 @@ async function fetchCoincapHistory() {
     .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time));
 }
 
+async function fetchCoinbaseHistory() {
+  const end = new Date();
+  const start = new Date(end.getTime() - 1000 * 60 * 60 * 24 * 30);
+  const response = await fetchWithTimeout(
+    `https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600&start=${start.toISOString()}&end=${end.toISOString()}`,
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Coinbase history failed');
+
+  const data = await response.json();
+  return (Array.isArray(data) ? data : [])
+    .map((point) => ({ time: Number(point?.[0]) * 1000, price: Number(point?.[4]) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time))
+    .sort((a, b) => a.time - b.time);
+}
+
 async function fetchBinanceHistory() {
   const end = Date.now();
   const start = end - 1000 * 60 * 60 * 24 * 30;
@@ -189,15 +219,19 @@ const fallbackHistory = Array.from({ length: 30 }, (_, index) => {
 
 async function fetchBtcHistory() {
   try {
-    return await fetchCoincapHistory();
+    return await fetchBinanceHistory();
   } catch (error) {
     try {
-      return await fetchBinanceHistory();
+      return await fetchCoinbaseHistory();
     } catch (secondError) {
       try {
-        return await fetchBitfinexHistory();
+        return await fetchCoincapHistory();
       } catch (thirdError) {
-        return fallbackHistory;
+        try {
+          return await fetchBitfinexHistory();
+        } catch (fourthError) {
+          return fallbackHistory;
+        }
       }
     }
   }
