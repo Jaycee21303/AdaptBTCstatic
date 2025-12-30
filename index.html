@@ -3,198 +3,605 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AdaptBTC - Adaptive, human-friendly crypto insights for everyone.">
-  <title>AdaptBTC | Adaptive Bitcoin Insights</title>
+  <meta name="description" content="AdaptBTC — Enterprise Bitcoin infrastructure.">
+  <title>AdaptBTC | Bitcoin Infrastructure</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-strong: #1d4ed8;
+      --text: #0b1220;
+      --muted: #5b667a;
+      --success: #16a34a;
+      --shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0.5rem;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: 0.01em;
+      color: var(--text);
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      font-weight: 600;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    .ticker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      padding: 0.4rem 0.8rem;
+      background: rgba(37, 99, 235, 0.05);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .ticker-price {
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 6rem 0 4rem;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      color: var(--text);
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+
+    .btn {
+      padding: 0.9rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: white;
+      border: none;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--background);
+      border-color: var(--primary);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 6rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      max-width: 600px;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--primary-strong);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.05));
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .feature h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Tools Section */
+    .tools {
+      padding: 6rem 0;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .tool-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .tool-number {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.8rem;
+    }
+
+    .tool-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .tool-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tool-link {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: gap 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tool-link:hover {
+      gap: 0.8rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 5rem 0;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.02));
+      border-top: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin: 3rem 0;
+    }
+
+    .cta-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .cta-desc {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    .data-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    .strip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+    }
+
+    .strip-item {
+      text-align: center;
+    }
+
+    .strip-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .strip-value {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 4rem 0 2rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="container nav-container">
-      <a class="logo" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
-      <nav class="nav" id="navMenu">
-        <span class="ticker" id="btcTicker" aria-live="polite">
-          <span class="ticker-label">BTC</span>
-          <span class="ticker-price">$--</span>
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Adapt<span>BTC</span></a>
+      <nav class="nav">
+        <span class="ticker">
+          <span style="color: var(--muted);">BTC</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
         </span>
         <a href="tools.html">Tools</a>
-        <a href="consulting.html">Consulting</a>
-        <a href="get-involved.html">Get Involved</a>
-        <a class="pill-link" href="#learning">Learning Portal</a>
+        <a href="consulting.html">Docs</a>
+        <a href="get-involved.html">API</a>
       </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
 
-  <div class="toast" id="learningNotice" role="status" aria-live="polite" aria-atomic="true">
-    Learning Portal Coming Soon
-  </div>
-
   <main>
-    <section id="hero" class="hero">
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <p class="eyebrow">Live BTC readiness</p>
-          <h1>Operational Bitcoin coverage without the noise.</h1>
-          <p class="lead">A clean, professional home for AdaptBTC with a header ticker that stays untouched and fed by real exchange data.</p>
-          <div class="cta-group">
-            <a class="btn primary" href="tools.html#live-feed">Open Live Feed</a>
-            <a class="btn secondary" href="tools.html#dca">Plan DCA</a>
+    <section class="hero">
+      <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div class="hero-content" style="text-align: left;">
+          <h1 style="margin-bottom: 1rem;">Unlock the Power of <span style="color: var(--primary);">Bitcoin</span></h1>
+          <p class="hero-subtitle" style="text-align: left;">Essential tools for Bitcoin operations. Custody, settlement, and compliance built in.</p>
+          
+          <div class="hero-cta" style="justify-content: flex-start;">
+            <button class="btn btn-primary">Start Building</button>
+            <button class="btn btn-secondary">View API Docs</button>
           </div>
-          <ul class="checklist hero-checklist">
-            <li>Header ticker kept intact and always refreshed</li>
-            <li>Direct paths to analytics, tools, and consulting</li>
-            <li>Plain, modern layout with no filler</li>
-          </ul>
         </div>
-        <figure class="hero-visual">
-          <div class="hero-visual-flag">Signal-free spotlight</div>
-          <img
-            class="hero-graphic"
-            src="assets/hero-graphic.svg"
-            alt="AdaptBTC toolset illustration"
-            onerror="this.classList.add('is-hidden'); this.nextElementSibling.classList.add('is-visible');"
-          />
-          <div class="hero-visual-placeholder" aria-hidden="true">
-            <div class="placeholder-glow"></div>
-            <div class="placeholder-card">
-              <span class="placeholder-dot"></span>
-              <div class="placeholder-lines">
-                <span></span>
-                <span></span>
-              </div>
-              <span class="placeholder-chip">BTC</span>
+        
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <div style="background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 20px 60px rgba(0,0,0,0.08); width: 100%; max-width: 320px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+              <div style="aspect-ratio: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; font-weight: 800; box-shadow: 0 8px 16px rgba(37,99,235,0.2);">₿</div>
+              <div style="aspect-ratio: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; font-weight: 800; box-shadow: 0 8px 16px rgba(37,99,235,0.2);">⚡</div>
+              <div style="aspect-ratio: 1; background: #f0f4f8; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.6rem; font-weight: 800; border: 1px solid #e2e8f0;">↗</div>
             </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+              <div style="aspect-ratio: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; font-weight: 800; box-shadow: 0 8px 16px rgba(37,99,235,0.2);">✓</div>
+              <div style="aspect-ratio: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; font-weight: 800; box-shadow: 0 8px 16px rgba(37,99,235,0.2);">🔒</div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 0.65rem; font-weight: 600; color: var(--muted); text-align: center; margin-bottom: 16px;">
+              <div>Key Gen</div>
+              <div>Settlement</div>
+              <div>Monitor</div>
+              <div style="grid-column: 1;">Verify</div>
+              <div style="grid-column: 2;">Secure</div>
+            </div>
+            <div style="text-align: right; font-weight: 800; color: var(--text); font-size: 0.75rem;">AdaptBTC</div>
           </div>
-          <figcaption class="muted tiny">Polished visuals that keep the header ticker front and center.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section id="learning" class="section surface">
-      <div class="container section-header">
-        <p class="eyebrow">Why AdaptBTC</p>
-        <h2>Built for desks that need reliable Bitcoin intelligence, not noise.</h2>
-        <p class="muted">Your navigation stays simple while the data under the hood keeps streaming. Every page leans on the same protected ticker so you see a single source of truth.</p>
-      </div>
-      <div class="container feature-grid">
-        <div class="card feature pro-card">
-          <div class="icon">📡</div>
-          <h3>Live routing</h3>
-          <p class="muted">Priority order across Binance, Coinbase, Coincap, and Bitfinex keeps the price visible even when one exchange lags.</p>
-          <ul class="checklist compact">
-            <li>Header ticker untouched</li>
-            <li>Hero status mirrors header</li>
-            <li>Ready for tools and DCA</li>
-          </ul>
-        </div>
-        <div class="card feature pro-card">
-          <div class="icon">🧭</div>
-          <h3>Operational clarity</h3>
-          <p class="muted">Clean sections for live feed, analytics, and consulting keep teams moving without filler or fake content.</p>
-          <ul class="checklist compact">
-            <li>Direct CTAs to tools</li>
-            <li>Clear copy and hierarchy</li>
-            <li>Professional theme preserved</li>
-          </ul>
-        </div>
-        <div class="card feature pro-card">
-          <div class="icon">🛡️</div>
-          <h3>Resilience first</h3>
-          <p class="muted">Redundant calls, sane timeouts, and a consistent display path keep the ticker steady for all AdaptBTC pages.</p>
-          <ul class="checklist compact">
-            <li>Timeout protection</li>
-            <li>Fallback messaging</li>
-            <li>Seamless echo updates</li>
-          </ul>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container assurance-grid">
-        <div class="hero-card assurance-card">
-          <div class="card-header">
-            <div>
-              <p class="muted">Delivery</p>
-              <h3>Production polish</h3>
-            </div>
-            <span class="status neutral">Adapted</span>
+    <section class="features">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Core Capabilities</p>
+          <h2 class="section-title">Everything you need</h2>
+          <p class="section-desc">Build institutional Bitcoin operations without vendors or external dependencies.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature">
+            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">01</div>
+            <h3>Key Management</h3>
+            <p>Generate and derive keys offline. Full BIP32/39 support. No key export needed.</p>
           </div>
-          <p class="muted">A refreshed home layout that respects the existing AdaptBTC feel while presenting a sharper, professional interface.</p>
-          <div class="metric-grid">
-            <div class="metric">
-              <p class="muted tiny">Navigation</p>
-              <p class="strong">Streamlined CTAs</p>
-            </div>
-            <div class="metric">
-              <p class="muted tiny">Visuals</p>
-              <p class="strong">Clean, minimal panels</p>
-            </div>
-            <div class="metric">
-              <p class="muted tiny">Content</p>
-              <p class="strong">No filler, no quotes</p>
-            </div>
-            <div class="metric">
-              <p class="muted tiny">Ticker</p>
-              <p class="strong">Header preserved</p>
-            </div>
+          <div class="feature">
+            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">02</div>
+            <h3>Fast Settlement</h3>
+            <p>Bitcoin on-chain and Lightning Network. Direct broadcast to the network.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">03</div>
+            <h3>Verification</h3>
+            <p>Address validation, transaction inspection, and full auditability.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">04</div>
+            <h3>Monitoring</h3>
+            <p>Real-time network data. Fee estimates, mempool insights, block tracking.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">05</div>
+            <h3>API Access</h3>
+            <p>RESTful endpoints. WebSocket streams. Self-hosted or managed options.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">06</div>
+            <h3>Compliance Ready</h3>
+            <p>Full transaction history, address tracking, and audit trails built-in.</p>
           </div>
         </div>
-        <div class="assurance-copy">
-          <p class="eyebrow">Stay aligned</p>
-          <h2>Every AdaptBTC page stays informed by the same live price.</h2>
-          <p class="muted">The homepage now acts as a professional welcome and a monitoring surface. When you move to tools, consulting, or involvement, the ticker follows without any markup changes.</p>
-          <div class="cta-group">
-            <a class="btn primary" href="tools.html">Explore the suite</a>
-            <a class="btn ghost" href="get-involved.html">Get involved</a>
+      </div>
+    </section>
+
+    <section class="tools">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Available Tools</p>
+          <h2 class="section-title">Production utilities</h2>
+          <p class="section-desc">Ready-to-use components. Deploy immediately.</p>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-number">API</div>
+            <h3>Key Derivation</h3>
+            <p>BIP32/39/44 compliance. Generate addresses from extended keys.</p>
+            <a href="tools.html" class="tool-link">Access tool →</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-number">Utility</div>
+            <h3>Address Inspector</h3>
+            <p>Validate addresses. Check balance and transaction history.</p>
+            <a href="tools.html" class="tool-link">Access tool →</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-number">Calculator</div>
+            <h3>Fee Estimator</h3>
+            <p>Real-time fee rates. Size and cost projections.</p>
+            <a href="tools.html" class="tool-link">Access tool →</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-number">Generator</div>
+            <h3>Invoice Creator</h3>
+            <p>Bitcoin and Lightning invoice generation with metadata.</p>
+            <a href="tools.html" class="tool-link">Access tool →</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-number">Monitor</div>
+            <h3>Network Status</h3>
+            <p>Block height, mempool size, and chain health indicators.</p>
+            <a href="tools.html" class="tool-link">Access tool →</a>
+          </div>
+          <div class="tool-card">
+            <div class="tool-number">Audit</div>
+            <h3>Infrastructure Check</h3>
+            <p>Self-assessment framework for Bitcoin operations readiness.</p>
+            <a href="tools.html" class="tool-link">Access tool →</a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2 class="cta-title">Ready to move?</h2>
+        <p class="cta-desc">Join teams running Bitcoin operationally. Direct infrastructure. No intermediaries.</p>
+        <button class="btn btn-primary">Get Started Now</button>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <div class="logo">Adapt<span>BTC</span></div>
-        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
-        <span class="footer-status">Status: Full coverage</span>
-      </div>
-      <div class="footer-col">
-        <p class="footer-title">Explore</p>
-        <a href="index.html">Home</a>
-        <a href="index.html#learning">Learning</a>
-        <a href="tools.html">Tools</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-title">Services</p>
-        <a href="consulting.html">Consulting</a>
-        <a href="get-involved.html">Get involved</a>
-        <a href="tools.html#analytics">About</a>
-      </div>
-      <div class="footer-col">
-        <p class="footer-title">Connect</p>
-        <a href="consulting.html">Community</a>
-        <a href="consulting.html">Contact</a>
-        <a href="consulting.html">Press</a>
+  <section class="data-strip">
+    <div class="container">
+      <div class="strip-grid">
+        <div class="strip-item">
+          <div class="strip-label">BTC</div>
+          <div class="strip-value" id="stripPrice">$--</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-label">24h</div>
+          <div class="strip-value" id="stripChange">0.00%</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-label">Block Height</div>
+          <div class="strip-value">—</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-label">Status</div>
+          <div class="strip-value" style="color: var(--success);">Operational</div>
+        </div>
       </div>
     </div>
-    <div class="container footer-bottom">
-      <p class="muted tiny">Powered by AdaptBTC</p>
-      <div class="footer-social">
-        <a href="#" aria-label="Follow AdaptBTC on X">X</a>
-        <a href="#" aria-label="Follow AdaptBTC on LinkedIn">LinkedIn</a>
-        <a href="#" aria-label="Follow AdaptBTC on YouTube">YouTube</a>
-      </div>
-      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
-    </div>
-  </footer>
+  </section>
 
-  <script src="script.js"></script>
+  <script>
+    // Price ticker updates would go here
+    console.log('AdaptBTC loaded');
+  </script>
 </body>
 </html>
