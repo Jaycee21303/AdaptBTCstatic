@@ -7,9 +7,7 @@ navToggle?.addEventListener('click', () => {
 
 const headerPrice = document.getElementById('btcPrice');
 const heroPrice = document.getElementById('heroPrice');
-const stripPrice = document.getElementById('stripPrice');
 const heroChange = document.getElementById('heroChange');
-const stripChange = document.getElementById('stripChange');
 const priceTimestamp = document.getElementById('priceTimestamp');
 
 const CACHE_KEY = 'adaptbtc_price_cache_v1';
@@ -64,11 +62,9 @@ function renderPrice(value, change) {
   const priceText = Number.isFinite(value) ? formatPrice(value) : '$--';
   headerPrice && (headerPrice.textContent = priceText);
   heroPrice && (heroPrice.textContent = priceText);
-  stripPrice && (stripPrice.textContent = priceText);
 
   if (Number.isFinite(change)) {
     applyChange(heroChange, change);
-    applyChange(stripChange, change);
   }
 }
 
