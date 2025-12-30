@@ -4,8 +4,8 @@ const form = document.getElementById('interestForm');
 const feedback = document.getElementById('formFeedback');
 const btcTicker = document.getElementById('btcTicker');
 const btcTickerPrice = document.querySelector('#btcTicker .ticker-price');
-const homeTickerEcho = document.getElementById('homeTickerEcho');
 const heroLivePrice = document.getElementById('heroLivePrice');
+const priceTimestamp = document.getElementById('priceTimestamp');
 const learningNotice = document.getElementById('learningNotice');
 const learningLinks = document.querySelectorAll('a[href="#learning"]');
 const dcaForm = document.getElementById('dcaForm');
@@ -96,8 +96,8 @@ function renderTicker(priceText) {
     btcTickerPrice.textContent = priceText;
   }
 
-  if (homeTickerEcho) {
-    homeTickerEcho.textContent = priceText;
+  if (heroLivePrice) {
+    heroLivePrice.textContent = priceText;
   }
 
   if (heroLivePrice) {
@@ -120,6 +120,10 @@ async function updateTicker() {
       const formatted = `$${Number(price).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
       renderTicker(formatted);
 
+      if (priceTimestamp) {
+        priceTimestamp.textContent = new Date().toLocaleString();
+      }
+
       if (dcaPriceInput) {
         dcaPriceInput.value = price.toFixed(2);
       }
@@ -139,6 +143,10 @@ async function updateTicker() {
     }
 
     renderTicker('$--');
+
+    if (priceTimestamp) {
+      priceTimestamp.textContent = 'Ticker unavailable';
+    }
   }
 }
 
