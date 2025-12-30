@@ -156,16 +156,19 @@ img {
   align-items: center;
   gap: 0.45rem;
   font-weight: 700;
-  color: var(--muted);
+  color: #9effc7;
+  text-shadow: 0 0 4px rgba(74, 255, 182, 0.4), 0 0 10px rgba(74, 255, 182, 0.25);
 }
 
 .ticker-label {
   letter-spacing: 0.02em;
-  color: var(--muted);
+  color: #c8ffe2;
+  text-shadow: 0 0 3px rgba(74, 255, 182, 0.35), 0 0 8px rgba(74, 255, 182, 0.2);
 }
 
 .ticker-price {
-  color: var(--success);
+  color: #16ff7c;
+  text-shadow: 0 0 8px rgba(22, 255, 124, 0.5), 0 0 18px rgba(22, 255, 124, 0.35);
   font-variant-numeric: tabular-nums;
 }
 
