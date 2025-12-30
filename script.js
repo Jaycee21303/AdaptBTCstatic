@@ -10,6 +10,7 @@ const heroPrice = document.getElementById('heroPrice');
 const stripPrice = document.getElementById('stripPrice');
 const heroChange = document.getElementById('heroChange');
 const stripChange = document.getElementById('stripChange');
+const priceTimestamp = document.getElementById('priceTimestamp');
 
 const CACHE_KEY = 'adaptbtc_price_cache_v1';
 
@@ -97,6 +98,9 @@ async function updateTicker() {
     const latest = await fetchCoinGeckoPrice();
     renderPrice(latest.value, latest.change);
     persistPrice(latest.value, latest.change);
+    if (priceTimestamp) {
+      priceTimestamp.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
   } catch (error) {
     if (!cached) {
       renderPrice(undefined, undefined);
