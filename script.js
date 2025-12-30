@@ -56,13 +56,13 @@ async function fetchCoinbasePrice() {
   const response = await fetchWithTimeout('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
     headers: { Accept: 'application/json' },
   });
-  if (!response.ok) throw new Error('Coinbase request failed');
+  if (!response.ok) throw new Error('Coincap request failed');
 
   const data = await response.json();
-  const amount = parseFloat(data?.data?.amount);
+  const amount = parseFloat(data?.data?.priceUsd);
   if (Number.isFinite(amount)) return amount;
 
-  throw new Error('Coinbase returned no price');
+  throw new Error('Coincap returned no price');
 }
 
 async function fetchBinancePrice() {
