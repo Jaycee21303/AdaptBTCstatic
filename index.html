@@ -439,24 +439,54 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
-        <div class="hero-content" style="text-align: left;">
-          <h1 style="margin-bottom: 1rem;">Unlock the Power of <span style="color: var(--primary);">Bitcoin</span></h1>
-          <p class="hero-subtitle" style="text-align: left;">Essential tools for Bitcoin operations. Custody, settlement, and compliance built in.</p>
-          
-          <div class="hero-cta" style="justify-content: flex-start;">
-            <button class="btn btn-primary">Start Building</button>
-            <button class="btn btn-secondary">View API Docs</button>
+    <section id="hero" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">Bitcoin tools &amp; readiness</p>
+          <h1>Operational Bitcoin starts here.</h1>
+          <p class="lead">Professional guidance and utilities for desks that need signal-free Bitcoin coverage, powered by the same resilient price ticker across AdaptBTC.</p>
+          <div class="cta-group">
+            <a class="btn primary" href="tools.html#live-feed">Run readiness check</a>
+            <a class="btn secondary" href="tools.html">View Bitcoin tools</a>
           </div>
+          <ul class="checklist hero-checklist">
+            <li>Header ticker stays live and untouched</li>
+            <li>Practical paths: wallets, DCA, Lightning, inspection</li>
+            <li>Trust-first layout with AdaptBTC blue</li>
+          </ul>
         </div>
-        
-        <div style="display: flex; align-items: center; justify-content: center;">
-          <div style="background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 20px 60px rgba(0,0,0,0.08); width: 100%; max-width: 320px;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-              <div style="aspect-ratio: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; font-weight: 800; box-shadow: 0 8px 16px rgba(37,99,235,0.2);">₿</div>
-              <div style="aspect-ratio: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; font-weight: 800; box-shadow: 0 8px 16px rgba(37,99,235,0.2);">⚡</div>
-              <div style="aspect-ratio: 1; background: #f0f4f8; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.6rem; font-weight: 800; border: 1px solid #e2e8f0;">↗</div>
+        <div class="status-card" aria-live="polite">
+          <div class="status-card__header">
+            <div>
+              <p class="muted tiny">AdaptBTC status</p>
+              <p class="strong">Live coverage</p>
+            </div>
+            <span class="pill">Signal-free</span>
+          </div>
+          <div class="status-card__price">
+            <span id="heroLivePrice">$--</span>
+            <span class="status-chip">BTC</span>
+          </div>
+          <div class="status-meta">
+            <span id="tickerStatus" class="muted tiny">Syncing price...</span>
+            <span id="priceTimestamp" class="muted tiny">—</span>
+          </div>
+          <div class="status-mini-grid">
+            <div class="mini-tile">
+              <p class="muted tiny">BTC</p>
+              <p class="strong">Ready</p>
+            </div>
+            <div class="mini-tile">
+              <p class="muted tiny">Health</p>
+              <p class="strong">Protected</p>
+            </div>
+            <div class="mini-tile">
+              <p class="muted tiny">Security</p>
+              <p class="strong">Monitored</p>
+            </div>
+            <div class="mini-tile">
+              <p class="muted tiny">Readiness</p>
+              <p class="strong">On</p>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
               <div style="aspect-ratio: 1; background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.8rem; font-weight: 800; box-shadow: 0 8px 16px rgba(37,99,235,0.2);">✓</div>
@@ -471,98 +501,96 @@
             </div>
             <div style="text-align: right; font-weight: 800; color: var(--text); font-size: 0.75rem;">AdaptBTC</div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="features">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-label">Core Capabilities</p>
-          <h2 class="section-title">Everything you need</h2>
-          <p class="section-desc">Build institutional Bitcoin operations without vendors or external dependencies.</p>
-        </div>
-
-        <div class="features-grid">
-          <div class="feature">
-            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">01</div>
-            <h3>Key Management</h3>
-            <p>Generate and derive keys offline. Full BIP32/39 support. No key export needed.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">02</div>
-            <h3>Fast Settlement</h3>
-            <p>Bitcoin on-chain and Lightning Network. Direct broadcast to the network.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">03</div>
-            <h3>Verification</h3>
-            <p>Address validation, transaction inspection, and full auditability.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">04</div>
-            <h3>Monitoring</h3>
-            <p>Real-time network data. Fee estimates, mempool insights, block tracking.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">05</div>
-            <h3>API Access</h3>
-            <p>RESTful endpoints. WebSocket streams. Self-hosted or managed options.</p>
-          </div>
-          <div class="feature">
-            <div class="feature-icon" style="font-weight: 700; font-size: 1.8rem;">06</div>
-            <h3>Compliance Ready</h3>
-            <p>Full transaction history, address tracking, and audit trails built-in.</p>
+          <div class="status-footer">
+            <span class="muted tiny">Blocks</span>
+            <span class="pill ghost">Observing</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="tools">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-label">Available Tools</p>
-          <h2 class="section-title">Production utilities</h2>
-          <p class="section-desc">Ready-to-use components. Deploy immediately.</p>
+    <section id="learning" class="section surface">
+      <div class="container section-header">
+        <p class="eyebrow">Readiness pillars</p>
+        <h2>Simple, practical steps — custody, usage, and security.</h2>
+        <p class="muted">AdaptBTC keeps the proven ticker pipeline while leveling up the experience with balanced cards and on-ramps to each operational pillar.</p>
+      </div>
+      <div class="container pillar-grid">
+        <div class="card pillar-card">
+          <div class="icon">🔐</div>
+          <h3>Hold</h3>
+          <p class="muted">Custody discipline with wallet selection and backups that match your desk.</p>
+          <a class="link" href="tools.html#custody">Open tool →</a>
         </div>
+        <div class="card pillar-card">
+          <div class="icon">⚡</div>
+          <h3>Use</h3>
+          <p class="muted">Payments and Lightning paths that prioritize uptime and predictable costs.</p>
+          <a class="link" href="tools.html#payments">View Bitcoin tools →</a>
+        </div>
+        <div class="card pillar-card">
+          <div class="icon">🛡️</div>
+          <h3>Secure</h3>
+          <p class="muted">Diagnostics, recovery drills, and audits that keep teams confident.</p>
+          <a class="link" href="tools.html#secure">Open tool →</a>
+        </div>
+      </div>
+    </section>
 
-        <div class="tools-grid">
-          <div class="tool-card">
-            <div class="tool-number">API</div>
-            <h3>Key Derivation</h3>
-            <p>BIP32/39/44 compliance. Generate addresses from extended keys.</p>
-            <a href="tools.html" class="tool-link">Access tool →</a>
+    <section class="section">
+      <div class="container section-header">
+        <p class="eyebrow">Bitcoin tools</p>
+        <h2>Utilities you can use right now.</h2>
+        <p class="muted">No hype—just the same AdaptBTC colorway, steady ticker, and production-ready helpers.</p>
+      </div>
+      <div class="container tools-grid">
+        <div class="card tool-card">
+          <div class="tool-icon">🧰</div>
+          <div>
+            <h3>Wallet generator</h3>
+            <p class="muted">Create wallets with resilient backup guidance.</p>
           </div>
-          <div class="tool-card">
-            <div class="tool-number">Utility</div>
-            <h3>Address Inspector</h3>
-            <p>Validate addresses. Check balance and transaction history.</p>
-            <a href="tools.html" class="tool-link">Access tool →</a>
+          <a class="link" href="tools.html#wallet">Open tool →</a>
+        </div>
+        <div class="card tool-card">
+          <div class="tool-icon">📈</div>
+          <div>
+            <h3>DCA planner</h3>
+            <p class="muted">Plan recurring buys with the live ticker baseline.</p>
           </div>
-          <div class="tool-card">
-            <div class="tool-number">Calculator</div>
-            <h3>Fee Estimator</h3>
-            <p>Real-time fee rates. Size and cost projections.</p>
-            <a href="tools.html" class="tool-link">Access tool →</a>
+          <a class="link" href="tools.html#dca">Plan now →</a>
+        </div>
+        <div class="card tool-card">
+          <div class="tool-icon">🔍</div>
+          <div>
+            <h3>Address inspector</h3>
+            <p class="muted">Validate addresses and transactions fast.</p>
           </div>
-          <div class="tool-card">
-            <div class="tool-number">Generator</div>
-            <h3>Invoice Creator</h3>
-            <p>Bitcoin and Lightning invoice generation with metadata.</p>
-            <a href="tools.html" class="tool-link">Access tool →</a>
+          <a class="link" href="tools.html#inspect">Inspect →</a>
+        </div>
+        <div class="card tool-card">
+          <div class="tool-icon">⚡</div>
+          <div>
+            <h3>Lightning invoice</h3>
+            <p class="muted">Spin up invoices with transparent states.</p>
           </div>
-          <div class="tool-card">
-            <div class="tool-number">Monitor</div>
-            <h3>Network Status</h3>
-            <p>Block height, mempool size, and chain health indicators.</p>
-            <a href="tools.html" class="tool-link">Access tool →</a>
+          <a class="link" href="tools.html#lightning">Create →</a>
+        </div>
+        <div class="card tool-card">
+          <div class="tool-icon">🛠️</div>
+          <div>
+            <h3>Readiness check</h3>
+            <p class="muted">Audit your operational posture with live price context.</p>
           </div>
-          <div class="tool-card">
-            <div class="tool-number">Audit</div>
-            <h3>Infrastructure Check</h3>
-            <p>Self-assessment framework for Bitcoin operations readiness.</p>
-            <a href="tools.html" class="tool-link">Access tool →</a>
+          <a class="link" href="tools.html#live-feed">Open check →</a>
+        </div>
+        <div class="card tool-card">
+          <div class="tool-icon">🌐</div>
+          <div>
+            <h3>Network status</h3>
+            <p class="muted">Blocks, mempool, and fees alongside the ticker.</p>
           </div>
+          <a class="link" href="tools.html#analytics">Monitor →</a>
         </div>
       </div>
     </section>
