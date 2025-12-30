@@ -51,52 +51,27 @@
             <li>Plain, modern layout with no filler</li>
           </ul>
         </div>
-        <div class="hero-card status-card">
-          <div class="card-header">
-            <div>
-              <p class="muted">Live BTC ticker</p>
-              <h3>Signal status</h3>
-            </div>
-            <span class="status good" id="heroLivePrice">$--</span>
-          </div>
-          <div class="status-grid">
-            <div>
-              <p class="muted tiny">Primary source</p>
-              <p class="strong">Binance</p>
-            </div>
-            <div>
-              <p class="muted tiny">Fallbacks</p>
-              <p class="strong">Coinbase → Coincap → Bitfinex</p>
-            </div>
-            <div>
-              <p class="muted tiny">Last sync</p>
-              <p class="strong" id="priceTimestamp">Waiting…</p>
-            </div>
-            <div>
-              <p class="muted tiny">Status</p>
-              <p class="strong" id="tickerStatus">Syncing live data</p>
+        <figure class="hero-visual">
+          <div class="hero-visual-flag">Signal-free spotlight</div>
+          <img
+            class="hero-graphic"
+            src="assets/hero-graphic.svg"
+            alt="AdaptBTC toolset illustration"
+            onerror="this.classList.add('is-hidden'); this.nextElementSibling.classList.add('is-visible');"
+          />
+          <div class="hero-visual-placeholder" aria-hidden="true">
+            <div class="placeholder-glow"></div>
+            <div class="placeholder-card">
+              <span class="placeholder-dot"></span>
+              <div class="placeholder-lines">
+                <span></span>
+                <span></span>
+              </div>
+              <span class="placeholder-chip">BTC</span>
             </div>
           </div>
-          <div class="divider"></div>
-          <div class="meta-row">
-            <div>
-              <p class="muted tiny">Feeds</p>
-              <p class="strong">Header ticker + hero mirror</p>
-            </div>
-            <div>
-              <p class="muted tiny">Refresh</p>
-              <p class="strong">Every 30 seconds</p>
-            </div>
-            <div>
-              <p class="muted tiny">Reliability</p>
-              <p class="strong">Timeout + cached fallback</p>
-            </div>
-          </div>
-          <div class="cta-group panel-actions">
-            <a class="btn ghost" href="tools.html#analytics">View analytics</a>
-            <a class="btn secondary" href="consulting.html">Talk with AdaptBTC</a>
-          </div>
-        </div>
+          <figcaption class="muted tiny">Polished visuals that keep the header ticker front and center.</figcaption>
+        </figure>
       </div>
     </section>
 

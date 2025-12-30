@@ -1,0 +1,45 @@
+<svg width="720" height="540" viewBox="0 0 720 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="120" y1="40" x2="620" y2="500" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9F3FF" />
+      <stop offset="1" stop-color="#DCE6FF" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0C63FF" />
+      <stop offset="1" stop-color="#12B4FF" />
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="720" height="540" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="28" flood-color="#102451" flood-opacity="0.15" />
+    </filter>
+  </defs>
+  <rect width="720" height="540" rx="36" fill="url(#bgGradient)" />
+  <circle cx="132" cy="108" r="38" fill="url(#accent)" opacity="0.18" />
+  <circle cx="620" cy="96" r="54" fill="#0C63FF" opacity="0.06" />
+  <rect x="110" y="110" width="500" height="320" rx="32" fill="#FDFEFF" filter="url(#shadow)" />
+  <rect x="145" y="150" width="210" height="110" rx="18" fill="white" stroke="#E3E8F5" stroke-width="2" />
+  <rect x="365" y="150" width="210" height="110" rx="18" fill="white" stroke="#E3E8F5" stroke-width="2" />
+  <rect x="145" y="280" width="210" height="110" rx="18" fill="white" stroke="#E3E8F5" stroke-width="2" />
+  <rect x="365" y="280" width="210" height="110" rx="18" fill="#0C63FF" opacity="0.12" />
+  <rect x="365" y="280" width="210" height="110" rx="18" stroke="#D8E1F2" stroke-width="2" />
+
+  <circle cx="205" cy="195" r="28" fill="url(#accent)" />
+  <path d="M203 172h4v46h-4v-46Zm-8 30h26v4h-26v-4Zm0-14h26v4h-26v-4Z" fill="white"/>
+  <text x="238" y="205" fill="#0F172A" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="700">Bitcoin Tools</text>
+  <text x="238" y="225" fill="#64748B" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Address + invoice utilities</text>
+
+  <rect x="385" y="166" width="54" height="54" rx="16" fill="#0C63FF" opacity="0.1" />
+  <path d="M412 178c6 0 11 5 11 11 0 5-3 9-7 10l3 10-4 1-3-10h-8l3 10-4 1-3-10c-5-1-8-5-8-10 0-6 5-11 11-11h9Z" fill="#0C63FF"/>
+  <text x="452" y="205" fill="#0F172A" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="700">Network Ready</text>
+  <text x="452" y="225" fill="#64748B" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Live data, graceful fallbacks</text>
+
+  <rect x="165" y="296" width="54" height="54" rx="16" fill="#0C63FF" opacity="0.1" />
+  <path d="M189 314h8l-8 16h8l-16 26 4-17h-8l12-25h-10l12-20h12l-10 20Z" fill="#0C63FF" />
+  <text x="233" y="333" fill="#0F172A" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="700">Security Suite</text>
+  <text x="233" y="353" fill="#64748B" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Checks, diagnostics, clarity</text>
+
+  <rect x="395" y="300" width="46" height="20" rx="10" fill="white" stroke="#BCD6FF" stroke-width="2" />
+  <circle cx="418" cy="310" r="6" fill="url(#accent)" />
+  <text x="446" y="320" fill="#0C63FF" font-family="'Inter', 'Segoe UI', sans-serif" font-size="15" font-weight="800">AdaptBTC</text>
+  <path d="M416 342c22-10 56-8 76 8" stroke="#0C63FF" stroke-width="6" stroke-linecap="round" />
+  <path d="M416 368c18-14 60-16 84 0" stroke="#0C63FF" stroke-width="6" stroke-linecap="round" opacity="0.75" />
+</svg>
