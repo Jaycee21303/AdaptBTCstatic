@@ -3,7 +3,10 @@ const navMenu = document.getElementById('navMenu');
 const form = document.getElementById('interestForm');
 const feedback = document.getElementById('formFeedback');
 const btcTicker = document.getElementById('btcTicker');
-const homeTickerEcho = document.getElementById('homeTickerEcho');
+const btcTickerPrice = document.querySelector('#btcTicker .ticker-price');
+const heroLivePrice = document.getElementById('heroLivePrice');
+const priceTimestamp = document.getElementById('priceTimestamp');
+const tickerStatus = document.getElementById('tickerStatus');
 const learningNotice = document.getElementById('learningNotice');
 const learningLinks = document.querySelectorAll('a[href="#learning"]');
 const dcaForm = document.getElementById('dcaForm');
@@ -26,9 +29,33 @@ form?.addEventListener('submit', (event) => {
   form.reset();
 });
 
-async function fetchCoinbasePrice() {
-  const response = await fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
+function fetchWithTimeout(url, options = {}, timeout = 7000) {
+  return Promise.race([
+    fetch(url, options),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), timeout)),
+  ]);
+}
+
+async function fetchCoincapPrice() {
+  const response = await fetchWithTimeout('https://api.coincap.io/v2/assets/bitcoin', {
     headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
+  });
+  if (!response.ok) throw new Error('Coincap request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.data?.priceUsd);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Coincap returned no price');
+}
+
+async function fetchCoinbasePrice() {
+  const response = await fetchWithTimeout('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
   });
   if (!response.ok) throw new Error('Coinbase request failed');
 
@@ -39,58 +66,73 @@ async function fetchCoinbasePrice() {
   throw new Error('Coinbase returned no price');
 }
 
-async function fetchCoingeckoPrice() {
-  const response = await fetch(
-    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&precision=2',
-    { headers: { Accept: 'application/json' } }
-  );
-  if (!response.ok) throw new Error('Coingecko request failed');
+async function fetchBinancePrice() {
+  const response = await fetchWithTimeout('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
+  });
+  if (!response.ok) throw new Error('Binance request failed');
 
   const data = await response.json();
-  const amount = parseFloat(data?.bitcoin?.usd);
+  const amount = parseFloat(data?.price);
   if (Number.isFinite(amount)) return amount;
 
-  throw new Error('Coingecko returned no price');
+  throw new Error('Binance returned no price');
 }
 
-async function fetchCoindeskPrice() {
-  const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice/BTC.json', {
+async function fetchBitfinexPrice() {
+  const response = await fetchWithTimeout('https://api-pub.bitfinex.com/v2/ticker/tBTCUSD', {
     headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
   });
-  if (!response.ok) throw new Error('Coindesk request failed');
+  if (!response.ok) throw new Error('Bitfinex request failed');
 
   const data = await response.json();
-  const amount = parseFloat(data?.bpi?.USD?.rate_float ?? data?.bpi?.USD?.rate?.replace(/,/g, ''));
+  const amount = Array.isArray(data) ? parseFloat(data[6]) : NaN;
   if (Number.isFinite(amount)) return amount;
 
-  throw new Error('Coindesk returned no price');
+  throw new Error('Bitfinex returned no price');
 }
 
 function renderTicker(priceText) {
-  if (!btcTicker) return;
+  if (btcTickerPrice) {
+    btcTickerPrice.textContent = priceText;
+  }
 
-  btcTicker.innerHTML = `<span class="ticker-label">BTC</span> <span class="ticker-price">${priceText}</span>`;
-
-  if (homeTickerEcho) {
-    homeTickerEcho.textContent = priceText;
+  if (heroLivePrice) {
+    heroLivePrice.textContent = priceText;
   }
 }
 
 async function updateTicker() {
   if (!btcTicker) return;
 
-  renderTicker('$updating…');
-
   try {
-    const price = await fetchCoinbasePrice().catch(() => fetchCoingeckoPrice().catch(fetchCoindeskPrice));
+    tickerStatus && (tickerStatus.textContent = 'Syncing live data');
 
-    if (Number.isFinite(price)) {
-      currentBtcPrice = price;
-      const formatted = `$${Number(price).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    const price = await fetchBinancePrice()
+      .then((value) => ({ value, source: 'Binance' }))
+      .catch(() => fetchCoinbasePrice().then((value) => ({ value, source: 'Coinbase' })))
+      .catch(() => fetchCoincapPrice().then((value) => ({ value, source: 'Coincap' })))
+      .catch(() => fetchBitfinexPrice().then((value) => ({ value, source: 'Bitfinex' })));
+
+    if (price && Number.isFinite(price.value)) {
+      currentBtcPrice = price.value;
+      const formatted = `$${Number(price.value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
       renderTicker(formatted);
 
+      if (priceTimestamp) {
+        priceTimestamp.textContent = new Date().toLocaleString();
+      }
+
+      if (tickerStatus) {
+        tickerStatus.textContent = `Live via ${price.source}`;
+      }
+
       if (dcaPriceInput) {
-        dcaPriceInput.value = price.toFixed(2);
+        dcaPriceInput.value = price.value.toFixed(2);
       }
 
       return;
@@ -98,7 +140,28 @@ async function updateTicker() {
 
     throw new Error('Invalid price');
   } catch (error) {
+    if (Number.isFinite(currentBtcPrice)) {
+      const fallback = `$${Number(currentBtcPrice).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}`;
+      renderTicker(fallback);
+
+      if (tickerStatus) {
+        tickerStatus.textContent = 'Showing cached price';
+      }
+      return;
+    }
+
     renderTicker('$--');
+
+    if (priceTimestamp) {
+      priceTimestamp.textContent = 'Ticker unavailable';
+    }
+
+    if (tickerStatus) {
+      tickerStatus.textContent = 'Unable to load live data';
+    }
   }
 }
 
