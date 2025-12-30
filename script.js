@@ -6,6 +6,7 @@ const btcTicker = document.getElementById('btcTicker');
 const btcTickerPrice = document.querySelector('#btcTicker .ticker-price');
 const heroLivePrice = document.getElementById('heroLivePrice');
 const priceTimestamp = document.getElementById('priceTimestamp');
+const tickerStatus = document.getElementById('tickerStatus');
 const learningNotice = document.getElementById('learningNotice');
 const learningLinks = document.querySelectorAll('a[href="#learning"]');
 const dcaForm = document.getElementById('dcaForm');
@@ -42,6 +43,8 @@ function fetchWithTimeout(url, options = {}, timeout = 7000) {
 async function fetchCoincapPrice() {
   const response = await fetchWithTimeout('https://api.coincap.io/v2/assets/bitcoin', {
     headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
   });
   if (!response.ok) throw new Error('Coincap request failed');
 
@@ -55,6 +58,8 @@ async function fetchCoincapPrice() {
 async function fetchCoinbasePrice() {
   const response = await fetchWithTimeout('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
     headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
   });
   if (!response.ok) throw new Error('Coincap request failed');
 
@@ -68,6 +73,8 @@ async function fetchCoinbasePrice() {
 async function fetchBinancePrice() {
   const response = await fetchWithTimeout('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT', {
     headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
   });
   if (!response.ok) throw new Error('Binance request failed');
 
@@ -81,6 +88,8 @@ async function fetchBinancePrice() {
 async function fetchBitfinexPrice() {
   const response = await fetchWithTimeout('https://api-pub.bitfinex.com/v2/ticker/tBTCUSD', {
     headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
   });
   if (!response.ok) throw new Error('Bitfinex request failed');
 
@@ -99,33 +108,35 @@ function renderTicker(priceText) {
   if (heroLivePrice) {
     heroLivePrice.textContent = priceText;
   }
-
-  if (heroLivePrice) {
-    heroPriceDisplay = priceText;
-    heroLivePrice.textContent = priceText;
-  }
 }
 
 async function updateTicker() {
   if (!btcTicker) return;
 
   try {
-    const price = await fetchBinancePrice()
-      .catch(() => fetchCoinbasePrice())
-      .catch(() => fetchCoincapPrice())
-      .catch(() => fetchBitfinexPrice());
+    tickerStatus && (tickerStatus.textContent = 'Syncing live data');
 
-    if (Number.isFinite(price)) {
-      currentBtcPrice = price;
-      const formatted = `$${Number(price).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    const price = await fetchBinancePrice()
+      .then((value) => ({ value, source: 'Binance' }))
+      .catch(() => fetchCoinbasePrice().then((value) => ({ value, source: 'Coinbase' })))
+      .catch(() => fetchCoincapPrice().then((value) => ({ value, source: 'Coincap' })))
+      .catch(() => fetchBitfinexPrice().then((value) => ({ value, source: 'Bitfinex' })));
+
+    if (price && Number.isFinite(price.value)) {
+      currentBtcPrice = price.value;
+      const formatted = `$${Number(price.value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
       renderTicker(formatted);
 
       if (priceTimestamp) {
         priceTimestamp.textContent = new Date().toLocaleString();
       }
 
+      if (tickerStatus) {
+        tickerStatus.textContent = `Live via ${price.source}`;
+      }
+
       if (dcaPriceInput) {
-        dcaPriceInput.value = price.toFixed(2);
+        dcaPriceInput.value = price.value.toFixed(2);
       }
 
       return;
@@ -139,6 +150,10 @@ async function updateTicker() {
         maximumFractionDigits: 0,
       })}`;
       renderTicker(fallback);
+
+      if (tickerStatus) {
+        tickerStatus.textContent = 'Showing cached price';
+      }
       return;
     }
 
@@ -146,6 +161,10 @@ async function updateTicker() {
 
     if (priceTimestamp) {
       priceTimestamp.textContent = 'Ticker unavailable';
+    }
+
+    if (tickerStatus) {
+      tickerStatus.textContent = 'Unable to load live data';
     }
   }
 }
