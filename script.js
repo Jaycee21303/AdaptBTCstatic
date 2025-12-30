@@ -11,8 +11,12 @@ const learningLinks = document.querySelectorAll('a[href="#learning"]');
 const dcaForm = document.getElementById('dcaForm');
 const dcaPriceInput = document.getElementById('dcaPrice');
 const dcaResults = document.getElementById('dcaResults');
+const btcChartCanvas = document.getElementById('btcChart');
+const chartUpdated = document.getElementById('chartUpdated');
 
 let currentBtcPrice = null;
+let chartPoints = [];
+let heroPriceDisplay = '$--';
 
 navToggle?.addEventListener('click', () => {
   navMenu?.classList.toggle('open');
@@ -52,13 +56,13 @@ async function fetchCoinbasePrice() {
   const response = await fetchWithTimeout('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
     headers: { Accept: 'application/json' },
   });
-  if (!response.ok) throw new Error('Coinbase request failed');
+  if (!response.ok) throw new Error('Coincap request failed');
 
   const data = await response.json();
-  const amount = parseFloat(data?.data?.amount);
+  const amount = parseFloat(data?.data?.priceUsd);
   if (Number.isFinite(amount)) return amount;
 
-  throw new Error('Coinbase returned no price');
+  throw new Error('Coincap returned no price');
 }
 
 async function fetchBinancePrice() {
@@ -93,6 +97,11 @@ function renderTicker(priceText) {
   }
 
   if (heroLivePrice) {
+    heroLivePrice.textContent = priceText;
+  }
+
+  if (heroLivePrice) {
+    heroPriceDisplay = priceText;
     heroLivePrice.textContent = priceText;
   }
 }
@@ -143,6 +152,211 @@ async function updateTicker() {
 
 updateTicker();
 setInterval(updateTicker, 30000);
+
+async function fetchCoincapHistory() {
+  const end = Date.now();
+  const start = end - 1000 * 60 * 60 * 24 * 30;
+  const response = await fetchWithTimeout(
+    `https://api.coincap.io/v2/assets/bitcoin/history?interval=h1&start=${start}&end=${end}`,
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Coincap history failed');
+
+  const data = await response.json();
+  const prices = Array.isArray(data?.data) ? data.data : [];
+
+  return prices
+    .map((point) => ({ time: Number(point?.time), price: Number(point?.priceUsd) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time));
+}
+
+async function fetchCoinbaseHistory() {
+  const end = new Date();
+  const start = new Date(end.getTime() - 1000 * 60 * 60 * 24 * 30);
+  const response = await fetchWithTimeout(
+    `https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600&start=${start.toISOString()}&end=${end.toISOString()}`,
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Coinbase history failed');
+
+  const data = await response.json();
+  return (Array.isArray(data) ? data : [])
+    .map((point) => ({ time: Number(point?.[0]) * 1000, price: Number(point?.[4]) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time))
+    .sort((a, b) => a.time - b.time);
+}
+
+async function fetchBinanceHistory() {
+  const end = Date.now();
+  const start = end - 1000 * 60 * 60 * 24 * 30;
+  const response = await fetchWithTimeout(
+    `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=4h&startTime=${start}&endTime=${end}`,
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Binance history failed');
+
+  const data = await response.json();
+  return (Array.isArray(data) ? data : [])
+    .map((point) => ({ time: Number(point?.[0]), price: Number(point?.[4]) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time));
+}
+
+async function fetchBitfinexHistory() {
+  const response = await fetchWithTimeout(
+    'https://api-pub.bitfinex.com/v2/candles/trade:1h:tBTCUSD/hist?limit=720',
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Bitfinex history failed');
+
+  const data = await response.json();
+  return (Array.isArray(data) ? data : [])
+    .map((point) => ({ time: Number(point?.[0]), price: Number(point?.[2]) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time))
+    .reverse();
+}
+
+const fallbackHistory = Array.from({ length: 30 }, (_, index) => {
+  const time = Date.now() - (29 - index) * 24 * 60 * 60 * 1000;
+  const price = 30000 + Math.sin(index / 5) * 1200 + index * 60;
+  return { time, price };
+});
+
+async function fetchBtcHistory() {
+  try {
+    return await fetchBinanceHistory();
+  } catch (error) {
+    try {
+      return await fetchCoinbaseHistory();
+    } catch (secondError) {
+      try {
+        return await fetchCoincapHistory();
+      } catch (thirdError) {
+        try {
+          return await fetchBitfinexHistory();
+        } catch (fourthError) {
+          return fallbackHistory;
+        }
+      }
+    }
+  }
+}
+
+function drawBtcChart(data) {
+  if (!btcChartCanvas || !data.length) return;
+
+  const ctx = btcChartCanvas.getContext('2d');
+  const width = btcChartCanvas.width;
+  const height = btcChartCanvas.height;
+  const padding = 28;
+
+  ctx.clearRect(0, 0, width, height);
+
+  const prices = data.map((point) => point.price);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const range = maxPrice - minPrice || 1;
+
+  const scaleX = (width - padding * 2) / Math.max(data.length - 1, 1);
+  const scaleY = (height - padding * 2) / range;
+
+  const normalizedPoints = data.map((point, index) => {
+    const x = padding + index * scaleX;
+    const y = height - padding - (point.price - minPrice) * scaleY;
+    return { ...point, x, y };
+  });
+
+  chartPoints = normalizedPoints;
+
+  const gradient = ctx.createLinearGradient(0, padding, 0, height);
+  gradient.addColorStop(0, 'rgba(12, 99, 255, 0.24)');
+  gradient.addColorStop(1, 'rgba(12, 99, 255, 0.04)');
+
+  ctx.beginPath();
+  normalizedPoints.forEach((point, index) => {
+    if (index === 0) {
+      ctx.moveTo(point.x, point.y);
+    } else {
+      ctx.lineTo(point.x, point.y);
+    }
+  });
+  ctx.strokeStyle = '#0c63ff';
+  ctx.lineWidth = 2.25;
+  ctx.stroke();
+
+  ctx.lineTo(normalizedPoints.at(-1).x, height - padding + 6);
+  ctx.lineTo(normalizedPoints[0].x, height - padding + 6);
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+}
+
+function handleChartHover(event) {
+  if (!btcChartCanvas || !chartPoints.length) return;
+
+  const rect = btcChartCanvas.getBoundingClientRect();
+  const cursorX = event.clientX - rect.left;
+  const nearest = chartPoints.reduce((closest, point) => {
+    const distance = Math.abs(point.x - cursorX);
+    return distance < closest.distance ? { point, distance } : closest;
+  }, { point: chartPoints[0], distance: Number.POSITIVE_INFINITY }).point;
+
+  const formattedPrice = `$${nearest.price.toLocaleString(undefined, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  })}`;
+
+  if (heroLivePrice) {
+    heroLivePrice.textContent = formattedPrice;
+  }
+
+  if (chartUpdated) {
+    chartUpdated.textContent = `Hovered • ${new Date(nearest.time).toLocaleString()}`;
+  }
+}
+
+function resetChartHover() {
+  if (heroLivePrice) {
+    heroLivePrice.textContent = heroPriceDisplay;
+  }
+
+  if (chartUpdated) {
+    chartUpdated.textContent = 'Live • auto-refreshed';
+  }
+}
+
+async function updateBtcChart() {
+  if (!btcChartCanvas) return;
+
+  try {
+    const history = await fetchBtcHistory();
+    const usedFallback = history === fallbackHistory;
+    if (history.length) {
+      drawBtcChart(history);
+
+      const latest = history.at(-1);
+      if (chartUpdated && latest) {
+        chartUpdated.textContent = usedFallback
+          ? 'Showing sample BTC data (live feed unavailable)'
+          : `Live • updated ${new Date(latest.time).toLocaleString()}`;
+      }
+    }
+  } catch (error) {
+    if (chartUpdated) {
+      chartUpdated.textContent = 'Chart unavailable right now';
+    }
+  }
+}
+
+if (btcChartCanvas) {
+  btcChartCanvas.addEventListener('mousemove', handleChartHover);
+  btcChartCanvas.addEventListener('mouseleave', resetChartHover);
+  updateBtcChart();
+  setInterval(updateBtcChart, 300000);
+}
 
 function showLearningNotice(event) {
   if (!learningNotice) return;
