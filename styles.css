@@ -167,8 +167,8 @@ img {
 }
 
 .ticker-price {
-  color: #39ff88;
-  text-shadow: 0 0 10px rgba(57, 255, 136, 0.65), 0 0 20px rgba(57, 255, 136, 0.55);
+  color: #16ff7c;
+  text-shadow: 0 0 10px rgba(22, 255, 124, 0.7), 0 0 24px rgba(22, 255, 124, 0.6), 0 0 36px rgba(22, 255, 124, 0.35);
   font-variant-numeric: tabular-nums;
 }
 
