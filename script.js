@@ -100,6 +100,21 @@ async function fetchBitfinexPrice() {
   throw new Error('Bitfinex returned no price');
 }
 
+async function fetchCoindeskPrice() {
+  const response = await fetchWithTimeout('https://api.coindesk.com/v1/bpi/currentprice/BTC.json', {
+    headers: { Accept: 'application/json' },
+    cache: 'no-store',
+    mode: 'cors',
+  });
+  if (!response.ok) throw new Error('Coindesk request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.bpi?.USD?.rate_float);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Coindesk returned no price');
+}
+
 function renderTicker(priceText) {
   if (btcTickerPrice) {
     btcTickerPrice.textContent = priceText;
@@ -116,15 +131,33 @@ async function updateTicker() {
   try {
     tickerStatus && (tickerStatus.textContent = 'Syncing live data');
 
-    const price = await fetchBinancePrice()
-      .then((value) => ({ value, source: 'Binance' }))
-      .catch(() => fetchCoinbasePrice().then((value) => ({ value, source: 'Coinbase' })))
-      .catch(() => fetchCoincapPrice().then((value) => ({ value, source: 'Coincap' })))
-      .catch(() => fetchBitfinexPrice().then((value) => ({ value, source: 'Bitfinex' })));
+    const sources = [
+      { fetcher: fetchBinancePrice, label: 'Binance' },
+      { fetcher: fetchCoinbasePrice, label: 'Coinbase' },
+      { fetcher: fetchCoincapPrice, label: 'Coincap' },
+      { fetcher: fetchBitfinexPrice, label: 'Bitfinex' },
+      { fetcher: fetchCoindeskPrice, label: 'Coindesk' },
+    ];
 
-    if (price && Number.isFinite(price.value)) {
-      currentBtcPrice = price.value;
-      const formatted = `$${Number(price.value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    let resolvedPrice = null;
+
+    for (const source of sources) {
+      try {
+        const value = await source.fetcher();
+        resolvedPrice = { value, source: source.label };
+        break;
+      } catch (error) {
+        // Try the next source silently
+      }
+    }
+
+    if (resolvedPrice && Number.isFinite(resolvedPrice.value)) {
+      currentBtcPrice = resolvedPrice.value;
+      const formatted = `$${Number(resolvedPrice.value).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}`;
+      heroPriceDisplay = formatted;
       renderTicker(formatted);
 
       if (priceTimestamp) {
@@ -132,11 +165,11 @@ async function updateTicker() {
       }
 
       if (tickerStatus) {
-        tickerStatus.textContent = `Live via ${price.source}`;
+        tickerStatus.textContent = `Live via ${resolvedPrice.source}`;
       }
 
       if (dcaPriceInput) {
-        dcaPriceInput.value = price.value.toFixed(2);
+        dcaPriceInput.value = resolvedPrice.value.toFixed(2);
       }
 
       return;
