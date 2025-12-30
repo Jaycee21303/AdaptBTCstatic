@@ -796,6 +796,120 @@ main {
   border-bottom: 1px solid var(--border);
 }
 
+.dca-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.8rem;
+  align-items: start;
+}
+
+.dca-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.dca-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.dca-form input,
+.dca-form select {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 0.85rem 0.9rem;
+  font-size: 1rem;
+  background: #f8fafc;
+  color: var(--text);
+}
+
+.dca-results {
+  margin-top: 0.25rem;
+  padding: 0.65rem 0.8rem;
+  background: rgba(12, 99, 255, 0.06);
+  border: 1px dashed rgba(12, 99, 255, 0.3);
+  border-radius: 10px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.dca-output {
+  display: grid;
+  gap: 1rem;
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  box-shadow: 0 20px 60px rgba(12, 99, 255, 0.08);
+}
+
+.dca-output__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dca-output h3 {
+  font-size: 2rem;
+  color: var(--primary-strong);
+}
+
+.dca-output__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.85rem;
+}
+
+.dca-output .metric {
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.chart-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 0.9rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.chart-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.chart-card canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-legend.rich {
+  justify-content: space-between;
+}
+
+.legend-pill.dark {
+  background: rgba(12, 22, 43, 0.08);
+  border-color: rgba(12, 22, 43, 0.15);
+  color: var(--text);
+}
+
+.legend-pill.bear {
+  background: rgba(185, 28, 28, 0.12);
+  border-color: rgba(185, 28, 28, 0.25);
+  color: #7f1d1d;
+}
+
+.dca-chart-canvas__grid {
+  stroke: rgba(13, 22, 43, 0.08);
+}
+
 .cta-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -903,5 +1017,9 @@ main {
 
   .panel-price {
     font-size: 2.2rem;
+  }
+
+  .chart-legend.rich {
+    justify-content: flex-start;
   }
 }
