@@ -334,6 +334,10 @@ main {
   gap: 1rem;
 }
 
+.dca-hero-card {
+  gap: 1.2rem;
+}
+
 .glass {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.75));
   backdrop-filter: blur(10px);
@@ -363,6 +367,90 @@ main {
 
 .status.neutral {
   background: #f8fafc;
+}
+
+.chart-wrapper {
+  background: radial-gradient(circle at 18% 30%, rgba(12, 99, 255, 0.1), transparent 38%),
+    linear-gradient(180deg, rgba(12, 99, 255, 0.05), rgba(12, 99, 255, 0));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.dca-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-dca {
+  fill: none;
+  stroke: rgba(12, 22, 43, 0.2);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 6;
+}
+
+.chart-dot {
+  fill: #ffffff;
+  stroke: #0c63ff;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 6px 16px rgba(12, 99, 255, 0.26));
+}
+
+.chart-legend {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.legend-pill {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(12, 99, 255, 0.08);
+  color: var(--text);
+  border: 1px solid rgba(12, 99, 255, 0.18);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.legend-pill.accent {
+  background: rgba(11, 191, 99, 0.12);
+  border-color: rgba(11, 191, 99, 0.25);
+  color: #0a5835;
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.8rem;
+}
+
+.plan-stat {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.plan-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px dashed rgba(12, 99, 255, 0.35);
+  background: rgba(12, 99, 255, 0.06);
 }
 
 .metrics {
