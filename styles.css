@@ -156,14 +156,14 @@ img {
   align-items: center;
   gap: 0.45rem;
   font-weight: 700;
-  color: #9effc7;
-  text-shadow: 0 0 4px rgba(74, 255, 182, 0.4), 0 0 10px rgba(74, 255, 182, 0.25);
+  color: var(--text);
+  text-shadow: none;
 }
 
 .ticker-label {
   letter-spacing: 0.02em;
-  color: #c8ffe2;
-  text-shadow: 0 0 3px rgba(74, 255, 182, 0.35), 0 0 8px rgba(74, 255, 182, 0.2);
+  color: var(--text);
+  text-shadow: none;
 }
 
 .ticker-price {
@@ -756,10 +756,11 @@ main {
 }
 
 .footer {
-  background: #0b1220;
-  color: #e5e7eb;
+  background: #ffffff;
+  color: var(--text);
   padding: 3rem 0 2.5rem;
   margin-top: 2rem;
+  border-top: 1px solid var(--border);
 }
 
 .footer-grid {
@@ -770,7 +771,7 @@ main {
 }
 
 .footer a {
-  color: #e5e7eb;
+  color: var(--muted);
   display: block;
   margin-bottom: 0.4rem;
 }
@@ -778,10 +779,11 @@ main {
 .footer-title {
   font-weight: 700;
   margin-bottom: 0.6rem;
+  color: var(--text);
 }
 
 .footer-brand .logo {
-  color: #e5e7eb;
+  color: var(--text);
 }
 
 .footer-status {
@@ -789,8 +791,9 @@ main {
   align-items: center;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(12, 99, 255, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text);
   font-weight: 700;
   margin-top: 0.75rem;
 }
@@ -801,8 +804,9 @@ main {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border);
   padding-top: 1rem;
+  color: var(--muted);
 }
 
 .footer-social {
