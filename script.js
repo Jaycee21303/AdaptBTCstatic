@@ -31,44 +31,50 @@ form?.addEventListener('submit', (event) => {
   form.reset();
 });
 
-async function fetchCoinbasePrice() {
-  const response = await fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot', {
-    headers: { Accept: 'application/json' },
-  });
-  if (!response.ok) throw new Error('Coinbase request failed');
-
-  const data = await response.json();
-  const amount = parseFloat(data?.data?.amount);
-  if (Number.isFinite(amount)) return amount;
-
-  throw new Error('Coinbase returned no price');
+function fetchWithTimeout(url, options = {}, timeout = 7000) {
+  return Promise.race([
+    fetch(url, options),
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), timeout)),
+  ]);
 }
 
-async function fetchCoingeckoPrice() {
-  const response = await fetch(
-    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&precision=2',
-    { headers: { Accept: 'application/json' } }
-  );
-  if (!response.ok) throw new Error('Coingecko request failed');
-
-  const data = await response.json();
-  const amount = parseFloat(data?.bitcoin?.usd);
-  if (Number.isFinite(amount)) return amount;
-
-  throw new Error('Coingecko returned no price');
-}
-
-async function fetchCoindeskPrice() {
-  const response = await fetch('https://api.coindesk.com/v1/bpi/currentprice/BTC.json', {
+async function fetchCoincapPrice() {
+  const response = await fetchWithTimeout('https://api.coincap.io/v2/assets/bitcoin', {
     headers: { Accept: 'application/json' },
   });
-  if (!response.ok) throw new Error('Coindesk request failed');
+  if (!response.ok) throw new Error('Coincap request failed');
 
   const data = await response.json();
-  const amount = parseFloat(data?.bpi?.USD?.rate_float ?? data?.bpi?.USD?.rate?.replace(/,/g, ''));
+  const amount = parseFloat(data?.data?.priceUsd);
   if (Number.isFinite(amount)) return amount;
 
-  throw new Error('Coindesk returned no price');
+  throw new Error('Coincap returned no price');
+}
+
+async function fetchBinancePrice() {
+  const response = await fetchWithTimeout('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT', {
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error('Binance request failed');
+
+  const data = await response.json();
+  const amount = parseFloat(data?.price);
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Binance returned no price');
+}
+
+async function fetchBitfinexPrice() {
+  const response = await fetchWithTimeout('https://api-pub.bitfinex.com/v2/ticker/tBTCUSD', {
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error('Bitfinex request failed');
+
+  const data = await response.json();
+  const amount = Array.isArray(data) ? parseFloat(data[6]) : NaN;
+  if (Number.isFinite(amount)) return amount;
+
+  throw new Error('Bitfinex returned no price');
 }
 
 function renderTicker(priceText) {
@@ -92,7 +98,9 @@ async function updateTicker() {
   renderTicker('$updating…');
 
   try {
-    const price = await fetchCoinbasePrice().catch(() => fetchCoingeckoPrice().catch(fetchCoindeskPrice));
+    const price = await fetchCoincapPrice()
+      .catch(() => fetchBinancePrice())
+      .catch(() => fetchBitfinexPrice());
 
     if (Number.isFinite(price)) {
       currentBtcPrice = price;
@@ -108,6 +116,15 @@ async function updateTicker() {
 
     throw new Error('Invalid price');
   } catch (error) {
+    if (Number.isFinite(currentBtcPrice)) {
+      const fallback = `$${Number(currentBtcPrice).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })}`;
+      renderTicker(fallback);
+      return;
+    }
+
     renderTicker('$--');
   }
 }
@@ -115,21 +132,75 @@ async function updateTicker() {
 updateTicker();
 setInterval(updateTicker, 30000);
 
-async function fetchBtcHistory() {
-  const response = await fetch(
-    'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&precision=2',
+async function fetchCoincapHistory() {
+  const end = Date.now();
+  const start = end - 1000 * 60 * 60 * 24 * 30;
+  const response = await fetchWithTimeout(
+    `https://api.coincap.io/v2/assets/bitcoin/history?interval=h1&start=${start}&end=${end}`,
     { headers: { Accept: 'application/json' } }
   );
 
-  if (!response.ok) throw new Error('Coingecko history failed');
+  if (!response.ok) throw new Error('Coincap history failed');
 
   const data = await response.json();
-  const prices = Array.isArray(data?.prices) ? data.prices : [];
+  const prices = Array.isArray(data?.data) ? data.data : [];
 
   return prices
-    .filter((point) => Array.isArray(point) && point.length >= 2)
-    .map(([time, price]) => ({ time, price: Number(price) }))
-    .filter((point) => Number.isFinite(point.price));
+    .map((point) => ({ time: Number(point?.time), price: Number(point?.priceUsd) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time));
+}
+
+async function fetchBinanceHistory() {
+  const end = Date.now();
+  const start = end - 1000 * 60 * 60 * 24 * 30;
+  const response = await fetchWithTimeout(
+    `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=4h&startTime=${start}&endTime=${end}`,
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Binance history failed');
+
+  const data = await response.json();
+  return (Array.isArray(data) ? data : [])
+    .map((point) => ({ time: Number(point?.[0]), price: Number(point?.[4]) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time));
+}
+
+async function fetchBitfinexHistory() {
+  const response = await fetchWithTimeout(
+    'https://api-pub.bitfinex.com/v2/candles/trade:1h:tBTCUSD/hist?limit=720',
+    { headers: { Accept: 'application/json' } }
+  );
+
+  if (!response.ok) throw new Error('Bitfinex history failed');
+
+  const data = await response.json();
+  return (Array.isArray(data) ? data : [])
+    .map((point) => ({ time: Number(point?.[0]), price: Number(point?.[2]) }))
+    .filter((point) => Number.isFinite(point.price) && Number.isFinite(point.time))
+    .reverse();
+}
+
+const fallbackHistory = Array.from({ length: 30 }, (_, index) => {
+  const time = Date.now() - (29 - index) * 24 * 60 * 60 * 1000;
+  const price = 30000 + Math.sin(index / 5) * 1200 + index * 60;
+  return { time, price };
+});
+
+async function fetchBtcHistory() {
+  try {
+    return await fetchCoincapHistory();
+  } catch (error) {
+    try {
+      return await fetchBinanceHistory();
+    } catch (secondError) {
+      try {
+        return await fetchBitfinexHistory();
+      } catch (thirdError) {
+        return fallbackHistory;
+      }
+    }
+  }
 }
 
 function drawBtcChart(data) {
@@ -220,12 +291,15 @@ async function updateBtcChart() {
 
   try {
     const history = await fetchBtcHistory();
+    const usedFallback = history === fallbackHistory;
     if (history.length) {
       drawBtcChart(history);
 
       const latest = history.at(-1);
       if (chartUpdated && latest) {
-        chartUpdated.textContent = `Live • updated ${new Date(latest.time).toLocaleString()}`;
+        chartUpdated.textContent = usedFallback
+          ? 'Showing sample BTC data (live feed unavailable)'
+          : `Live • updated ${new Date(latest.time).toLocaleString()}`;
       }
     }
   } catch (error) {
