@@ -46,28 +46,19 @@
             <a class="btn secondary" href="tools.html#dca">Open DCA Tool</a>
           </div>
         </div>
-        <div class="hero-card glass">
+        <div class="hero-card glass chart-card">
           <div class="card-header">
             <div>
-              <p class="muted">BTC Live Learning</p>
-              <h3>Coverage</h3>
+              <p class="muted">Live BTC price</p>
+              <h3>Interactive history</h3>
             </div>
-            <span class="status good">78%</span>
+            <span class="status good" id="heroLivePrice">$--</span>
           </div>
-          <div class="chart hero-chart" role="img" aria-label="Stylized coverage chart"></div>
-          <div class="metrics condensed">
-            <div class="metric">
-              <p class="muted">Network uptime</p>
-              <h4>99.99%</h4>
-            </div>
-            <div class="metric">
-              <p class="muted">Streaming</p>
-              <h4>Live</h4>
-            </div>
-            <div class="metric">
-              <p class="muted">Signals</p>
-              <h4>On</h4>
-            </div>
+          <p class="muted">Explore a real-time view of Bitcoin's moves with up-to-date pricing and a rolling 30-day chart.</p>
+          <canvas id="btcChart" width="560" height="220" role="img" aria-label="Live Bitcoin price chart"></canvas>
+          <div class="chart-meta">
+            <span id="chartRange" class="muted">Past 30 days</span>
+            <span id="chartUpdated" class="muted">Loading…</span>
           </div>
         </div>
       </div>
