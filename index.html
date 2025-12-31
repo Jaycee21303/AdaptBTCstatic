@@ -46,51 +46,60 @@
             <li>Plain-language copy focused on operational decisions</li>
           </ul>
         </div>
-        <div class="status-panel" aria-live="polite">
-          <div class="panel-header">
+        <div class="hero-card glass dca-hero-card" aria-hidden="true">
+          <div class="card-header">
             <div>
-              <p class="muted tiny">AdaptBTC status</p>
-              <p class="panel-title">Live coverage</p>
+              <p class="muted tiny">DCA example</p>
+              <h3>BTC growth over time</h3>
             </div>
-            <span class="tag-pill" id="priceTimestamp">Syncing...</span>
+            <span class="status good">Illustration</span>
           </div>
-          <div class="panel-price-row">
-            <span class="panel-price" id="heroPrice">$--</span>
-            <span class="panel-change" id="heroChange">0.00%</span>
-          </div>
-          <div class="status-grid">
-            <div class="mini-card">
-              <span class="mini-icon">✓</span>
-              <div>
-                <p class="mini-label">BTC</p>
-                <p class="mini-value">Ready</p>
-              </div>
-            </div>
-            <div class="mini-card">
-              <span class="mini-icon">🔒</span>
-              <div>
-                <p class="mini-label">Security</p>
-                <p class="mini-value">Monitored</p>
-              </div>
-            </div>
-            <div class="mini-card">
-              <span class="mini-icon">⚡</span>
-              <div>
-                <p class="mini-label">Lightning</p>
-                <p class="mini-value">Guided</p>
-              </div>
-            </div>
-            <div class="mini-card">
-              <span class="mini-icon">🧭</span>
-              <div>
-                <p class="mini-label">Readiness</p>
-                <p class="mini-value">On</p>
-              </div>
+          <div class="chart-wrapper">
+            <svg class="dca-chart" viewBox="0 0 320 160" role="img" aria-label="Sample BTC growth line over twelve months">
+              <defs>
+                <linearGradient id="dcaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(12, 99, 255, 0.25)" />
+                  <stop offset="100%" stop-color="rgba(12, 99, 255, 0)" />
+                </linearGradient>
+                <linearGradient id="valueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#0bbf63" />
+                  <stop offset="100%" stop-color="#0c63ff" />
+                </linearGradient>
+              </defs>
+              <path class="chart-fill" d="M0 138 L0 120 L40 110 L80 118 L120 102 L160 96 L200 82 L240 74 L280 58 L320 46 L320 138 Z" fill="url(#dcaGradient)" />
+              <path class="chart-line" d="M0 120 L40 110 L80 118 L120 102 L160 96 L200 82 L240 74 L280 58 L320 46" stroke="url(#valueGradient)" />
+              <path class="chart-dca" d="M0 134 L40 132 L80 128 L120 124 L160 118 L200 110 L240 100 L280 90 L320 78" />
+              <circle cx="280" cy="58" r="4" class="chart-dot" />
+              <circle cx="320" cy="46" r="4" class="chart-dot" />
+            </svg>
+            <div class="chart-legend">
+              <span class="legend-pill">BTC price path</span>
+              <span class="legend-pill accent">DCA value</span>
             </div>
           </div>
-          <div class="panel-footer">
-            <span class="muted">Blocks observed</span>
-            <span class="tag-pill">Signal-free</span>
+          <div class="plan-grid">
+            <div class="plan-stat">
+              <p class="muted tiny">Contribution</p>
+              <h4>$200 / week</h4>
+              <p class="muted tiny">Auto-debited Fridays</p>
+            </div>
+            <div class="plan-stat">
+              <p class="muted tiny">Duration</p>
+              <h4>12 months</h4>
+              <p class="muted tiny">48 total buys</p>
+            </div>
+            <div class="plan-stat">
+              <p class="muted tiny">Projected BTC</p>
+              <h4>≈0.46 BTC</h4>
+              <p class="muted tiny">Assumes steady buys</p>
+            </div>
+          </div>
+          <div class="plan-highlight">
+            <div>
+              <p class="muted tiny">Hypothetical growth</p>
+              <h4>+$8,250 vs holding cash</h4>
+            </div>
+            <p class="muted tiny">Made-up illustration to show how the DCA tool works.</p>
           </div>
         </div>
       </div>
