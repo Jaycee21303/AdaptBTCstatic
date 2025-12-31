@@ -46,51 +46,75 @@
             <li>Plain-language copy focused on operational decisions</li>
           </ul>
         </div>
-        <div class="status-panel" aria-live="polite">
-          <div class="panel-header">
+        <div class="hero-graphic" aria-hidden="true">
+          <div class="graphic-top">
             <div>
-              <p class="muted tiny">AdaptBTC status</p>
-              <p class="panel-title">Live coverage</p>
+              <p class="graphic-kicker">Generate. Secure. Learn.</p>
+              <p class="graphic-subtext">Run readiness checks, generate addresses, and explore Lightning without the noise.</p>
             </div>
-            <span class="tag-pill" id="priceTimestamp">Syncing...</span>
+            <span class="graphic-mark">AdaptBTC</span>
           </div>
-          <div class="panel-price-row">
-            <span class="panel-price" id="heroPrice">$--</span>
-            <span class="panel-change" id="heroChange">0.00%</span>
-          </div>
-          <div class="status-grid">
-            <div class="mini-card">
-              <span class="mini-icon">✓</span>
-              <div>
-                <p class="mini-label">BTC</p>
-                <p class="mini-value">Ready</p>
+          <div class="graphic-card">
+            <div class="tile-grid">
+              <div class="tile-card">
+                <span class="tile-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M6 8.5 12 5l6 3.5v7L12 19l-6-3.5z" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <circle cx="12" cy="12" r="2.8" fill="currentColor" opacity="0.1" />
+                  </svg>
+                </span>
+                <span class="tile-text">Bitcoin Address Generator</span>
+              </div>
+              <div class="tile-card">
+                <span class="tile-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M6.5 12h11M12 6.5v11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                    <circle cx="12" cy="12" r="8" fill="currentColor" opacity="0.08" />
+                  </svg>
+                </span>
+                <span class="tile-text">Lightning Invoice Generator</span>
+              </div>
+              <div class="tile-card">
+                <span class="tile-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <rect x="6" y="8" width="12" height="10" rx="2" ry="2" stroke="currentColor" stroke-width="1.6" fill="none" />
+                    <path d="M10 9.5V7a2 2 0 0 1 4 0v2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                  </svg>
+                </span>
+                <span class="tile-text">Security Tools</span>
+              </div>
+              <div class="tile-card">
+                <span class="tile-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M5 16.5 10.5 12 14 14.5 19 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                    <path d="M5 8.5h4m2 0h8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.5" />
+                  </svg>
+                </span>
+                <span class="tile-text">DCA Projection Tool</span>
+              </div>
+              <div class="tile-card">
+                <span class="tile-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" fill="none" />
+                    <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span class="tile-text">Readiness Check</span>
+              </div>
+              <div class="tile-card">
+                <span class="tile-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M6 15c2.2-2.5 4.6-3.6 7-3.6 2.4 0 3.8 1.1 5 2.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" />
+                    <circle cx="13" cy="10" r="2.2" fill="currentColor" opacity="0.12" />
+                  </svg>
+                </span>
+                <span class="tile-text">Network tools</span>
               </div>
             </div>
-            <div class="mini-card">
-              <span class="mini-icon">🔒</span>
-              <div>
-                <p class="mini-label">Security</p>
-                <p class="mini-value">Monitored</p>
-              </div>
+            <div class="graphic-cta">
+              <a class="btn primary" href="tools.html#live-feed">Run readiness check</a>
+              <a class="btn secondary" href="tools.html">Browse Bitcoin tools</a>
             </div>
-            <div class="mini-card">
-              <span class="mini-icon">⚡</span>
-              <div>
-                <p class="mini-label">Lightning</p>
-                <p class="mini-value">Guided</p>
-              </div>
-            </div>
-            <div class="mini-card">
-              <span class="mini-icon">🧭</span>
-              <div>
-                <p class="mini-label">Readiness</p>
-                <p class="mini-value">On</p>
-              </div>
-            </div>
-          </div>
-          <div class="panel-footer">
-            <span class="muted">Blocks observed</span>
-            <span class="tag-pill">Signal-free</span>
           </div>
         </div>
       </div>
