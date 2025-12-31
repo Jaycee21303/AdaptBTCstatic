@@ -606,11 +606,11 @@ main {
 .status-panel {
   background: var(--surface);
   border-radius: var(--radius-lg);
-  padding: 1.6rem;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(226, 232, 240, 0.7);
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.35);
   display: grid;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .panel-header {
@@ -640,10 +640,10 @@ main {
   grid-template-columns: 1fr auto;
   align-items: start;
   gap: 1.2rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(148, 163, 184, 0.35);
   border-radius: var(--radius-md);
-  padding: 1rem 1.1rem;
-  background: linear-gradient(135deg, rgba(12, 99, 255, 0.05), rgba(248, 250, 252, 0.9));
+  padding: 0.85rem 0.95rem;
+  background: linear-gradient(120deg, rgba(12, 99, 255, 0.04), rgba(12, 99, 255, 0.02));
 }
 
 .panel-price {
@@ -691,28 +691,28 @@ main {
 
 .coverage-summary {
   display: grid;
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.45rem;
   min-width: 210px;
-  background: #fff;
-  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(12, 99, 255, 0.06), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(148, 163, 184, 0.4);
   border-radius: var(--radius-md);
-  padding: 0.75rem 0.9rem;
-  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);
+  padding: 0.65rem 0.75rem;
 }
 
 .summary-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 0.25rem 0;
   font-weight: 600;
   color: var(--text);
 }
 
 .summary-row:last-child {
   border-bottom: none;
-  padding-bottom: 0;
+  padding-bottom: 0.1rem;
 }
 
 .summary-label {
@@ -726,13 +726,13 @@ main {
 }
 
 .trend-card {
-  background: #f8fafc;
-  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(12, 99, 255, 0.06), rgba(255, 255, 255, 0.96));
+  border: 1px solid rgba(148, 163, 184, 0.4);
   border-radius: var(--radius-lg);
-  padding: 1rem 1.1rem;
+  padding: 0.95rem 1.05rem;
   display: grid;
-  gap: 0.9rem;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  gap: 0.75rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
 }
 
 .trend-meta {
@@ -761,13 +761,13 @@ main {
   width: 100%;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(148, 163, 184, 0.08), rgba(248, 250, 252, 0.9));
-  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(12, 99, 255, 0.05), rgba(248, 250, 252, 0.92));
+  border: 1px solid rgba(148, 163, 184, 0.35);
 }
 
 .trend-graph svg {
   width: 100%;
-  height: 120px;
+  height: 96px;
 }
 
 .trend-area {
@@ -776,16 +776,16 @@ main {
 
 .trend-line {
   fill: none;
-  stroke: #0c63ff;
-  stroke-width: 3;
+  stroke: #0b5ed7;
+  stroke-width: 3.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 4px 10px rgba(12, 99, 255, 0.25));
+  filter: drop-shadow(0 4px 12px rgba(12, 99, 255, 0.22));
 }
 
 .trend-scale {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.6rem;
 }
 
 .scale-value {
