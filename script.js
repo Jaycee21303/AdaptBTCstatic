@@ -9,6 +9,11 @@ const headerPrice = document.getElementById('btcPrice');
 const heroPrice = document.getElementById('heroPrice');
 const heroChange = document.getElementById('heroChange');
 const priceTimestamp = document.getElementById('priceTimestamp');
+const heroBtcChart = document.getElementById('heroBtcChart');
+const heroChartStatus = document.getElementById('heroChartStatus');
+const heroLatestClose = document.getElementById('heroLatestClose');
+const heroRange = document.getElementById('heroRange');
+const heroRangeChange = document.getElementById('heroRangeChange');
 
 const dcaForm = document.getElementById('dcaForm');
 const dcaAmountInput = document.getElementById('dcaAmount');
@@ -30,14 +35,42 @@ const dcaStartPriceLabel = document.getElementById('dcaStartPriceLabel');
 const dcaChart = document.getElementById('dcaChart');
 
 const CACHE_KEY = 'adaptbtc_price_cache_v1';
+const HISTORY_CACHE_KEY = 'adaptbtc_history_cache_v1';
 let livePrice = null;
 let hasBootstrappedDca = false;
+
+const fallbackHistory = [
+  { time: new Date('2023-12-15').getTime(), price: 42400 },
+  { time: new Date('2024-01-15').getTime(), price: 42850 },
+  { time: new Date('2024-02-01').getTime(), price: 43650 },
+  { time: new Date('2024-02-15').getTime(), price: 51800 },
+  { time: new Date('2024-03-01').getTime(), price: 61200 },
+  { time: new Date('2024-03-15').getTime(), price: 70050 },
+  { time: new Date('2024-04-01').getTime(), price: 65900 },
+  { time: new Date('2024-04-15').getTime(), price: 64020 },
+  { time: new Date('2024-05-01').getTime(), price: 57480 },
+  { time: new Date('2024-05-15').getTime(), price: 64040 },
+  { time: new Date('2024-06-01').getTime(), price: 67810 },
+  { time: new Date('2024-06-15').getTime(), price: 71100 },
+];
 
 function formatPrice(value) {
   return `$${Number(value).toLocaleString(undefined, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   })}`;
+}
+
+function formatShortPrice(value) {
+  if (!Number.isFinite(value)) return '$--';
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
+  if (value >= 1_000) return `$${(value / 1_000).toFixed(1)}k`;
+  return formatPrice(value);
+}
+
+function formatMonthDay(timestamp) {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 }
 
 function applyChange(el, change) {
@@ -77,6 +110,30 @@ function readCachedPrice() {
     return null;
   }
   return null;
+}
+
+function readCachedHistory() {
+  if (typeof localStorage === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(HISTORY_CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed?.points) && parsed.points.length) {
+      return parsed.points;
+    }
+  } catch (error) {
+    return null;
+  }
+  return null;
+}
+
+function persistHistory(points) {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    localStorage.setItem(HISTORY_CACHE_KEY, JSON.stringify({ points, time: Date.now() }));
+  } catch (error) {
+    // ignore cache issues
+  }
 }
 
 function renderPrice(value, change) {
@@ -135,6 +192,7 @@ async function updateTicker() {
 }
 
 updateTicker();
+bootstrapHeroHistory();
 setInterval(updateTicker, 30000);
 
 function formatCurrency(value) {
@@ -199,6 +257,82 @@ function drawLine(ctx, points, color, width = 2.8, dash = []) {
     ctx.lineTo(points[i].x, points[i].y);
   }
   ctx.stroke();
+  ctx.restore();
+}
+
+function drawHeroChart(points) {
+  if (!heroBtcChart || !points.length) return;
+  const ctx = heroBtcChart.getContext('2d');
+  if (!ctx) return;
+
+  const deviceRatio = window.devicePixelRatio || 1;
+  const width = heroBtcChart.clientWidth || 640;
+  const height = 240;
+  heroBtcChart.width = width * deviceRatio;
+  heroBtcChart.height = height * deviceRatio;
+  ctx.save();
+  ctx.scale(deviceRatio, deviceRatio);
+  ctx.clearRect(0, 0, width, height);
+
+  const padding = { top: 14, right: 16, bottom: 28, left: 56 };
+  const chartWidth = width - padding.left - padding.right;
+  const chartHeight = height - padding.top - padding.bottom;
+  const prices = points.map((p) => p.price);
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+  const range = max - min || 1;
+
+  const toX = (index) => padding.left + (index / Math.max(1, points.length - 1)) * chartWidth;
+  const toY = (price) => padding.top + (1 - (price - min) / range) * chartHeight;
+
+  ctx.strokeStyle = 'rgba(12, 22, 43, 0.08)';
+  ctx.lineWidth = 1;
+  const gridLines = 4;
+  for (let i = 0; i <= gridLines; i += 1) {
+    const y = padding.top + (i / gridLines) * chartHeight;
+    ctx.beginPath();
+    ctx.moveTo(padding.left, y);
+    ctx.lineTo(width - padding.right, y);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = 'rgba(12, 22, 43, 0.32)';
+  ctx.font = '12px Inter, system-ui, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i <= gridLines; i += 1) {
+    const value = max - (range * i) / gridLines;
+    const y = padding.top + (i / gridLines) * chartHeight;
+    ctx.fillText(formatShortPrice(value), padding.left - 12, y);
+  }
+
+  const gradient = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
+  gradient.addColorStop(0, 'rgba(12, 99, 255, 0.28)');
+  gradient.addColorStop(1, 'rgba(12, 99, 255, 0)');
+
+  ctx.beginPath();
+  ctx.moveTo(toX(0), toY(points[0].price));
+  for (let i = 1; i < points.length; i += 1) {
+    ctx.lineTo(toX(i), toY(points[i].price));
+  }
+  ctx.lineTo(toX(points.length - 1), height - padding.bottom);
+  ctx.lineTo(toX(0), height - padding.bottom);
+  ctx.closePath();
+  ctx.fillStyle = gradient;
+  ctx.fill();
+
+  const linePoints = points.map((p, index) => ({ x: toX(index), y: toY(p.price) }));
+  drawLine(ctx, linePoints, 'rgba(12, 99, 255, 1)', 3.2);
+
+  const lastPoint = linePoints[linePoints.length - 1];
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = '#0c63ff';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(lastPoint.x, lastPoint.y, 5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+
   ctx.restore();
 }
 
@@ -272,6 +406,75 @@ function drawChart({ bear, base, bull, contributions, months }) {
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 2;
     ctx.stroke();
+  }
+}
+
+function renderHeroStats(points) {
+  if (!points.length) return;
+  const latest = points[points.length - 1];
+  const first = points[0];
+  const high = Math.max(...points.map((p) => p.price));
+  const low = Math.min(...points.map((p) => p.price));
+  const change = ((latest.price - first.price) / first.price) * 100;
+
+  if (heroLatestClose) {
+    heroLatestClose.textContent = formatPrice(latest.price);
+  }
+  if (heroRange) {
+    heroRange.textContent = `${formatShortPrice(high)} / ${formatShortPrice(low)}`;
+  }
+  if (heroRangeChange) {
+    const sign = change > 0 ? '+' : '';
+    heroRangeChange.textContent = `${sign}${change.toFixed(1)}%`;
+    heroRangeChange.classList.toggle('positive', change >= 0);
+    heroRangeChange.classList.toggle('negative', change < 0);
+  }
+  if (heroChartStatus) {
+    heroChartStatus.textContent = `Through ${formatMonthDay(latest.time)}`;
+  }
+}
+
+async function fetchCoinGeckoHistory() {
+  const response = await fetch(
+    'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily',
+    { cache: 'no-store' }
+  );
+
+  if (!response.ok) throw new Error('History request failed');
+  const data = await response.json();
+  const prices = Array.isArray(data?.prices) ? data.prices : [];
+  const points = prices
+    .filter((row) => Array.isArray(row) && row.length >= 2)
+    .map((row) => ({ time: Number(row[0]), price: Number(row[1]) }))
+    .filter((p) => Number.isFinite(p.time) && Number.isFinite(p.price));
+  if (!points.length) throw new Error('Invalid history data');
+  return points;
+}
+
+function loadHeroHistoryFrom(points) {
+  if (!Array.isArray(points) || !points.length) return;
+  const sorted = [...points].sort((a, b) => a.time - b.time);
+  drawHeroChart(sorted);
+  renderHeroStats(sorted);
+}
+
+async function bootstrapHeroHistory() {
+  if (!heroBtcChart) return;
+
+  const cachedHistory = readCachedHistory();
+  if (cachedHistory) {
+    loadHeroHistoryFrom(cachedHistory);
+  }
+
+  try {
+    const liveHistory = await fetchCoinGeckoHistory();
+    persistHistory(liveHistory);
+    loadHeroHistoryFrom(liveHistory);
+  } catch (error) {
+    loadHeroHistoryFrom(fallbackHistory);
+    if (heroChartStatus) {
+      heroChartStatus.textContent = 'Fallback view';
+    }
   }
 }
 
