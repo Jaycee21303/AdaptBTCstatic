@@ -45,6 +45,23 @@ img {
   margin: 0 auto;
 }
 
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(12, 99, 255, 0.1);
+  border: 1px solid rgba(12, 99, 255, 0.18);
+  color: var(--primary-strong);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  width: fit-content;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
 .muted {
   color: var(--muted);
 }
@@ -180,7 +197,7 @@ main {
   padding: 4.75rem 0 4.25rem;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(12, 99, 255, 0.06), transparent 38%), #ffffff;
+  background: linear-gradient(145deg, rgba(12, 99, 255, 0.06), rgba(11, 191, 99, 0.02)), #ffffff;
   border-bottom: 1px solid var(--border);
 }
 
@@ -305,7 +322,7 @@ main {
 }
 
 .hero-text h1 {
-  font-size: clamp(2.9rem, 5.6vw, 4.1rem);
+  font-size: clamp(3rem, 5.6vw, 4.3rem);
   line-height: 1.08;
   margin-bottom: 1.15rem;
 }
@@ -313,6 +330,42 @@ main {
 .lead {
   color: var(--muted);
   font-size: 1.15rem;
+}
+
+.check-list {
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+  color: var(--text);
+}
+
+.check-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  font-weight: 600;
+}
+
+.check-icon-svg {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  border: 1px solid rgba(12, 99, 255, 0.24);
+  background: rgba(12, 99, 255, 0.08);
+  display: inline-grid;
+  place-items: center;
+}
+
+.check-icon-svg svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--primary-strong);
+  stroke-width: 2.2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .hero-text .bullet-list {
@@ -334,8 +387,8 @@ main {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
+  padding: 1.35rem;
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.08);
   display: grid;
   gap: 1rem;
 }
@@ -564,11 +617,9 @@ main {
   border-radius: 12px;
   display: grid;
   place-items: center;
-  background: rgba(12, 99, 255, 0.12);
+  background: linear-gradient(140deg, rgba(12, 99, 255, 0.12), rgba(12, 99, 255, 0.04));
   border: 1px solid var(--border);
-  font-size: 1.2rem;
 }
-
 .icon {
   width: 44px;
   height: 44px;
@@ -1087,6 +1138,135 @@ main {
   align-items: center;
   justify-content: center;
   font-weight: 800;
+}
+
+.glyph {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(140deg, rgba(12, 99, 255, 0.1), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(12, 99, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.glyph::after,
+.glyph::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 10px;
+  border: 2px solid rgba(12, 99, 255, 0.3);
+}
+
+.glyph.hold::before {
+  inset: 12px 16px;
+  border-radius: 12px;
+}
+
+.glyph.hold::after {
+  inset: 18px 22px;
+  border-color: rgba(11, 191, 99, 0.4);
+}
+
+.glyph.lightning::before {
+  inset: 12px;
+  border-radius: 12px;
+  border-color: rgba(12, 99, 255, 0.35);
+  transform: rotate(-6deg);
+}
+
+.glyph.lightning::after {
+  inset: 18px;
+  border-color: rgba(11, 191, 99, 0.5);
+  transform: rotate(-6deg);
+}
+
+.glyph.shield::before {
+  inset: 12px 14px;
+  border-radius: 14px;
+  border-color: rgba(12, 99, 255, 0.32);
+}
+
+.glyph.shield::after {
+  inset: 20px 22px;
+  border-radius: 14px;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.glyph.radar::before {
+  inset: 10px;
+  border-radius: 50%;
+}
+
+.glyph.radar::after {
+  inset: 18px;
+  border-radius: 50%;
+  border-color: rgba(11, 191, 99, 0.45);
+}
+
+.glyph.radar-alt::before {
+  inset: 10px 8px;
+  border-radius: 14px;
+  border-color: rgba(12, 99, 255, 0.3);
+}
+
+.glyph.radar-alt::after {
+  inset: 16px 14px;
+  border-radius: 12px;
+  border-color: rgba(11, 191, 99, 0.4);
+}
+
+.glyph.chart::before {
+  inset: 12px;
+  border-radius: 8px;
+  border-color: rgba(12, 99, 255, 0.35);
+}
+
+.glyph.chart::after {
+  inset: 16px 18px;
+  border-color: rgba(11, 191, 99, 0.45);
+  transform: skew(-10deg);
+}
+
+.glyph.bands::before {
+  inset: 10px 12px;
+  border-radius: 10px;
+  border-color: rgba(12, 99, 255, 0.35);
+}
+
+.glyph.bands::after {
+  inset: 18px 14px;
+  border-radius: 8px;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.glyph.ledger::before {
+  inset: 12px;
+  border-radius: 8px;
+  border-color: rgba(12, 99, 255, 0.32);
+}
+
+.glyph.ledger::after {
+  inset: 20px 14px;
+  border-color: rgba(11, 191, 99, 0.45);
+  border-radius: 8px;
+}
+
+.glyph.audit::before {
+  inset: 12px 14px;
+  border-radius: 10px;
+  border-color: rgba(12, 99, 255, 0.35);
+}
+
+.glyph.audit::after {
+  inset: 16px 18px;
+  border-radius: 10px;
+  border-color: rgba(0, 0, 0, 0.08);
+  transform: rotate(-2deg);
 }
 
 .card h3 {
