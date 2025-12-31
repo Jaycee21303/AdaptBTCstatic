@@ -624,7 +624,7 @@ main {
 
 .graphic-inner {
   display: grid;
-  gap: 1rem;
+  gap: 0.65rem;
 }
 
 .graphic-heading h2 {
