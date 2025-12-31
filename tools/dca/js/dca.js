@@ -11,6 +11,7 @@ const avgCostEl = document.getElementById('avgCost');
 const goalStatusEl = document.getElementById('goalStatus');
 const scenarioRangeEl = document.getElementById('scenarioRange');
 const chartCanvas = document.getElementById('dcaChart');
+const themeToggle = document.getElementById('themeToggle');
 
 const rates = {
   conservative: 0.1,
@@ -20,6 +21,28 @@ const rates = {
 
 let livePrice;
 let chartInstance;
+
+function currentTheme() {
+  return document.body.classList.contains('theme-dark') ? 'dark' : 'light';
+}
+
+function setTheme(mode) {
+  const enableDark = mode === 'dark';
+  document.body.classList.toggle('theme-dark', enableDark);
+  if (themeToggle) {
+    const label = enableDark ? 'Light mode' : 'Dark mode';
+    themeToggle.textContent = label;
+    themeToggle.setAttribute('aria-pressed', enableDark ? 'true' : 'false');
+  }
+  localStorage.setItem('dca-theme', enableDark ? 'dark' : 'light');
+  runCalculation();
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('dca-theme');
+  const mode = saved || 'light';
+  setTheme(mode);
+}
 
 function formatCurrency(value) {
   if (!Number.isFinite(value)) return '$0';
@@ -86,8 +109,18 @@ function buildProjection(rate, params) {
   };
 }
 
+function chartGridColors() {
+  const isDark = currentTheme() === 'dark';
+  return {
+    primary: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(15,23,42,0.08)',
+    light: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(15,23,42,0.05)',
+  };
+}
+
 function updateChart(labels, holdings, conservativePrices, moderatePrices, bullishPrices) {
   if (!chartCanvas) return;
+  const grid = chartGridColors();
+  const textColor = currentTheme() === 'dark' ? '#e7eefc' : '#0f172a';
   const data = {
     labels,
     datasets: [
@@ -141,21 +174,24 @@ function updateChart(labels, holdings, conservativePrices, moderatePrices, bulli
       y: {
         type: 'linear',
         position: 'left',
-        title: { display: true, text: 'BTC balance' },
-        grid: { color: 'rgba(255,255,255,0.06)' },
+        title: { display: true, text: 'BTC balance', color: textColor },
+        ticks: { color: textColor },
+        grid: { color: grid.primary },
       },
       y1: {
         type: 'linear',
         position: 'right',
-        title: { display: true, text: 'BTC price (USD)' },
+        title: { display: true, text: 'BTC price (USD)', color: textColor },
         grid: { display: false },
         ticks: {
+          color: textColor,
           callback: (val) => `$${Number(val).toLocaleString()}`,
         },
       },
       x: {
-        title: { display: true, text: 'Years' },
-        grid: { color: 'rgba(255,255,255,0.05)' },
+        title: { display: true, text: 'Years', color: textColor },
+        ticks: { color: textColor },
+        grid: { color: grid.light },
       },
     },
     plugins: {
@@ -229,5 +265,11 @@ function runCalculation() {
   el?.addEventListener('change', runCalculation);
 });
 
+themeToggle?.addEventListener('click', () => {
+  const next = currentTheme() === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+});
+
+initTheme();
 fetchLivePrice();
 runCalculation();

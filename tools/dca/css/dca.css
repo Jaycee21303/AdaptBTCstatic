@@ -1,4 +1,17 @@
 :root {
+  --bg: #f6f9ff;
+  --panel: #ffffff;
+  --border: #e3e8f0;
+  --text: #0f172a;
+  --muted: #4b5563;
+  --accent: #0c63ff;
+  --accent-2: #0bbf63;
+  --bear: #d1433b;
+  --shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+  --radius: 14px;
+}
+
+body.theme-dark {
   --bg: #0f1624;
   --panel: #121c2f;
   --border: rgba(255, 255, 255, 0.08);
@@ -8,7 +21,6 @@
   --accent-2: #0bbf63;
   --bear: #f28b82;
   --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-  --radius: 14px;
 }
 
 * {
@@ -19,7 +31,7 @@ body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: radial-gradient(circle at 20% 20%, rgba(12, 99, 255, 0.08), transparent 30%),
-    radial-gradient(circle at 80% 0%, rgba(11, 191, 99, 0.12), transparent 35%),
+    radial-gradient(circle at 80% 0%, rgba(11, 191, 99, 0.08), transparent 35%),
     var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -40,8 +52,12 @@ a {
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
-  background: rgba(15, 22, 36, 0.92);
+  background: rgba(255, 255, 255, 0.82);
   z-index: 10;
+}
+
+body.theme-dark .page-header {
+  background: rgba(15, 22, 36, 0.92);
 }
 
 .header-grid {
@@ -49,6 +65,7 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 16px 0;
+  gap: 12px;
 }
 
 .brand {
@@ -75,6 +92,23 @@ a {
 
 .nav-links a:hover {
   color: var(--text);
+}
+
+.mode-toggle {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mode-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
 }
 
 .pill {
@@ -144,7 +178,7 @@ h2, h3, h4 {
 }
 
 .price-card {
-  background: linear-gradient(135deg, rgba(12, 99, 255, 0.16), rgba(11, 191, 99, 0.14));
+  background: linear-gradient(135deg, rgba(12, 99, 255, 0.08), rgba(11, 191, 99, 0.1));
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 18px;
@@ -188,9 +222,14 @@ h2, h3, h4 {
   padding: 12px;
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
+  background: #f9fbff;
   color: var(--text);
   font-size: 14px;
+}
+
+body.theme-dark .input-group input,
+body.theme-dark .input-group select {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .input-group small {
@@ -198,7 +237,7 @@ h2, h3, h4 {
 }
 
 .results {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(12, 99, 255, 0.02);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
@@ -213,7 +252,7 @@ h2, h3, h4 {
 .stat {
   padding: 12px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(12, 99, 255, 0.02);
   border: 1px solid var(--border);
 }
 
@@ -225,8 +264,20 @@ h2, h3, h4 {
   margin-top: 18px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--panel);
   padding: 14px;
+}
+
+.chart-area {
+  position: relative;
+  height: 420px;
+  max-height: 420px;
+}
+
+#dcaChart {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .chart-header {
@@ -255,9 +306,14 @@ h2, h3, h4 {
 }
 
 .legend-pill.dark {
+  background: rgba(11, 191, 99, 0.1);
+  color: #0f5132;
+  border-color: rgba(11, 191, 99, 0.35);
+}
+
+body.theme-dark .legend-pill.dark {
   background: rgba(11, 191, 99, 0.12);
   color: #c3f3d7;
-  border-color: rgba(11, 191, 99, 0.35);
 }
 
 .legend-pill.dashed::before {
@@ -288,5 +344,15 @@ h2, h3, h4 {
 
   .nav-links {
     display: none;
+  }
+
+  .mode-toggle {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .chart-area {
+    height: 320px;
   }
 }
