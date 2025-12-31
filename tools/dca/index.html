@@ -54,7 +54,7 @@
     <section class="tool">
       <div class="container">
         <div class="shell">
-          <div class="shell__grid">
+          <div class="shell__grid shell__grid--balanced">
             <form class="dca-form" aria-label="Bitcoin DCA inputs">
               <div class="form-grid">
                 <label class="input-group">
@@ -90,43 +90,45 @@
               <p class="muted tiny">Math uses raw contributions only — no compounding, no yield, no added logic.</p>
             </form>
 
-            <div class="results" aria-live="polite">
-              <div class="result-grid">
-                <div class="stat">
-                  <p class="muted tiny">BTC accumulated (selected outlook)</p>
-                  <h3 id="btcHeld">0 BTC</h3>
+            <div class="side-stack">
+              <div class="results" aria-live="polite">
+                <div class="result-grid">
+                  <div class="stat">
+                    <p class="muted tiny">BTC accumulated (selected outlook)</p>
+                    <h3 id="btcHeld">0 BTC</h3>
+                  </div>
+                  <div class="stat">
+                    <p class="muted tiny">Total contributed</p>
+                    <h3 id="totalInvested">$0</h3>
+                  </div>
+                  <div class="stat">
+                    <p class="muted tiny">Average cost per BTC</p>
+                    <h3 id="avgCost">$0</h3>
+                  </div>
+                  <div class="stat">
+                    <p class="muted tiny">Goal progress</p>
+                    <h3 id="goalStatus">Goal not reached</h3>
+                  </div>
                 </div>
-                <div class="stat">
-                  <p class="muted tiny">Total contributed</p>
-                  <h3 id="totalInvested">$0</h3>
-                </div>
-                <div class="stat">
-                  <p class="muted tiny">Average cost per BTC</p>
-                  <h3 id="avgCost">$0</h3>
-                </div>
-                <div class="stat">
-                  <p class="muted tiny">Goal progress</p>
-                  <h3 id="goalStatus">Goal not reached</h3>
-                </div>
+                <div class="scenario-note" id="scenarioRange">Moderate outlook · 30% CAGR assumption over 5 years.</div>
               </div>
-              <div class="scenario-note" id="scenarioRange">Moderate outlook · 30% CAGR assumption over 5 years.</div>
-            </div>
-          </div>
 
-          <div class="chart-card">
-            <div class="chart-header">
-              <div>
-                <p class="muted tiny">Projection chart</p>
-                <h4>BTC balance vs projected price</h4>
+              <div class="chart-card compact">
+                <div class="chart-header">
+                  <div>
+                    <p class="muted tiny">Projection chart</p>
+                    <h4>BTC balance vs projected price</h4>
+                  </div>
+                  <p class="muted tiny">Accumulation uses the exact math provided. Price paths use annual growth assumptions.</p>
+                </div>
+                <div class="chart-area">
+                  <canvas id="dcaChart" aria-label="BTC accumulation chart" role="img"></canvas>
+                </div>
+                <div class="legend">
+                  <span class="legend-pill dark">BTC balance</span>
+                  <span class="legend-pill dashed accent" id="priceLegend">Projected price</span>
+                </div>
               </div>
-              <p class="muted tiny">Accumulation uses the exact math provided. Price paths use annual growth assumptions.</p>
-            </div>
-            <div class="chart-area">
-              <canvas id="dcaChart" aria-label="BTC accumulation chart" role="img"></canvas>
-            </div>
-            <div class="legend">
-              <span class="legend-pill dark">BTC balance</span>
-              <span class="legend-pill dashed accent" id="priceLegend">Projected price</span>
             </div>
           </div>
         </div>

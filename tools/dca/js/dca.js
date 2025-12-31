@@ -22,6 +22,9 @@ const outlooks = {
 
 const projectionYears = 5;
 
+const CACHE_KEY = 'adaptbtc_price_cache_v1';
+const FALLBACK_PRICE = 69000;
+
 let livePrice;
 let chartInstance;
 
@@ -35,27 +38,73 @@ function formatBtc(value) {
   return `${value.toFixed(6)} BTC`;
 }
 
+function persistPrice(value) {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ value, time: Date.now() }));
+  } catch (error) {
+    // ignore storage errors
+  }
+}
+
+function readCachedPrice() {
+  if (typeof localStorage === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Number.isFinite(parsed?.value)) {
+      return parsed.value;
+    }
+  } catch (error) {
+    return null;
+  }
+  return null;
+}
+
+function renderPrice(value, statusText) {
+  if (!Number.isFinite(value)) return;
+  livePrice = value;
+
+  const formatted = formatCurrency(value);
+  priceEl.textContent = formatted;
+  headerPrice && (headerPrice.textContent = formatted);
+
+  if (!priceInput.value) {
+    priceInput.placeholder = formatted;
+  }
+
+  if (timestampEl && statusText) {
+    timestampEl.textContent = statusText;
+  }
+
+  runCalculation();
+}
+
 async function fetchLivePrice() {
+  const cached = readCachedPrice();
+  if (Number.isFinite(cached)) {
+    renderPrice(cached, 'Using cached price while we fetch the latest…');
+  }
+
   try {
     const response = await fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',
+      { cache: 'no-store' }
     );
     if (!response.ok) throw new Error('Failed');
     const data = await response.json();
     const value = Number(data?.bitcoin?.usd);
     if (!Number.isFinite(value)) throw new Error('Invalid');
-    livePrice = value;
-    priceEl.textContent = formatCurrency(value);
-    if (headerPrice) {
-      headerPrice.textContent = formatCurrency(value);
-    }
-    timestampEl.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-    if (!priceInput.value) {
-      priceInput.placeholder = formatCurrency(value);
-    }
-    runCalculation();
+
+    persistPrice(value);
+    renderPrice(
+      value,
+      `Updated ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
+    );
   } catch (error) {
-    timestampEl.textContent = 'Unable to load live price right now.';
+    const fallbackValue = Number.isFinite(cached) ? cached : FALLBACK_PRICE;
+    renderPrice(fallbackValue, 'Using stored price — live feed unavailable.');
   }
 }
 
@@ -186,7 +235,7 @@ function runCalculation() {
   const dcaUsd = parseFloat(usdInput.value || '0');
   const periodsPerYear = parseFloat(frequencyInput.value || '0');
   const goalBtc = parseFloat(goalInput.value || '0');
-  const startPrice = parseFloat(priceInput.value || '') || livePrice;
+  const startPrice = parseFloat(priceInput.value || '') || livePrice || FALLBACK_PRICE;
   const outlookKey = outlookInput?.value || 'moderate';
   const outlook = outlooks[outlookKey] || outlooks.moderate;
 
@@ -230,4 +279,5 @@ function runCalculation() {
   el?.addEventListener('change', runCalculation);
 });
 fetchLivePrice();
+setInterval(fetchLivePrice, 30000);
 runCalculation();

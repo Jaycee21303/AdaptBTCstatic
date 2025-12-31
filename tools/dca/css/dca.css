@@ -132,11 +132,11 @@ a {
 }
 
 .main {
-  padding: 32px 0 64px;
+  padding: 20px 0 40px;
 }
 
 .hero {
-  padding: 24px 0 12px;
+  padding: 12px 0 8px;
 }
 
 .hero-grid {
@@ -188,7 +188,7 @@ h2, h3, h4 {
 }
 
 .tool {
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
 .shell {
@@ -202,7 +202,18 @@ h2, h3, h4 {
 .shell__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 16px;
+}
+
+.shell__grid--balanced {
+  grid-template-columns: minmax(360px, 1.1fr) 1fr;
+  align-items: start;
+}
+
+.side-stack {
+  display: grid;
+  gap: 12px;
+  grid-template-rows: auto 1fr;
 }
 
 .dca-form .form-grid {
@@ -263,17 +274,21 @@ body.theme-dark .input-group select {
 }
 
 .chart-card {
-  margin-top: 18px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--panel);
-  padding: 14px;
+  padding: 12px 14px 14px;
+}
+
+.chart-card.compact {
+  box-shadow: none;
+  height: 100%;
 }
 
 .chart-area {
   position: relative;
-  height: 420px;
-  max-height: 420px;
+  height: 320px;
+  max-height: 320px;
 }
 
 #dcaChart {
@@ -335,8 +350,13 @@ body.theme-dark .input-group select {
 
 @media (max-width: 800px) {
   .hero-grid,
-  .shell__grid {
+  .shell__grid,
+  .shell__grid--balanced {
     grid-template-columns: 1fr;
+  }
+
+  .side-stack {
+    grid-template-rows: auto auto;
   }
 
   .nav-links {
@@ -350,6 +370,6 @@ body.theme-dark .input-group select {
 
 @media (max-width: 540px) {
   .chart-area {
-    height: 320px;
+    height: 260px;
   }
 }
