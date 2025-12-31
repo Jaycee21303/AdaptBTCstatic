@@ -55,42 +55,63 @@
             <span class="tag-pill" id="priceTimestamp">Syncing...</span>
           </div>
           <div class="panel-price-row">
-            <span class="panel-price" id="heroPrice">$--</span>
-            <span class="panel-change" id="heroChange">0.00%</span>
-          </div>
-          <div class="status-grid">
-            <div class="mini-card">
-              <span class="mini-icon">✓</span>
-              <div>
-                <p class="mini-label">BTC</p>
-                <p class="mini-value">Ready</p>
+            <div class="price-stack">
+              <p class="muted tiny">BTC spot</p>
+              <div class="price-line">
+                <span class="panel-price" id="heroPrice">$--</span>
+                <span class="panel-change" id="heroChange">0.00%</span>
               </div>
+              <p class="microcopy">Desk-observed composite across major venues.</p>
             </div>
-            <div class="mini-card">
-              <span class="mini-icon">🔒</span>
-              <div>
-                <p class="mini-label">Security</p>
-                <p class="mini-value">Monitored</p>
+            <div class="coverage-summary">
+              <div class="summary-row">
+                <p class="summary-label">Coverage</p>
+                <p class="summary-value">Live</p>
               </div>
-            </div>
-            <div class="mini-card">
-              <span class="mini-icon">⚡</span>
-              <div>
-                <p class="mini-label">Lightning</p>
-                <p class="mini-value">Guided</p>
+              <div class="summary-row">
+                <p class="summary-label">Network</p>
+                <p class="summary-value">Clearing on time</p>
               </div>
-            </div>
-            <div class="mini-card">
-              <span class="mini-icon">🧭</span>
-              <div>
-                <p class="mini-label">Readiness</p>
-                <p class="mini-value">On</p>
+              <div class="summary-row">
+                <p class="summary-label">Security</p>
+                <p class="summary-value">Monitored</p>
               </div>
             </div>
           </div>
-          <div class="panel-footer">
-            <span class="muted">Blocks observed</span>
-            <span class="tag-pill">Signal-free</span>
+          <div class="trend-card">
+            <div class="trend-meta">
+              <div>
+                <p class="muted tiny">Observed trajectory</p>
+                <p class="trend-title">Orderly upward drift this session</p>
+              </div>
+              <span class="trend-pill">Desk verified</span>
+            </div>
+            <div class="trend-graph" aria-hidden="true">
+              <svg viewBox="0 0 260 120" role="presentation" focusable="false">
+                <defs>
+                  <linearGradient id="trendFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(12, 99, 255, 0.35)" />
+                    <stop offset="100%" stop-color="rgba(12, 99, 255, 0.05)" />
+                  </linearGradient>
+                </defs>
+                <path class="trend-area" d="M0 98 Q22 95 42 90 T88 82 T132 72 T176 58 T220 44 T260 30 L260 120 L0 120 Z"></path>
+                <path class="trend-line" d="M0 98 Q22 95 42 90 T88 82 T132 72 T176 58 T220 44 T260 30"></path>
+              </svg>
+            </div>
+            <div class="trend-scale">
+              <div>
+                <p class="muted tiny">Session start</p>
+                <p class="scale-value">Anchored</p>
+              </div>
+              <div>
+                <p class="muted tiny">Momentum</p>
+                <p class="scale-value">Upward bias</p>
+              </div>
+              <div>
+                <p class="muted tiny">Desk view</p>
+                <p class="scale-value">Higher range in sight</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
