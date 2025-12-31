@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptBTC | Bitcoin DCA Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dca.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="js/dca.js" defer></script>
+</head>
+<body>
+  <header class="page-header">
+    <div class="container header-grid">
+      <a class="brand" href="../../index.html">Adapt<span>BTC</span></a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../../tools.html">Tools</a>
+        <a href="../../consulting.html">Consulting</a>
+        <a class="pill" href="../../get-involved.html">Get involved</a>
+      </nav>
+      <button class="mode-toggle" id="themeToggle" type="button" aria-pressed="false">Light mode</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Bitcoin planner</p>
+          <h1>Dollar-cost average with live price data.</h1>
+          <p class="muted">Model your recurring Bitcoin buys with static math and live pricing from CoinGecko. Results update instantly as you adjust the controls.</p>
+          <div class="tags">
+            <span class="pill ghost">No backend</span>
+            <span class="pill ghost">Chart.js</span>
+            <span class="pill ghost">Accurate math</span>
+          </div>
+        </div>
+        <div class="price-card" aria-live="polite">
+          <p class="muted tiny">Live BTC price</p>
+          <h2 id="livePrice">$--</h2>
+          <p class="muted tiny" id="priceTimestamp">Fetching latest price from CoinGecko…</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool">
+      <div class="container">
+        <div class="shell">
+          <div class="shell__grid">
+            <form class="dca-form" aria-label="Bitcoin DCA inputs">
+              <div class="form-grid">
+                <label class="input-group">
+                  <span>Contribution per buy (USD)</span>
+                  <input type="number" id="dcaUsd" min="0" step="10" value="100" inputmode="decimal">
+                </label>
+                <label class="input-group">
+                  <span>Frequency</span>
+                  <select id="dcaFrequency">
+                    <option value="365">Daily</option>
+                    <option value="52" selected>Weekly</option>
+                    <option value="12">Monthly</option>
+                  </select>
+                </label>
+                <label class="input-group">
+                  <span>Price outlook</span>
+                  <select id="outlook">
+                    <option value="bearish">Bearish · 10%/yr</option>
+                    <option value="moderate" selected>Moderate · 30%/yr</option>
+                    <option value="bullish">Bullish · 45%/yr</option>
+                  </select>
+                </label>
+                <label class="input-group">
+                  <span>Target BTC to accumulate</span>
+                  <input type="number" id="goalBtc" min="0" step="0.01" value="1">
+                </label>
+                <label class="input-group">
+                  <span>BTC price used (USD)</span>
+                  <input type="number" id="startPrice" min="0" step="0.01" placeholder="Live price" inputmode="decimal">
+                  <small class="muted tiny">Defaults to the live CoinGecko price.</small>
+                </label>
+              </div>
+              <p class="muted tiny">Math uses raw contributions only — no compounding, no yield, no added logic.</p>
+            </form>
+
+            <div class="results" aria-live="polite">
+              <div class="result-grid">
+                <div class="stat">
+                  <p class="muted tiny">BTC accumulated (selected outlook)</p>
+                  <h3 id="btcHeld">0 BTC</h3>
+                </div>
+                <div class="stat">
+                  <p class="muted tiny">Total contributed</p>
+                  <h3 id="totalInvested">$0</h3>
+                </div>
+                <div class="stat">
+                  <p class="muted tiny">Average cost per BTC</p>
+                  <h3 id="avgCost">$0</h3>
+                </div>
+                <div class="stat">
+                  <p class="muted tiny">Goal progress</p>
+                  <h3 id="goalStatus">Goal not reached</h3>
+                </div>
+              </div>
+              <div class="scenario-note" id="scenarioRange">Moderate outlook · 30% CAGR assumption over 5 years.</div>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <div>
+                <p class="muted tiny">Projection chart</p>
+                <h4>BTC balance vs projected price</h4>
+              </div>
+              <p class="muted tiny">Accumulation uses the exact math provided. Price paths use annual growth assumptions.</p>
+            </div>
+            <div class="chart-area">
+              <canvas id="dcaChart" aria-label="BTC accumulation chart" role="img"></canvas>
+            </div>
+            <div class="legend">
+              <span class="legend-pill dark">BTC balance</span>
+              <span class="legend-pill dashed accent" id="priceLegend">Projected price</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
