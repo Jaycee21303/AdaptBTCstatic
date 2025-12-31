@@ -462,18 +462,29 @@ async function bootstrapHeroHistory() {
   if (!heroBtcChart) return;
 
   const cachedHistory = readCachedHistory();
-  if (cachedHistory) {
+  if (cachedHistory?.length) {
     loadHeroHistoryFrom(cachedHistory);
+    if (heroChartStatus) {
+      heroChartStatus.textContent = 'Cached view';
+    }
+  } else {
+    loadHeroHistoryFrom(fallbackHistory);
+    if (heroChartStatus) {
+      heroChartStatus.textContent = 'Fallback view';
+    }
   }
 
   try {
     const liveHistory = await fetchCoinGeckoHistory();
     persistHistory(liveHistory);
     loadHeroHistoryFrom(liveHistory);
-  } catch (error) {
-    loadHeroHistoryFrom(fallbackHistory);
     if (heroChartStatus) {
-      heroChartStatus.textContent = 'Fallback view';
+      heroChartStatus.textContent = `Through ${formatMonthDay(liveHistory[liveHistory.length - 1].time)}`;
+    }
+  } catch (error) {
+    // already rendered cached or fallback
+    if (heroChartStatus) {
+      heroChartStatus.textContent = 'Offline fallback';
     }
   }
 }
