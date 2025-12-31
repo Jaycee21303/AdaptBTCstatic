@@ -50,56 +50,44 @@
         <div class="hero-card glass dca-hero-card" aria-hidden="true">
           <div class="card-header">
             <div>
-              <p class="muted tiny">DCA example</p>
-              <h3>BTC growth over time</h3>
+              <p class="muted tiny">Live view</p>
+              <h3>Bitcoin price – last 6 months</h3>
             </div>
-            <span class="status good">Sample</span>
+            <div class="price-chip">
+              <span id="heroPrice">$--</span>
+              <span id="heroChange" class="muted tiny">--</span>
+            </div>
           </div>
-          <div class="chart-wrapper">
-            <svg class="dca-chart" viewBox="0 0 320 160" role="img" aria-label="Sample BTC growth line over twelve months">
-              <defs>
-                <linearGradient id="dcaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="rgba(12, 99, 255, 0.25)" />
-                  <stop offset="100%" stop-color="rgba(12, 99, 255, 0)" />
-                </linearGradient>
-                <linearGradient id="valueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#0bbf63" />
-                  <stop offset="100%" stop-color="#0c63ff" />
-                </linearGradient>
-              </defs>
-              <path class="chart-fill" d="M0 138 L0 120 L40 110 L80 118 L120 102 L160 96 L200 82 L240 74 L280 58 L320 46 L320 138 Z" fill="url(#dcaGradient)" />
-              <path class="chart-line" d="M0 120 L40 110 L80 118 L120 102 L160 96 L200 82 L240 74 L280 58 L320 46" stroke="url(#valueGradient)" />
-              <path class="chart-dca" d="M0 134 L40 132 L80 128 L120 124 L160 118 L200 110 L240 100 L280 90 L320 78" />
-              <circle cx="320" cy="46" r="4" class="chart-dot" />
-            </svg>
+          <div class="chart-wrapper real-chart">
+            <canvas id="heroBtcChart" aria-label="Live BTC price over the last six months"></canvas>
             <div class="chart-legend">
-              <span class="legend-pill">BTC price path</span>
-              <span class="legend-pill accent">DCA value</span>
+              <span class="legend-pill">BTC/USD close</span>
+              <span class="legend-pill accent" id="heroChartStatus">Loading…</span>
             </div>
           </div>
           <div class="plan-grid">
             <div class="plan-stat">
-              <p class="muted tiny">Contribution</p>
-              <h4>$200 / week</h4>
-              <p class="muted tiny">Auto-debited Fridays</p>
+              <p class="muted tiny">Latest close</p>
+              <h4 id="heroLatestClose">$--</h4>
+              <p class="muted tiny">Updated from market feed</p>
             </div>
             <div class="plan-stat">
-              <p class="muted tiny">Duration</p>
-              <h4>12 months</h4>
-              <p class="muted tiny">48 total buys</p>
+              <p class="muted tiny">Range (6M)</p>
+              <h4 id="heroRange">$--</h4>
+              <p class="muted tiny">High / Low</p>
             </div>
             <div class="plan-stat">
-              <p class="muted tiny">Projected BTC</p>
-              <h4>≈0.46 BTC</h4>
-              <p class="muted tiny">Assumes steady buys</p>
+              <p class="muted tiny">Change</p>
+              <h4 id="heroRangeChange">--</h4>
+              <p class="muted tiny">Six-month move</p>
             </div>
           </div>
           <div class="plan-highlight">
             <div>
-              <p class="muted tiny">Hypothetical growth</p>
-              <h4>+$8,250 vs holding cash</h4>
+              <p class="muted tiny">DCA ready</p>
+              <h4>Connect this price feed to the DCA tool</h4>
             </div>
-            <p class="muted tiny">Made-up example to show how the DCA tool works.</p>
+            <p class="muted tiny">Live market data powering your planning view.</p>
           </div>
         </div>
       </div>
