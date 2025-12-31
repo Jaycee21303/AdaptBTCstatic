@@ -65,8 +65,12 @@
                   </select>
                 </label>
                 <label class="input-group">
-                  <span>Duration (years)</span>
-                  <input type="number" id="dcaYears" min="1" max="40" step="1" value="5">
+                  <span>Price outlook</span>
+                  <select id="outlook">
+                    <option value="bearish">Bearish · 10%/yr</option>
+                    <option value="moderate" selected>Moderate · 30%/yr</option>
+                    <option value="bullish">Bullish · 45%/yr</option>
+                  </select>
                 </label>
                 <label class="input-group">
                   <span>Target BTC to accumulate</span>
@@ -84,7 +88,7 @@
             <div class="results" aria-live="polite">
               <div class="result-grid">
                 <div class="stat">
-                  <p class="muted tiny">BTC accumulated (moderate)</p>
+                  <p class="muted tiny">BTC accumulated (selected outlook)</p>
                   <h3 id="btcHeld">0 BTC</h3>
                 </div>
                 <div class="stat">
@@ -100,7 +104,7 @@
                   <h3 id="goalStatus">Goal not reached</h3>
                 </div>
               </div>
-              <div class="scenario-note" id="scenarioRange">Conservative, moderate, and bullish projections use locked CAGR assumptions.</div>
+              <div class="scenario-note" id="scenarioRange">Moderate outlook · 30% CAGR assumption over 5 years.</div>
             </div>
           </div>
 
@@ -117,9 +121,7 @@
             </div>
             <div class="legend">
               <span class="legend-pill dark">BTC balance</span>
-              <span class="legend-pill dashed bear">Conservative price</span>
-              <span class="legend-pill dashed">Moderate price</span>
-              <span class="legend-pill dashed accent">Bullish price</span>
+              <span class="legend-pill dashed accent" id="priceLegend">Projected price</span>
             </div>
           </div>
         </div>

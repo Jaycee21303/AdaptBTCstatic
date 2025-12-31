@@ -2,7 +2,7 @@ const priceEl = document.getElementById('livePrice');
 const timestampEl = document.getElementById('priceTimestamp');
 const usdInput = document.getElementById('dcaUsd');
 const frequencyInput = document.getElementById('dcaFrequency');
-const yearsInput = document.getElementById('dcaYears');
+const outlookInput = document.getElementById('outlook');
 const goalInput = document.getElementById('goalBtc');
 const priceInput = document.getElementById('startPrice');
 const btcHeldEl = document.getElementById('btcHeld');
@@ -10,14 +10,17 @@ const totalInvestedEl = document.getElementById('totalInvested');
 const avgCostEl = document.getElementById('avgCost');
 const goalStatusEl = document.getElementById('goalStatus');
 const scenarioRangeEl = document.getElementById('scenarioRange');
+const priceLegendEl = document.getElementById('priceLegend');
 const chartCanvas = document.getElementById('dcaChart');
 const themeToggle = document.getElementById('themeToggle');
 
-const rates = {
-  conservative: 0.1,
-  moderate: 0.3,
-  bullish: 0.6,
+const outlooks = {
+  bearish: { label: 'Bearish', rate: 0.1 },
+  moderate: { label: 'Moderate', rate: 0.3 },
+  bullish: { label: 'Bullish', rate: 0.45 },
 };
+
+const projectionYears = 5;
 
 let livePrice;
 let chartInstance;
@@ -117,7 +120,7 @@ function chartGridColors() {
   };
 }
 
-function updateChart(labels, holdings, conservativePrices, moderatePrices, bullishPrices) {
+function updateChart(labels, holdings, projectedPrices, label) {
   if (!chartCanvas) return;
   const grid = chartGridColors();
   const textColor = currentTheme() === 'dark' ? '#e7eefc' : '#0f172a';
@@ -134,29 +137,9 @@ function updateChart(labels, holdings, conservativePrices, moderatePrices, bulli
         tension: 0.25,
       },
       {
-        label: 'Conservative price',
-        data: conservativePrices,
-        borderColor: '#f28b82',
-        borderDash: [8, 6],
-        borderWidth: 2,
-        pointRadius: 0,
-        yAxisID: 'y1',
-        tension: 0.25,
-      },
-      {
-        label: 'Moderate price',
-        data: moderatePrices,
+        label: `${label} price`,
+        data: projectedPrices,
         borderColor: '#0c63ff',
-        borderDash: [8, 6],
-        borderWidth: 2,
-        pointRadius: 0,
-        yAxisID: 'y1',
-        tension: 0.25,
-      },
-      {
-        label: 'Bullish price',
-        data: bullishPrices,
-        borderColor: '#8ab4ff',
         borderDash: [8, 6],
         borderWidth: 2,
         pointRadius: 0,
@@ -222,11 +205,12 @@ function updateChart(labels, holdings, conservativePrices, moderatePrices, bulli
 function runCalculation() {
   const dcaUsd = parseFloat(usdInput.value || '0');
   const periodsPerYear = parseFloat(frequencyInput.value || '0');
-  const years = parseFloat(yearsInput.value || '0');
   const goalBtc = parseFloat(goalInput.value || '0');
   const startPrice = parseFloat(priceInput.value || '') || livePrice;
+  const outlookKey = outlookInput?.value || 'moderate';
+  const outlook = outlooks[outlookKey] || outlooks.moderate;
 
-  if (!Number.isFinite(dcaUsd) || dcaUsd <= 0 || !Number.isFinite(periodsPerYear) || periodsPerYear <= 0 || !Number.isFinite(years) || years <= 0) {
+  if (!Number.isFinite(dcaUsd) || dcaUsd <= 0 || !Number.isFinite(periodsPerYear) || periodsPerYear <= 0) {
     return;
   }
 
@@ -235,32 +219,33 @@ function runCalculation() {
     return;
   }
 
-  const params = { dcaUsd, periodsPerYear, years, startPrice, goalBtc };
+  const params = { dcaUsd, periodsPerYear, years: projectionYears, startPrice, goalBtc };
 
-  const conservative = buildProjection(rates.conservative, params);
-  const moderate = buildProjection(rates.moderate, params);
-  const bullish = buildProjection(rates.bullish, params);
+  const projection = buildProjection(outlook.rate, params);
 
-  const labels = moderate.labels;
-  const totalContributions = dcaUsd * Math.max(1, Math.round(years * periodsPerYear));
-  const avgCost = totalContributions / moderate.btcBalance;
+  const labels = projection.labels;
+  const totalContributions = dcaUsd * Math.max(1, Math.round(projectionYears * periodsPerYear));
+  const avgCost = totalContributions / projection.btcBalance;
 
-  btcHeldEl.textContent = formatBtc(moderate.btcBalance);
+  btcHeldEl.textContent = formatBtc(projection.btcBalance);
   totalInvestedEl.textContent = formatCurrency(totalContributions);
   avgCostEl.textContent = Number.isFinite(avgCost) ? formatCurrency(avgCost) : '$0';
 
-  if (moderate.goalYears !== null) {
-    goalStatusEl.textContent = `Goal reached in ${moderate.goalYears.toFixed(2)} years (moderate)`;
+  if (projection.goalYears !== null) {
+    goalStatusEl.textContent = `Goal reached in ${projection.goalYears.toFixed(2)} years (${outlook.label.toLowerCase()})`;
   } else {
     goalStatusEl.textContent = goalBtc > 0 ? 'Goal not reached in this window.' : 'No BTC goal set.';
   }
 
-  scenarioRangeEl.textContent = `Conservative ${rates.conservative * 100}% · Moderate ${rates.moderate * 100}% · Bullish ${rates.bullish * 100}% CAGR`;
+  scenarioRangeEl.textContent = `${outlook.label} outlook · ${(outlook.rate * 100).toFixed(0)}% CAGR assumption over ${projectionYears} years.`;
+  if (priceLegendEl) {
+    priceLegendEl.textContent = `${outlook.label} price`;
+  }
 
-  updateChart(labels, moderate.balances, conservative.prices, moderate.prices, bullish.prices);
+  updateChart(labels, projection.balances, projection.prices, outlook.label);
 }
 
-[usdInput, frequencyInput, yearsInput, goalInput, priceInput].forEach((el) => {
+[usdInput, frequencyInput, outlookInput, goalInput, priceInput].forEach((el) => {
   el?.addEventListener('input', runCalculation);
   el?.addEventListener('change', runCalculation);
 });
