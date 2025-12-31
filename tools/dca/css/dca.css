@@ -82,6 +82,8 @@ body.theme-dark .page-header {
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .nav-links a {
@@ -92,6 +94,34 @@ body.theme-dark .page-header {
 
 .nav-links a:hover {
   color: var(--text);
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticker-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  font-weight: 700;
+}
+
+.ticker-label {
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.ticker-price {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
 }
 
 .mode-toggle {

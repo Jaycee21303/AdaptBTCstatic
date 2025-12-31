@@ -15,13 +15,19 @@
   <header class="page-header">
     <div class="container header-grid">
       <a class="brand" href="../../index.html">Adapt<span>BTC</span></a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Primary">
         <a href="../../index.html">Home</a>
-        <a href="../../tools/dca/">Tools</a>
+        <a href="../../tools/dca/" aria-current="page">Tools</a>
         <a href="../../consulting.html">Consulting</a>
         <a class="pill" href="../../get-involved.html">Get involved</a>
       </nav>
-      <button class="mode-toggle" id="themeToggle" type="button" aria-pressed="false">Light mode</button>
+      <div class="header-meta">
+        <div class="ticker-chip" aria-live="polite">
+          <span class="ticker-label">BTC</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
+        </div>
+        <button class="mode-toggle" id="themeToggle" type="button" aria-pressed="false">Light mode</button>
+      </div>
     </div>
   </header>
 

@@ -5,6 +5,7 @@ const frequencyInput = document.getElementById('dcaFrequency');
 const outlookInput = document.getElementById('outlook');
 const goalInput = document.getElementById('goalBtc');
 const priceInput = document.getElementById('startPrice');
+const headerPrice = document.getElementById('btcPrice');
 const btcHeldEl = document.getElementById('btcHeld');
 const totalInvestedEl = document.getElementById('totalInvested');
 const avgCostEl = document.getElementById('avgCost');
@@ -68,6 +69,9 @@ async function fetchLivePrice() {
     if (!Number.isFinite(value)) throw new Error('Invalid');
     livePrice = value;
     priceEl.textContent = formatCurrency(value);
+    if (headerPrice) {
+      headerPrice.textContent = formatCurrency(value);
+    }
     timestampEl.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
     if (!priceInput.value) {
       priceInput.placeholder = formatCurrency(value);
