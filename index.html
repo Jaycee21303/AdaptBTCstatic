@@ -11,22 +11,21 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-container">
-      <a class="logo" href="index.html">Adapt<span>BTC</span></a>
-      <nav class="nav" id="navMenu">
-        <span class="ticker" aria-live="polite">
+  <header class="page-header">
+    <div class="container header-grid">
+      <a class="brand" href="index.html">Adapt<span>BTC</span></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="tools/dca/">Tools</a>
+        <a href="consulting.html">Consulting</a>
+        <a class="pill" href="get-involved.html">Get involved</a>
+      </nav>
+      <div class="header-meta">
+        <div class="ticker-chip" aria-live="polite">
           <span class="ticker-label">BTC</span>
           <span class="ticker-price" id="btcPrice">$--</span>
-        </span>
-        <a href="tools.html">Tools</a>
-        <a href="consulting.html">Consulting</a>
-        <a href="get-involved.html">Get Involved</a>
-        <a class="pill-link" href="#learning">Learning Portal</a>
-      </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -39,7 +38,7 @@
           <p class="lead">AdaptBTC is a consulting and education suite with a DCA tool — combining workshops, playbooks, and live pricing so desks can deploy with confidence.</p>
           <div class="cta-group">
             <a class="btn primary" href="consulting.html">Book a consulting session</a>
-            <a class="btn secondary" href="tools.html#dca">Open the DCA tool</a>
+            <a class="btn secondary" href="tools/dca/">Open the DCA tool</a>
           </div>
           <ul class="check-list">
             <li><span class="check-icon-svg" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8.4 6.3 12l7-8.2"/></svg></span>Workshops on custody, usage, and recovery for staff</li>
@@ -104,19 +103,19 @@
           <div class="glyph hold" aria-hidden="true"></div>
           <h3>Hold</h3>
           <p class="muted">Choose the right wallet type, capture backups, and record owners with a single checklist.</p>
-          <a class="link" href="tools.html#custody">Go to custody guide →</a>
+          <a class="link" href="tools/dca/">Go to custody guide →</a>
         </div>
         <div class="card pillar-card">
           <div class="glyph lightning" aria-hidden="true"></div>
           <h3>Use</h3>
           <p class="muted">Lightning and payment paths that flag fees, uptime expectations, and settlement options up front.</p>
-          <a class="link" href="tools.html#payments">Open payment planner →</a>
+          <a class="link" href="tools/dca/">Open payment planner →</a>
         </div>
         <div class="card pillar-card">
           <div class="glyph shield" aria-hidden="true"></div>
           <h3>Secure</h3>
           <p class="muted">Run diagnostics, practice recovery steps, and log audits with the same baseline ticker.</p>
-          <a class="link" href="tools.html#secure">Review security steps →</a>
+          <a class="link" href="tools/dca/">Review security steps →</a>
         </div>
       </div>
     </section>
@@ -134,7 +133,7 @@
             <h3>Live BTC ticker</h3>
             <p class="muted">Header price refreshes every 30 seconds with cached fallbacks for stability.</p>
           </div>
-          <a class="link" href="tools.html#live-feed">Open ticker →</a>
+          <a class="link" href="tools/dca/">Open ticker →</a>
         </div>
         <div class="card tool-card">
           <div class="tool-icon glyph chart" aria-hidden="true"></div>
@@ -142,7 +141,7 @@
             <h3>DCA planner</h3>
             <p class="muted">Model recurring buys using the live starting price and your growth assumption.</p>
           </div>
-          <a class="link" href="tools.html#dca">Plan now →</a>
+          <a class="link" href="tools/dca/">Plan now →</a>
         </div>
         <div class="card tool-card">
           <div class="tool-icon glyph bands" aria-hidden="true"></div>
@@ -150,7 +149,7 @@
             <h3>Scenario bands</h3>
             <p class="muted">Bear, base, and bull projections visualize how your strategy could track over time.</p>
           </div>
-          <a class="link" href="tools.html#dca">Check ranges →</a>
+          <a class="link" href="tools/dca/">Check ranges →</a>
         </div>
         <div class="card tool-card">
           <div class="tool-icon glyph ledger" aria-hidden="true"></div>
@@ -158,7 +157,7 @@
             <h3>Contribution breakdown</h3>
             <p class="muted">Instant totals for monthly deployment, cumulative contributions, and cost basis.</p>
           </div>
-          <a class="link" href="tools.html#dca">Break down totals →</a>
+          <a class="link" href="tools/dca/">Break down totals →</a>
         </div>
         <div class="card tool-card">
           <div class="tool-icon glyph audit" aria-hidden="true"></div>
@@ -166,7 +165,7 @@
             <h3>Readiness check</h3>
             <p class="muted">Audit your operational posture with prompts tuned for desks and coverage teams.</p>
           </div>
-          <a class="link" href="tools.html#live-feed">Open check →</a>
+          <a class="link" href="tools/dca/">Open check →</a>
         </div>
         <div class="card tool-card">
           <div class="tool-icon glyph radar-alt" aria-hidden="true"></div>
@@ -174,7 +173,7 @@
             <h3>Network pulse</h3>
             <p class="muted">Monitor network health alongside the ticker so pricing, planning, and alerts stay aligned.</p>
           </div>
-          <a class="link" href="tools.html#analytics">Monitor →</a>
+          <a class="link" href="tools/dca/">Monitor →</a>
         </div>
       </div>
     </section>
@@ -204,13 +203,13 @@
         <p class="footer-title">Explore</p>
         <a href="index.html">Home</a>
         <a href="#learning">Learning</a>
-        <a href="tools.html">Tools</a>
+        <a href="tools/dca/">Tools</a>
       </div>
       <div class="footer-col">
         <p class="footer-title">Services</p>
         <a href="consulting.html">Consulting</a>
         <a href="get-involved.html">Get involved</a>
-        <a href="tools.html#analytics">About</a>
+        <a href="tools/dca/">About</a>
       </div>
       <div class="footer-col">
         <p class="footer-title">Connect</p>

@@ -11,22 +11,21 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-container">
-      <a class="logo" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
-      <nav class="nav" id="navMenu">
-        <span class="ticker" id="btcTicker" aria-live="polite">
+  <header class="page-header">
+    <div class="container header-grid">
+      <a class="brand" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="tools/dca/">Tools</a>
+        <a href="consulting.html" aria-current="page">Consulting</a>
+        <a class="pill" href="get-involved.html">Get involved</a>
+      </nav>
+      <div class="header-meta">
+        <div class="ticker-chip" aria-live="polite">
           <span class="ticker-label">BTC</span>
           <span class="ticker-price" id="btcPrice">$--</span>
-        </span>
-        <a href="tools.html">Tools</a>
-        <a href="consulting.html">Consulting</a>
-        <a href="get-involved.html">Get Involved</a>
-        <a class="pill-link" href="index.html#learning">Learning Portal</a>
-      </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
+        </div>
+      </div>
     </div>
   </header>
   <main>
@@ -37,7 +36,7 @@
           <p class="lead">Work with AdaptBTC coaches to align education, security, and readiness for your team or community.</p>
           <div class="cta-group">
             <a class="btn primary" href="#consulting">Request a consult</a>
-            <a class="btn secondary" href="tools.html">See our tools</a>
+            <a class="btn secondary" href="tools/dca/">See our tools</a>
           </div>
         </div>
         <div class="hero-card glass">
@@ -111,7 +110,7 @@
         <p class="footer-title">Explore</p>
         <a href="index.html">Home</a>
         <a href="index.html#learning">Learning</a>
-        <a href="tools.html">Tools</a>
+        <a href="tools/dca/">Tools</a>
       </div>
       <div class="footer-col">
         <p class="footer-title">Services</p>
