@@ -153,6 +153,16 @@ img {
   font-variant-numeric: tabular-nums;
 }
 
+.ticker-label {
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.ticker-price {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
 .pill {
   display: inline-flex;
   align-items: center;
