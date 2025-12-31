@@ -135,9 +135,22 @@ img {
   padding: 10px 12px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: var(--panel);
+  background: rgba(255, 255, 255, 0.6);
   box-shadow: var(--shadow);
   font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ticker-label {
+  letter-spacing: 0.02em;
+  color: var(--primary);
+}
+
+.ticker-price {
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
 }
 
 .ticker-label {
