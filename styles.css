@@ -305,13 +305,19 @@ main {
 }
 
 .hero-text h1 {
-  font-size: clamp(2.6rem, 5vw, 3.7rem);
-  line-height: 1.1;
-  margin-bottom: 1.1rem;
+  font-size: clamp(2.9rem, 5.6vw, 4.1rem);
+  line-height: 1.08;
+  margin-bottom: 1.15rem;
 }
 
 .lead {
   color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.hero-text .bullet-list {
+  font-size: 1.02rem;
+  line-height: 1.55;
 }
 
 .status-card {
