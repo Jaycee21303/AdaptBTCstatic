@@ -13,7 +13,6 @@ const goalStatusEl = document.getElementById('goalStatus');
 const scenarioRangeEl = document.getElementById('scenarioRange');
 const priceLegendEl = document.getElementById('priceLegend');
 const chartCanvas = document.getElementById('dcaChart');
-const themeToggle = document.getElementById('themeToggle');
 
 const outlooks = {
   bearish: { label: 'Bearish', rate: 0.1 },
@@ -25,28 +24,6 @@ const projectionYears = 5;
 
 let livePrice;
 let chartInstance;
-
-function currentTheme() {
-  return document.body.classList.contains('theme-dark') ? 'dark' : 'light';
-}
-
-function setTheme(mode) {
-  const enableDark = mode === 'dark';
-  document.body.classList.toggle('theme-dark', enableDark);
-  if (themeToggle) {
-    const label = enableDark ? 'Light mode' : 'Dark mode';
-    themeToggle.textContent = label;
-    themeToggle.setAttribute('aria-pressed', enableDark ? 'true' : 'false');
-  }
-  localStorage.setItem('dca-theme', enableDark ? 'dark' : 'light');
-  runCalculation();
-}
-
-function initTheme() {
-  const saved = localStorage.getItem('dca-theme');
-  const mode = saved || 'light';
-  setTheme(mode);
-}
 
 function formatCurrency(value) {
   if (!Number.isFinite(value)) return '$0';
@@ -117,17 +94,16 @@ function buildProjection(rate, params) {
 }
 
 function chartGridColors() {
-  const isDark = currentTheme() === 'dark';
   return {
-    primary: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(15,23,42,0.08)',
-    light: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(15,23,42,0.05)',
+    primary: 'rgba(15,23,42,0.08)',
+    light: 'rgba(15,23,42,0.05)',
   };
 }
 
 function updateChart(labels, holdings, projectedPrices, label) {
   if (!chartCanvas) return;
   const grid = chartGridColors();
-  const textColor = currentTheme() === 'dark' ? '#e7eefc' : '#0f172a';
+  const textColor = '#0f172a';
   const data = {
     labels,
     datasets: [
@@ -253,12 +229,5 @@ function runCalculation() {
   el?.addEventListener('input', runCalculation);
   el?.addEventListener('change', runCalculation);
 });
-
-themeToggle?.addEventListener('click', () => {
-  const next = currentTheme() === 'dark' ? 'light' : 'dark';
-  setTheme(next);
-});
-
-initTheme();
 fetchLivePrice();
 runCalculation();
