@@ -18,7 +18,7 @@
         <a href="tools/dca/">Tools</a>
         <a href="consulting.html">Consulting</a>
         <a href="get-involved.html">Get Involved</a>
-        <a href="index.html#learning">Education</a>
+        <a href="index.html#debt">Debt Clock</a>
       </nav>
       <div class="header-meta">
         <a class="ticker-chip" href="index.html" aria-live="polite">
@@ -59,9 +59,12 @@
           </div>
           <div class="chart-wrapper real-chart">
             <canvas id="heroBtcChart" aria-label="Live BTC price over the last six months"></canvas>
-            <div class="chart-legend">
-              <span class="legend-pill">BTC/USD close</span>
-              <span class="legend-pill accent" id="heroChartStatus">Loading…</span>
+            <div class="chart-toolbar">
+              <div class="chart-legend">
+                <span class="legend-pill">BTC/USD close</span>
+                <span class="legend-pill accent" id="heroChartStatus">Loading…</span>
+              </div>
+              <button class="btn tertiary" id="heroZoomButton" type="button">🔍 Zoom out</button>
             </div>
           </div>
           <div class="plan-grid">
@@ -92,30 +95,47 @@
       </div>
     </section>
 
-    <section id="learning" class="section surface">
-      <div class="container section-header">
-        <p class="eyebrow">Readiness pillars</p>
-        <h2>Simple, practical steps — custody, usage, and security.</h2>
-        <p class="muted">Each pillar points to a specific next step so teams know where to start, with links into the exact tool that matches the job.</p>
-      </div>
-      <div class="container pillar-grid">
-        <div class="card pillar-card">
-          <div class="glyph hold" aria-hidden="true"></div>
-          <h3>Hold</h3>
-          <p class="muted">Choose the right wallet type, capture backups, and record owners with a single checklist.</p>
-          <a class="link" href="tools/dca/">Go to custody guide →</a>
+    <section id="debt" class="section surface debt-section">
+      <div class="container debt-grid">
+        <div class="debt-copy">
+          <p class="eyebrow">U.S. national debt</p>
+          <h2>Real-time debt clock, fixed Bitcoin supply.</h2>
+          <p class="muted">Watch the national debt climb while Bitcoin stays hard-capped at 21 million. Governments can print value away — Bitcoin cannot.</p>
+          <div class="debt-facts">
+            <div>
+              <p class="muted tiny">21,000,000 BTC</p>
+              <p class="strong">Fixed forever</p>
+            </div>
+            <div>
+              <p class="muted tiny">USD supply</p>
+              <p class="strong">Expands on demand</p>
+            </div>
+          </div>
         </div>
-        <div class="card pillar-card">
-          <div class="glyph lightning" aria-hidden="true"></div>
-          <h3>Use</h3>
-          <p class="muted">Lightning and payment paths that flag fees, uptime expectations, and settlement options up front.</p>
-          <a class="link" href="tools/dca/">Open payment planner →</a>
-        </div>
-        <div class="card pillar-card">
-          <div class="glyph shield" aria-hidden="true"></div>
-          <h3>Secure</h3>
-          <p class="muted">Run diagnostics, practice recovery steps, and log audits with the same baseline ticker.</p>
-          <a class="link" href="tools/dca/">Review security steps →</a>
+        <div class="card debt-card">
+          <div class="debt-card-header">
+            <div>
+              <p class="muted tiny">Live from U.S. Treasury</p>
+              <h3>Current U.S. debt</h3>
+            </div>
+            <span class="legend-pill accent" id="debtStatus">Loading…</span>
+          </div>
+          <div class="debt-value" id="debtValue">$-- T</div>
+          <p class="muted">Updating with the latest published total and an estimated intraday climb.</p>
+          <div class="debt-meta">
+            <div>
+              <p class="muted tiny">24h change</p>
+              <p id="debtChange">--</p>
+            </div>
+            <div>
+              <p class="muted tiny">Last Treasury update</p>
+              <p id="debtUpdated">--</p>
+            </div>
+            <div>
+              <p class="muted tiny">Bitcoin supply</p>
+              <p class="accent">21,000,000 BTC</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -202,7 +222,7 @@
       <div class="footer-col">
         <p class="footer-title">Explore</p>
         <a href="index.html">Home</a>
-        <a href="#learning">Learning</a>
+        <a href="#debt">Debt Clock</a>
         <a href="tools/dca/">Tools</a>
       </div>
       <div class="footer-col">
