@@ -12,6 +12,7 @@ const priceTimestamp = document.getElementById('priceTimestamp');
 const heroBtcChart = document.getElementById('heroBtcChart');
 const heroChartStatus = document.getElementById('heroChartStatus');
 const heroZoomButton = document.getElementById('heroZoomButton');
+const heroChartWrapper = heroBtcChart?.parentElement || null;
 const heroLatestClose = document.getElementById('heroLatestClose');
 const heroRange = document.getElementById('heroRange');
 const heroRangeChange = document.getElementById('heroRangeChange');
@@ -81,6 +82,13 @@ const fallbackFullHistory = [
   { time: new Date('2022-11-21').getTime(), price: 15760 },
   { time: new Date('2024-06-15').getTime(), price: 71100 },
 ];
+
+const heroHistoryState = { sixMonths: [], full: [] };
+const HERO_LIVE_REFRESH_MS = 45_000;
+let heroLiveUpdater = null;
+let heroHoverPoints = [];
+let heroStatusBaseText = '';
+let heroTooltip = null;
 
 function extendHistoryTo2009(points) {
   if (!Array.isArray(points) || !points.length) return points;
@@ -186,6 +194,13 @@ function persistHistory(points, cacheKey) {
     localStorage.setItem(cacheKey, JSON.stringify({ points, time: Date.now() }));
   } catch (error) {
     // ignore cache issues
+  }
+}
+
+function setHeroStatus(text) {
+  if (heroChartStatus) {
+    heroChartStatus.textContent = text;
+    heroStatusBaseText = text;
   }
 }
 
@@ -320,6 +335,12 @@ heroZoomButton?.addEventListener('click', () => {
   currentHeroRange = currentHeroRange === 'full' ? 'sixMonths' : 'full';
   updateHeroZoomButton();
   loadHeroHistory(currentHeroRange);
+});
+
+heroBtcChart?.addEventListener('pointermove', handleHeroHover);
+heroBtcChart?.addEventListener('pointerleave', () => {
+  hideHeroTooltip();
+  restoreHeroStatus();
 });
 
 function formatCurrency(value) {
@@ -505,6 +526,13 @@ function drawHeroChart(points) {
   const linePoints = points.map((p, index) => ({ x: toX(index), y: toY(p.price) }));
   drawSmoothLine(ctx, linePoints, '#0c63ff', 3.6);
 
+  heroHoverPoints = points.map((point, index) => ({
+    x: linePoints[index].x,
+    y: linePoints[index].y,
+    price: point.price,
+    time: point.time,
+  }));
+
   const lastPoint = linePoints[linePoints.length - 1];
   ctx.fillStyle = '#ffffff';
   ctx.strokeStyle = '#0c63ff';
@@ -527,6 +555,71 @@ function drawHeroChart(points) {
   });
 
   ctx.restore();
+}
+
+function ensureHeroTooltip() {
+  if (heroTooltip || !heroChartWrapper) return;
+  heroTooltip = document.createElement('div');
+  heroTooltip.setAttribute('aria-hidden', 'true');
+  heroTooltip.style.position = 'absolute';
+  heroTooltip.style.pointerEvents = 'none';
+  heroTooltip.style.background = '#0c63ff';
+  heroTooltip.style.color = '#ffffff';
+  heroTooltip.style.padding = '6px 10px';
+  heroTooltip.style.borderRadius = '10px';
+  heroTooltip.style.font = '12px Inter, system-ui, sans-serif';
+  heroTooltip.style.boxShadow = '0 10px 30px rgba(12, 99, 255, 0.18)';
+  heroTooltip.style.transform = 'translate(-50%, -120%)';
+  heroTooltip.style.opacity = '0';
+  heroTooltip.style.transition = 'opacity 120ms ease';
+  heroChartWrapper.appendChild(heroTooltip);
+}
+
+function hideHeroTooltip() {
+  if (!heroTooltip) return;
+  heroTooltip.style.opacity = '0';
+}
+
+function renderHeroTooltip(point) {
+  ensureHeroTooltip();
+  if (!heroTooltip) return;
+  heroTooltip.textContent = `${formatPrice(point.price)} · ${formatMonthDay(point.time)}`;
+  heroTooltip.style.left = `${point.x}px`;
+  heroTooltip.style.top = `${point.y}px`;
+  heroTooltip.style.opacity = '1';
+}
+
+function restoreHeroStatus() {
+  if (heroChartStatus && heroStatusBaseText) {
+    heroChartStatus.textContent = heroStatusBaseText;
+  }
+}
+
+function handleHeroHover(event) {
+  if (!heroHoverPoints.length || !heroBtcChart) return;
+  const rect = heroBtcChart.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  let nearest = null;
+  let minDistance = Infinity;
+  heroHoverPoints.forEach((point) => {
+    const distance = Math.hypot(point.x - x, point.y - y);
+    if (distance < minDistance) {
+      minDistance = distance;
+      nearest = point;
+    }
+  });
+
+  if (nearest && minDistance <= 18) {
+    renderHeroTooltip(nearest);
+    if (heroChartStatus) {
+      heroChartStatus.textContent = `${formatPrice(nearest.price)} · ${formatMonthDay(nearest.time)}`;
+    }
+  } else {
+    hideHeroTooltip();
+    restoreHeroStatus();
+  }
 }
 
 function drawChart({ bear, base, bull, contributions, months }) {
@@ -610,6 +703,11 @@ function renderHeroStats(points, label) {
   const low = Math.min(...points.map((p) => p.price));
   const change = ((latest.price - first.price) / first.price) * 100;
 
+  const rangeLabelEl = heroRange?.previousElementSibling;
+  if (rangeLabelEl) {
+    rangeLabelEl.textContent = currentHeroRange === 'full' ? 'Range (All-time)' : 'Range (6M)';
+  }
+
   if (heroLatestClose) {
     heroLatestClose.textContent = formatPrice(latest.price);
   }
@@ -622,28 +720,17 @@ function renderHeroStats(points, label) {
     heroRangeChange.classList.toggle('positive', change >= 0);
     heroRangeChange.classList.toggle('negative', change < 0);
   }
-  if (heroChartStatus) {
-    const labelText = label ? ` · ${label}` : '';
-    heroChartStatus.textContent = `Through ${formatMonthDay(latest.time)}${labelText}`;
-  }
+  const labelText = label ? ` · ${label}` : '';
+  setHeroStatus(`Through ${formatMonthDay(latest.time)}${labelText}`);
 }
 
-async function fetchCoinCapHistory(days) {
-  const end = Date.now();
-  const start = days === 'max' ? new Date('2009-01-03').getTime() : end - Number(days) * 86_400_000;
-  const response = await fetch(
-    `https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${start}&end=${end}`,
-    { cache: 'no-store' }
-  );
+async function fetchHeroHistoryFromApi(rangeKey) {
+  if (!window.BTCChartData) return null;
+  const range = HERO_HISTORY_RANGES[rangeKey];
+  if (!range) return null;
 
-  if (!response.ok) throw new Error('History request failed');
-  const data = await response.json();
-  const prices = Array.isArray(data?.data) ? data.data : [];
-  const points = prices
-    .map((row) => ({ time: Number(row.time), price: Number(row.priceUsd) }))
-    .filter((p) => Number.isFinite(p.time) && Number.isFinite(p.price));
-  if (!points.length) throw new Error('Invalid history data');
-  return points;
+  const history = await window.BTCChartData.fetchHistoricalBTCData(range.days);
+  return history;
 }
 
 function loadHeroHistoryFrom(points, rangeKey) {
@@ -651,6 +738,7 @@ function loadHeroHistoryFrom(points, rangeKey) {
   const rangeLabel = HERO_HISTORY_RANGES[rangeKey]?.label;
   const normalized = rangeKey === 'full' ? extendHistoryTo2009(points) : points;
   const sorted = [...normalized].sort((a, b) => a.time - b.time);
+  heroHistoryState[rangeKey] = sorted;
   drawHeroChart(sorted);
   renderHeroStats(sorted, rangeLabel);
 }
@@ -666,6 +754,37 @@ function updateHeroZoomButton() {
   heroZoomButton.setAttribute('aria-pressed', String(isZoomedOut));
 }
 
+async function refreshHeroLatestPrice() {
+  if (!window.BTCChartData) return;
+
+  try {
+    const latest = await window.BTCChartData.fetchLatestBTCPrice();
+    Object.keys(heroHistoryState).forEach((rangeKey) => {
+      const range = HERO_HISTORY_RANGES[rangeKey];
+      if (!range || !heroHistoryState[rangeKey]?.length) return;
+
+      const updated = window.BTCChartData.updateChartWithLivePrice(heroHistoryState[rangeKey], latest);
+      heroHistoryState[rangeKey] = updated;
+      persistHistory(updated, range.cacheKey);
+
+      if (rangeKey === currentHeroRange) {
+        drawHeroChart(updated);
+        renderHeroStats(updated, range.label);
+        const lastPoint = updated[updated.length - 1];
+        setHeroStatus(`Through ${formatMonthDay(lastPoint.time)} · ${range.label}`);
+      }
+    });
+  } catch (error) {
+    console.error('Live BTC price update failed', error);
+  }
+}
+
+function startHeroLiveUpdates() {
+  if (heroLiveUpdater || !heroHistoryState[currentHeroRange]?.length) return;
+  refreshHeroLatestPrice();
+  heroLiveUpdater = setInterval(refreshHeroLatestPrice, HERO_LIVE_REFRESH_MS);
+}
+
 async function loadHeroHistory(rangeKey) {
   if (!heroBtcChart) return;
   const range = HERO_HISTORY_RANGES[rangeKey];
@@ -674,25 +793,24 @@ async function loadHeroHistory(rangeKey) {
   const cachedHistory = readCachedHistory(range.cacheKey);
   if (cachedHistory?.length) {
     loadHeroHistoryFrom(cachedHistory, rangeKey);
-    heroChartStatus && (heroChartStatus.textContent = `Cached · ${range.label}`);
+    setHeroStatus(`Cached · ${range.label}`);
   } else {
     const fallback = getFallbackHistory(rangeKey);
     loadHeroHistoryFrom(fallback, rangeKey);
-    heroChartStatus && (heroChartStatus.textContent = `Fallback · ${range.label}`);
+    setHeroStatus(`Fallback · ${range.label}`);
   }
 
   try {
-    const liveHistory = await fetchCoinCapHistory(range.days);
-    const normalizedHistory = rangeKey === 'full' ? extendHistoryTo2009(liveHistory) : liveHistory;
-    persistHistory(normalizedHistory, range.cacheKey);
-    loadHeroHistoryFrom(normalizedHistory, rangeKey);
-    if (heroChartStatus) {
-      heroChartStatus.textContent = `Through ${formatMonthDay(normalizedHistory[normalizedHistory.length - 1].time)} · ${range.label}`;
+    const liveHistory = await fetchHeroHistoryFromApi(rangeKey);
+    if (liveHistory?.length) {
+      persistHistory(liveHistory, range.cacheKey);
+      loadHeroHistoryFrom(liveHistory, rangeKey);
+      setHeroStatus(`Through ${formatMonthDay(liveHistory[liveHistory.length - 1].time)} · ${range.label}`);
+      startHeroLiveUpdates();
     }
   } catch (error) {
-    if (heroChartStatus) {
-      heroChartStatus.textContent = `Offline fallback · ${range.label}`;
-    }
+    console.error('Hero chart history unavailable', error);
+    setHeroStatus(`Offline fallback · ${range.label}`);
   }
 }
 
