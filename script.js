@@ -82,6 +82,10 @@ const fallbackFullHistory = [
   { time: new Date('2024-06-15').getTime(), price: 71100 },
 ];
 
+const heroHistoryState = { sixMonths: [], full: [] };
+const HERO_LIVE_REFRESH_MS = 45_000;
+let heroLiveUpdater = null;
+
 function extendHistoryTo2009(points) {
   if (!Array.isArray(points) || !points.length) return points;
   const sorted = [...points].sort((a, b) => a.time - b.time);
@@ -628,22 +632,13 @@ function renderHeroStats(points, label) {
   }
 }
 
-async function fetchCoinCapHistory(days) {
-  const end = Date.now();
-  const start = days === 'max' ? new Date('2009-01-03').getTime() : end - Number(days) * 86_400_000;
-  const response = await fetch(
-    `https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${start}&end=${end}`,
-    { cache: 'no-store' }
-  );
+async function fetchHeroHistoryFromApi(rangeKey) {
+  if (!window.BTCChartData) return null;
+  const range = HERO_HISTORY_RANGES[rangeKey];
+  if (!range) return null;
 
-  if (!response.ok) throw new Error('History request failed');
-  const data = await response.json();
-  const prices = Array.isArray(data?.data) ? data.data : [];
-  const points = prices
-    .map((row) => ({ time: Number(row.time), price: Number(row.priceUsd) }))
-    .filter((p) => Number.isFinite(p.time) && Number.isFinite(p.price));
-  if (!points.length) throw new Error('Invalid history data');
-  return points;
+  const history = await window.BTCChartData.fetchHistoricalBTCData(range.days);
+  return history;
 }
 
 function loadHeroHistoryFrom(points, rangeKey) {
@@ -651,6 +646,7 @@ function loadHeroHistoryFrom(points, rangeKey) {
   const rangeLabel = HERO_HISTORY_RANGES[rangeKey]?.label;
   const normalized = rangeKey === 'full' ? extendHistoryTo2009(points) : points;
   const sorted = [...normalized].sort((a, b) => a.time - b.time);
+  heroHistoryState[rangeKey] = sorted;
   drawHeroChart(sorted);
   renderHeroStats(sorted, rangeLabel);
 }
@@ -664,6 +660,39 @@ function updateHeroZoomButton() {
   const isZoomedOut = currentHeroRange === 'full';
   heroZoomButton.textContent = isZoomedOut ? '↩️ Back to 6M view' : '🔍 Zoom out to 2009';
   heroZoomButton.setAttribute('aria-pressed', String(isZoomedOut));
+}
+
+async function refreshHeroLatestPrice() {
+  if (!window.BTCChartData) return;
+
+  try {
+    const latest = await window.BTCChartData.fetchLatestBTCPrice();
+    Object.keys(heroHistoryState).forEach((rangeKey) => {
+      const range = HERO_HISTORY_RANGES[rangeKey];
+      if (!range || !heroHistoryState[rangeKey]?.length) return;
+
+      const updated = window.BTCChartData.updateChartWithLivePrice(heroHistoryState[rangeKey], latest);
+      heroHistoryState[rangeKey] = updated;
+      persistHistory(updated, range.cacheKey);
+
+      if (rangeKey === currentHeroRange) {
+        drawHeroChart(updated);
+        renderHeroStats(updated, range.label);
+        if (heroChartStatus) {
+          const lastPoint = updated[updated.length - 1];
+          heroChartStatus.textContent = `Through ${formatMonthDay(lastPoint.time)} · ${range.label}`;
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Live BTC price update failed', error);
+  }
+}
+
+function startHeroLiveUpdates() {
+  if (heroLiveUpdater || !heroHistoryState[currentHeroRange]?.length) return;
+  refreshHeroLatestPrice();
+  heroLiveUpdater = setInterval(refreshHeroLatestPrice, HERO_LIVE_REFRESH_MS);
 }
 
 async function loadHeroHistory(rangeKey) {
@@ -682,14 +711,17 @@ async function loadHeroHistory(rangeKey) {
   }
 
   try {
-    const liveHistory = await fetchCoinCapHistory(range.days);
-    const normalizedHistory = rangeKey === 'full' ? extendHistoryTo2009(liveHistory) : liveHistory;
-    persistHistory(normalizedHistory, range.cacheKey);
-    loadHeroHistoryFrom(normalizedHistory, rangeKey);
-    if (heroChartStatus) {
-      heroChartStatus.textContent = `Through ${formatMonthDay(normalizedHistory[normalizedHistory.length - 1].time)} · ${range.label}`;
+    const liveHistory = await fetchHeroHistoryFromApi(rangeKey);
+    if (liveHistory?.length) {
+      persistHistory(liveHistory, range.cacheKey);
+      loadHeroHistoryFrom(liveHistory, rangeKey);
+      if (heroChartStatus) {
+        heroChartStatus.textContent = `Through ${formatMonthDay(liveHistory[liveHistory.length - 1].time)} · ${range.label}`;
+      }
+      startHeroLiveUpdates();
     }
   } catch (error) {
+    console.error('Hero chart history unavailable', error);
     if (heroChartStatus) {
       heroChartStatus.textContent = `Offline fallback · ${range.label}`;
     }
