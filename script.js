@@ -208,20 +208,17 @@ function renderPrice(value, change) {
   }
 }
 
-async function fetchCoinGeckoPrice() {
-  const response = await fetch(
-    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
-    { cache: 'no-store' }
-  );
+async function fetchLivePrice() {
+  const response = await fetch('https://api.coincap.io/v2/assets/bitcoin', { cache: 'no-store' });
 
-  if (!response.ok) throw new Error('CoinGecko request failed');
+  if (!response.ok) throw new Error('Price request failed');
 
   const data = await response.json();
-  const value = Number(data?.bitcoin?.usd);
-  const change = Number(data?.bitcoin?.usd_24h_change);
+  const value = Number(data?.data?.priceUsd);
+  const change = Number(data?.data?.changePercent24Hr);
 
   if (!Number.isFinite(value)) throw new Error('Invalid price data');
-  return { value, change: Number.isFinite(change) ? change : 0 }; 
+  return { value, change: Number.isFinite(change) ? change : 0 };
 }
 
 async function updateTicker() {
@@ -231,7 +228,7 @@ async function updateTicker() {
   }
 
   try {
-    const latest = await fetchCoinGeckoPrice();
+    const latest = await fetchLivePrice();
     renderPrice(latest.value, latest.change);
     persistPrice(latest.value, latest.change);
     if (priceTimestamp) {
@@ -585,18 +582,19 @@ function renderHeroStats(points, label) {
   }
 }
 
-async function fetchCoinGeckoHistory(days) {
+async function fetchCoinCapHistory(days) {
+  const end = Date.now();
+  const start = days === 'max' ? new Date('2009-01-03').getTime() : end - Number(days) * 86_400_000;
   const response = await fetch(
-    `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}&interval=daily`,
+    `https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${start}&end=${end}`,
     { cache: 'no-store' }
   );
 
   if (!response.ok) throw new Error('History request failed');
   const data = await response.json();
-  const prices = Array.isArray(data?.prices) ? data.prices : [];
+  const prices = Array.isArray(data?.data) ? data.data : [];
   const points = prices
-    .filter((row) => Array.isArray(row) && row.length >= 2)
-    .map((row) => ({ time: Number(row[0]), price: Number(row[1]) }))
+    .map((row) => ({ time: Number(row.time), price: Number(row.priceUsd) }))
     .filter((p) => Number.isFinite(p.time) && Number.isFinite(p.price));
   if (!points.length) throw new Error('Invalid history data');
   return points;
@@ -638,7 +636,7 @@ async function loadHeroHistory(rangeKey) {
   }
 
   try {
-    const liveHistory = await fetchCoinGeckoHistory(range.days);
+    const liveHistory = await fetchCoinCapHistory(range.days);
     const normalizedHistory = rangeKey === 'full' ? extendHistoryTo2009(liveHistory) : liveHistory;
     persistHistory(normalizedHistory, range.cacheKey);
     loadHeroHistoryFrom(normalizedHistory, rangeKey);
