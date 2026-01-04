@@ -387,6 +387,40 @@ function drawLine(ctx, points, color, width = 2.8, dash = []) {
   ctx.restore();
 }
 
+function drawSmoothLine(ctx, points, color, width = 3.4) {
+  if (points.length < 2) {
+    drawLine(ctx, points, color, width);
+    return;
+  }
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.lineWidth = width;
+  ctx.strokeStyle = color;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.shadowColor = 'rgba(12, 99, 255, 0.32)';
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 6;
+
+  ctx.moveTo(points[0].x, points[0].y);
+
+  for (let i = 0; i < points.length - 1; i += 1) {
+    const current = points[i];
+    const next = points[i + 1];
+    const prev = points[i - 1] || current;
+    const after = points[i + 2] || next;
+    const cp1x = current.x + (next.x - prev.x) / 6;
+    const cp1y = current.y + (next.y - prev.y) / 6;
+    const cp2x = next.x - (after.x - current.x) / 6;
+    const cp2y = next.y - (after.y - current.y) / 6;
+    ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, next.x, next.y);
+  }
+
+  ctx.stroke();
+  ctx.restore();
+}
+
 function drawHeroChart(points) {
   if (!heroBtcChart || !points.length) return;
   const ctx = heroBtcChart.getContext('2d');
@@ -469,7 +503,7 @@ function drawHeroChart(points) {
   ctx.fill();
 
   const linePoints = points.map((p, index) => ({ x: toX(index), y: toY(p.price) }));
-  drawLine(ctx, linePoints, 'rgba(12, 99, 255, 1)', 3.2);
+  drawSmoothLine(ctx, linePoints, '#0c63ff', 3.6);
 
   const lastPoint = linePoints[linePoints.length - 1];
   ctx.fillStyle = '#ffffff';
@@ -479,6 +513,18 @@ function drawHeroChart(points) {
   ctx.arc(lastPoint.x, lastPoint.y, 5, 0, Math.PI * 2);
   ctx.fill();
   ctx.stroke();
+
+  const markerInterval = Math.max(1, Math.floor(points.length / 10));
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = 'rgba(12, 99, 255, 0.75)';
+  ctx.lineWidth = 2.5;
+  linePoints.forEach((point, index) => {
+    if (index % markerInterval !== 0 || index === linePoints.length - 1) return;
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+  });
 
   ctx.restore();
 }
