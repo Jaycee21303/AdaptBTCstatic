@@ -12,6 +12,7 @@ const priceTimestamp = document.getElementById('priceTimestamp');
 const heroBtcChart = document.getElementById('heroBtcChart');
 const heroChartStatus = document.getElementById('heroChartStatus');
 const heroZoomButton = document.getElementById('heroZoomButton');
+const heroChartWrapper = heroBtcChart?.parentElement || null;
 const heroLatestClose = document.getElementById('heroLatestClose');
 const heroRange = document.getElementById('heroRange');
 const heroRangeChange = document.getElementById('heroRangeChange');
@@ -85,6 +86,9 @@ const fallbackFullHistory = [
 const heroHistoryState = { sixMonths: [], full: [] };
 const HERO_LIVE_REFRESH_MS = 45_000;
 let heroLiveUpdater = null;
+let heroHoverPoints = [];
+let heroStatusBaseText = '';
+let heroTooltip = null;
 
 function extendHistoryTo2009(points) {
   if (!Array.isArray(points) || !points.length) return points;
@@ -190,6 +194,13 @@ function persistHistory(points, cacheKey) {
     localStorage.setItem(cacheKey, JSON.stringify({ points, time: Date.now() }));
   } catch (error) {
     // ignore cache issues
+  }
+}
+
+function setHeroStatus(text) {
+  if (heroChartStatus) {
+    heroChartStatus.textContent = text;
+    heroStatusBaseText = text;
   }
 }
 
@@ -324,6 +335,12 @@ heroZoomButton?.addEventListener('click', () => {
   currentHeroRange = currentHeroRange === 'full' ? 'sixMonths' : 'full';
   updateHeroZoomButton();
   loadHeroHistory(currentHeroRange);
+});
+
+heroBtcChart?.addEventListener('pointermove', handleHeroHover);
+heroBtcChart?.addEventListener('pointerleave', () => {
+  hideHeroTooltip();
+  restoreHeroStatus();
 });
 
 function formatCurrency(value) {
@@ -509,6 +526,13 @@ function drawHeroChart(points) {
   const linePoints = points.map((p, index) => ({ x: toX(index), y: toY(p.price) }));
   drawSmoothLine(ctx, linePoints, '#0c63ff', 3.6);
 
+  heroHoverPoints = points.map((point, index) => ({
+    x: linePoints[index].x,
+    y: linePoints[index].y,
+    price: point.price,
+    time: point.time,
+  }));
+
   const lastPoint = linePoints[linePoints.length - 1];
   ctx.fillStyle = '#ffffff';
   ctx.strokeStyle = '#0c63ff';
@@ -531,6 +555,71 @@ function drawHeroChart(points) {
   });
 
   ctx.restore();
+}
+
+function ensureHeroTooltip() {
+  if (heroTooltip || !heroChartWrapper) return;
+  heroTooltip = document.createElement('div');
+  heroTooltip.setAttribute('aria-hidden', 'true');
+  heroTooltip.style.position = 'absolute';
+  heroTooltip.style.pointerEvents = 'none';
+  heroTooltip.style.background = '#0c63ff';
+  heroTooltip.style.color = '#ffffff';
+  heroTooltip.style.padding = '6px 10px';
+  heroTooltip.style.borderRadius = '10px';
+  heroTooltip.style.font = '12px Inter, system-ui, sans-serif';
+  heroTooltip.style.boxShadow = '0 10px 30px rgba(12, 99, 255, 0.18)';
+  heroTooltip.style.transform = 'translate(-50%, -120%)';
+  heroTooltip.style.opacity = '0';
+  heroTooltip.style.transition = 'opacity 120ms ease';
+  heroChartWrapper.appendChild(heroTooltip);
+}
+
+function hideHeroTooltip() {
+  if (!heroTooltip) return;
+  heroTooltip.style.opacity = '0';
+}
+
+function renderHeroTooltip(point) {
+  ensureHeroTooltip();
+  if (!heroTooltip) return;
+  heroTooltip.textContent = `${formatPrice(point.price)} · ${formatMonthDay(point.time)}`;
+  heroTooltip.style.left = `${point.x}px`;
+  heroTooltip.style.top = `${point.y}px`;
+  heroTooltip.style.opacity = '1';
+}
+
+function restoreHeroStatus() {
+  if (heroChartStatus && heroStatusBaseText) {
+    heroChartStatus.textContent = heroStatusBaseText;
+  }
+}
+
+function handleHeroHover(event) {
+  if (!heroHoverPoints.length || !heroBtcChart) return;
+  const rect = heroBtcChart.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  let nearest = null;
+  let minDistance = Infinity;
+  heroHoverPoints.forEach((point) => {
+    const distance = Math.hypot(point.x - x, point.y - y);
+    if (distance < minDistance) {
+      minDistance = distance;
+      nearest = point;
+    }
+  });
+
+  if (nearest && minDistance <= 18) {
+    renderHeroTooltip(nearest);
+    if (heroChartStatus) {
+      heroChartStatus.textContent = `${formatPrice(nearest.price)} · ${formatMonthDay(nearest.time)}`;
+    }
+  } else {
+    hideHeroTooltip();
+    restoreHeroStatus();
+  }
 }
 
 function drawChart({ bear, base, bull, contributions, months }) {
@@ -614,6 +703,11 @@ function renderHeroStats(points, label) {
   const low = Math.min(...points.map((p) => p.price));
   const change = ((latest.price - first.price) / first.price) * 100;
 
+  const rangeLabelEl = heroRange?.previousElementSibling;
+  if (rangeLabelEl) {
+    rangeLabelEl.textContent = currentHeroRange === 'full' ? 'Range (All-time)' : 'Range (6M)';
+  }
+
   if (heroLatestClose) {
     heroLatestClose.textContent = formatPrice(latest.price);
   }
@@ -626,10 +720,8 @@ function renderHeroStats(points, label) {
     heroRangeChange.classList.toggle('positive', change >= 0);
     heroRangeChange.classList.toggle('negative', change < 0);
   }
-  if (heroChartStatus) {
-    const labelText = label ? ` · ${label}` : '';
-    heroChartStatus.textContent = `Through ${formatMonthDay(latest.time)}${labelText}`;
-  }
+  const labelText = label ? ` · ${label}` : '';
+  setHeroStatus(`Through ${formatMonthDay(latest.time)}${labelText}`);
 }
 
 async function fetchHeroHistoryFromApi(rangeKey) {
@@ -678,10 +770,8 @@ async function refreshHeroLatestPrice() {
       if (rangeKey === currentHeroRange) {
         drawHeroChart(updated);
         renderHeroStats(updated, range.label);
-        if (heroChartStatus) {
-          const lastPoint = updated[updated.length - 1];
-          heroChartStatus.textContent = `Through ${formatMonthDay(lastPoint.time)} · ${range.label}`;
-        }
+        const lastPoint = updated[updated.length - 1];
+        setHeroStatus(`Through ${formatMonthDay(lastPoint.time)} · ${range.label}`);
       }
     });
   } catch (error) {
@@ -703,11 +793,11 @@ async function loadHeroHistory(rangeKey) {
   const cachedHistory = readCachedHistory(range.cacheKey);
   if (cachedHistory?.length) {
     loadHeroHistoryFrom(cachedHistory, rangeKey);
-    heroChartStatus && (heroChartStatus.textContent = `Cached · ${range.label}`);
+    setHeroStatus(`Cached · ${range.label}`);
   } else {
     const fallback = getFallbackHistory(rangeKey);
     loadHeroHistoryFrom(fallback, rangeKey);
-    heroChartStatus && (heroChartStatus.textContent = `Fallback · ${range.label}`);
+    setHeroStatus(`Fallback · ${range.label}`);
   }
 
   try {
@@ -715,16 +805,12 @@ async function loadHeroHistory(rangeKey) {
     if (liveHistory?.length) {
       persistHistory(liveHistory, range.cacheKey);
       loadHeroHistoryFrom(liveHistory, rangeKey);
-      if (heroChartStatus) {
-        heroChartStatus.textContent = `Through ${formatMonthDay(liveHistory[liveHistory.length - 1].time)} · ${range.label}`;
-      }
+      setHeroStatus(`Through ${formatMonthDay(liveHistory[liveHistory.length - 1].time)} · ${range.label}`);
       startHeroLiveUpdates();
     }
   } catch (error) {
     console.error('Hero chart history unavailable', error);
-    if (heroChartStatus) {
-      heroChartStatus.textContent = `Offline fallback · ${range.label}`;
-    }
+    setHeroStatus(`Offline fallback · ${range.label}`);
   }
 }
 
