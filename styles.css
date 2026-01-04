@@ -252,6 +252,14 @@ main {
   border-color: var(--border);
 }
 
+.btn.tertiary {
+  background: linear-gradient(135deg, rgba(12, 99, 255, 0.12), rgba(12, 99, 255, 0.04));
+  border-color: rgba(12, 99, 255, 0.26);
+  color: var(--primary-strong);
+  padding: 0.75rem 1rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
 .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
@@ -448,6 +456,15 @@ main {
   display: block;
 }
 
+.chart-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+}
+
 .dca-chart {
   width: 100%;
   height: auto;
@@ -597,17 +614,64 @@ main {
   color: var(--muted);
 }
 
-.pillar-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+.debt-section {
+  position: relative;
+  overflow: hidden;
 }
 
-.pillar-card {
+.debt-grid {
   display: grid;
-  gap: 0.9rem;
-  min-height: 230px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.8rem;
+  align-items: stretch;
+}
+
+.debt-copy {
+  display: grid;
+  gap: 1rem;
   align-content: start;
+}
+
+.debt-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.debt-facts .strong {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.debt-card {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid rgba(12, 99, 255, 0.15);
+  box-shadow: 0 16px 38px rgba(12, 99, 255, 0.12);
+}
+
+.debt-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.debt-value {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+.debt-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.debt-meta p {
+  margin: 0;
 }
 
 .tools-grid {

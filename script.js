@@ -11,9 +11,14 @@ const heroChange = document.getElementById('heroChange');
 const priceTimestamp = document.getElementById('priceTimestamp');
 const heroBtcChart = document.getElementById('heroBtcChart');
 const heroChartStatus = document.getElementById('heroChartStatus');
+const heroZoomButton = document.getElementById('heroZoomButton');
 const heroLatestClose = document.getElementById('heroLatestClose');
 const heroRange = document.getElementById('heroRange');
 const heroRangeChange = document.getElementById('heroRangeChange');
+const debtValue = document.getElementById('debtValue');
+const debtChange = document.getElementById('debtChange');
+const debtUpdated = document.getElementById('debtUpdated');
+const debtStatus = document.getElementById('debtStatus');
 
 const dcaForm = document.getElementById('dcaForm');
 const dcaAmountInput = document.getElementById('dcaAmount');
@@ -35,9 +40,17 @@ const dcaStartPriceLabel = document.getElementById('dcaStartPriceLabel');
 const dcaChart = document.getElementById('dcaChart');
 
 const CACHE_KEY = 'adaptbtc_price_cache_v1';
-const HISTORY_CACHE_KEY = 'adaptbtc_history_cache_v1';
+const HERO_HISTORY_RANGES = {
+  sixMonths: { cacheKey: 'adaptbtc_history_cache_v1_6m', days: 180, label: '6-month view' },
+  full: { cacheKey: 'adaptbtc_history_cache_v1_full', days: 'max', label: '2009 on' },
+};
 let livePrice = null;
 let hasBootstrappedDca = false;
+let currentHeroRange = 'sixMonths';
+let debtBaseline = null;
+let debtPerSecond = 0;
+let debtStartTime = Date.now();
+let debtDailyChange = null;
 
 const fallbackHistory = [
   { time: new Date('2023-12-15').getTime(), price: 42400 },
@@ -54,6 +67,31 @@ const fallbackHistory = [
   { time: new Date('2024-06-15').getTime(), price: 71100 },
 ];
 
+const fallbackFullHistory = [
+  { time: new Date('2009-01-03').getTime(), price: 0.05 },
+  { time: new Date('2010-07-17').getTime(), price: 0.09 },
+  { time: new Date('2011-06-01').getTime(), price: 9.5 },
+  { time: new Date('2012-12-01').getTime(), price: 13.5 },
+  { time: new Date('2013-11-30').getTime(), price: 1163 },
+  { time: new Date('2015-01-14').getTime(), price: 177 },
+  { time: new Date('2017-12-17').getTime(), price: 19497 },
+  { time: new Date('2018-12-15').getTime(), price: 3220 },
+  { time: new Date('2020-12-31').getTime(), price: 28940 },
+  { time: new Date('2021-11-10').getTime(), price: 68789 },
+  { time: new Date('2022-11-21').getTime(), price: 15760 },
+  { time: new Date('2024-06-15').getTime(), price: 71100 },
+];
+
+function extendHistoryTo2009(points) {
+  if (!Array.isArray(points) || !points.length) return points;
+  const sorted = [...points].sort((a, b) => a.time - b.time);
+  const anchorTime = new Date('2009-01-03').getTime();
+  if (sorted[0].time <= anchorTime) return sorted;
+
+  const anchorPrice = Math.max(0.05, sorted[0].price * 0.0015);
+  return [{ time: anchorTime, price: anchorPrice }, ...sorted];
+}
+
 function formatPrice(value) {
   return `$${Number(value).toLocaleString(undefined, {
     minimumFractionDigits: 0,
@@ -66,6 +104,21 @@ function formatShortPrice(value) {
   if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
   if (value >= 1_000) return `$${(value / 1_000).toFixed(1)}k`;
   return formatPrice(value);
+}
+
+function formatDebtTrillions(value) {
+  if (!Number.isFinite(value)) return '$-- T';
+  return `$${(value / 1_000_000_000_000).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })} T`;
+}
+
+function formatDebtChange(value) {
+  if (!Number.isFinite(value)) return '--';
+  const billions = value / 1_000_000_000;
+  const sign = billions > 0 ? '+' : '';
+  return `${sign}$${Math.abs(billions).toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}B`;
 }
 
 function formatMonthDay(timestamp) {
@@ -112,10 +165,10 @@ function readCachedPrice() {
   return null;
 }
 
-function readCachedHistory() {
+function readCachedHistory(cacheKey) {
   if (typeof localStorage === 'undefined') return null;
   try {
-    const raw = localStorage.getItem(HISTORY_CACHE_KEY);
+    const raw = localStorage.getItem(cacheKey);
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed?.points) && parsed.points.length) {
@@ -127,10 +180,10 @@ function readCachedHistory() {
   return null;
 }
 
-function persistHistory(points) {
+function persistHistory(points, cacheKey) {
   if (typeof localStorage === 'undefined') return;
   try {
-    localStorage.setItem(HISTORY_CACHE_KEY, JSON.stringify({ points, time: Date.now() }));
+    localStorage.setItem(cacheKey, JSON.stringify({ points, time: Date.now() }));
   } catch (error) {
     // ignore cache issues
   }
@@ -194,6 +247,83 @@ async function updateTicker() {
 updateTicker();
 bootstrapHeroHistory();
 setInterval(updateTicker, 30000);
+
+function renderDebtEstimate() {
+  if (!debtValue || debtBaseline === null) return;
+  const elapsedSeconds = (Date.now() - debtStartTime) / 1000;
+  const estimatedDebt = debtBaseline + debtPerSecond * elapsedSeconds;
+  debtValue.textContent = formatDebtTrillions(estimatedDebt);
+  if (debtStatus) debtStatus.textContent = 'Live';
+}
+
+async function fetchDebtClock() {
+  const fallback = {
+    total: 34_800_000_000_000,
+    change: 2_500_000_000,
+    dateLabel: 'Fallback data',
+  };
+
+  try {
+    const response = await fetch(
+      'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny?sort=-record_date&page[number]=1&page[size]=2',
+      { cache: 'no-store' }
+    );
+
+    if (!response.ok) throw new Error('Debt request failed');
+
+    const data = await response.json();
+    const records = Array.isArray(data?.data) ? data.data : [];
+    const latest = records[0];
+    const previous = records[1];
+
+    const latestDebt = Number(latest?.total_public_debt_outstanding);
+    const previousDebt = Number(previous?.total_public_debt_outstanding);
+
+    if (!Number.isFinite(latestDebt)) throw new Error('Invalid debt data');
+
+    debtBaseline = latestDebt;
+    debtDailyChange = Number.isFinite(previousDebt) ? latestDebt - previousDebt : null;
+    debtPerSecond = Number.isFinite(debtDailyChange) ? debtDailyChange / 86_400 : 0;
+    debtStartTime = Date.now();
+
+    if (debtChange && Number.isFinite(debtDailyChange)) {
+      debtChange.textContent = formatDebtChange(debtDailyChange);
+    }
+
+    if (debtUpdated && latest?.record_date) {
+      debtUpdated.textContent = new Date(latest.record_date).toLocaleDateString();
+    }
+
+    if (debtStatus) debtStatus.textContent = 'Live';
+  } catch (error) {
+    debtBaseline = fallback.total;
+    debtDailyChange = fallback.change;
+    debtPerSecond = debtDailyChange / 86_400;
+    debtStartTime = Date.now();
+
+    if (debtChange) {
+      debtChange.textContent = formatDebtChange(debtDailyChange);
+    }
+
+    if (debtUpdated) {
+      debtUpdated.textContent = fallback.dateLabel;
+    }
+
+    if (debtStatus) debtStatus.textContent = 'Offline fallback';
+  }
+
+  renderDebtEstimate();
+}
+
+fetchDebtClock();
+setInterval(renderDebtEstimate, 1000);
+setInterval(fetchDebtClock, 15 * 60 * 1000);
+
+heroZoomButton?.addEventListener('click', () => {
+  currentHeroRange = currentHeroRange === 'full' ? 'sixMonths' : 'full';
+  updateHeroZoomButton();
+  loadHeroHistory(currentHeroRange);
+});
 
 function formatCurrency(value) {
   if (!Number.isFinite(value)) return '$0';
@@ -280,10 +410,13 @@ function drawHeroChart(points) {
   const prices = points.map((p) => p.price);
   const min = Math.min(...prices);
   const max = Math.max(...prices);
-  const range = max - min || 1;
+  const paddedRange = Math.max(max - min, 1) * 0.08;
+  const minWithPadding = min - paddedRange;
+  const maxWithPadding = max + paddedRange;
+  const range = maxWithPadding - minWithPadding || 1;
 
   const toX = (index) => padding.left + (index / Math.max(1, points.length - 1)) * chartWidth;
-  const toY = (price) => padding.top + (1 - (price - min) / range) * chartHeight;
+  const toY = (price) => padding.top + (1 - (price - minWithPadding) / range) * chartHeight;
 
   ctx.strokeStyle = 'rgba(12, 22, 43, 0.08)';
   ctx.lineWidth = 1;
@@ -304,6 +437,23 @@ function drawHeroChart(points) {
     const value = max - (range * i) / gridLines;
     const y = padding.top + (i / gridLines) * chartHeight;
     ctx.fillText(formatShortPrice(value), padding.left - 12, y);
+  }
+
+  ctx.strokeStyle = 'rgba(12, 22, 43, 0.06)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  const verticalLines = 4;
+  for (let i = 0; i <= verticalLines; i += 1) {
+    const ratio = i / verticalLines;
+    const x = padding.left + ratio * chartWidth;
+    const index = Math.min(points.length - 1, Math.round(ratio * (points.length - 1)));
+    const labelDate = new Date(points[index].time);
+    const label = labelDate.toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+    ctx.beginPath();
+    ctx.moveTo(x, padding.top);
+    ctx.lineTo(x, height - padding.bottom + 6);
+    ctx.stroke();
+    ctx.fillText(label, x, height - padding.bottom + 8);
   }
 
   const gradient = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
@@ -409,7 +559,7 @@ function drawChart({ bear, base, bull, contributions, months }) {
   }
 }
 
-function renderHeroStats(points) {
+function renderHeroStats(points, label) {
   if (!points.length) return;
   const latest = points[points.length - 1];
   const first = points[0];
@@ -430,13 +580,14 @@ function renderHeroStats(points) {
     heroRangeChange.classList.toggle('negative', change < 0);
   }
   if (heroChartStatus) {
-    heroChartStatus.textContent = `Through ${formatMonthDay(latest.time)}`;
+    const labelText = label ? ` · ${label}` : '';
+    heroChartStatus.textContent = `Through ${formatMonthDay(latest.time)}${labelText}`;
   }
 }
 
-async function fetchCoinGeckoHistory() {
+async function fetchCoinGeckoHistory(days) {
   const response = await fetch(
-    'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily',
+    `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}&interval=daily`,
     { cache: 'no-store' }
   );
 
@@ -451,42 +602,59 @@ async function fetchCoinGeckoHistory() {
   return points;
 }
 
-function loadHeroHistoryFrom(points) {
+function loadHeroHistoryFrom(points, rangeKey) {
   if (!Array.isArray(points) || !points.length) return;
-  const sorted = [...points].sort((a, b) => a.time - b.time);
+  const rangeLabel = HERO_HISTORY_RANGES[rangeKey]?.label;
+  const normalized = rangeKey === 'full' ? extendHistoryTo2009(points) : points;
+  const sorted = [...normalized].sort((a, b) => a.time - b.time);
   drawHeroChart(sorted);
-  renderHeroStats(sorted);
+  renderHeroStats(sorted, rangeLabel);
 }
 
-async function bootstrapHeroHistory() {
-  if (!heroBtcChart) return;
+function getFallbackHistory(rangeKey) {
+  return rangeKey === 'full' ? fallbackFullHistory : fallbackHistory;
+}
 
-  const cachedHistory = readCachedHistory();
+function updateHeroZoomButton() {
+  if (!heroZoomButton) return;
+  const isZoomedOut = currentHeroRange === 'full';
+  heroZoomButton.textContent = isZoomedOut ? '↩️ Back to 6M view' : '🔍 Zoom out to 2009';
+  heroZoomButton.setAttribute('aria-pressed', String(isZoomedOut));
+}
+
+async function loadHeroHistory(rangeKey) {
+  if (!heroBtcChart) return;
+  const range = HERO_HISTORY_RANGES[rangeKey];
+  if (!range) return;
+
+  const cachedHistory = readCachedHistory(range.cacheKey);
   if (cachedHistory?.length) {
-    loadHeroHistoryFrom(cachedHistory);
-    if (heroChartStatus) {
-      heroChartStatus.textContent = 'Cached view';
-    }
+    loadHeroHistoryFrom(cachedHistory, rangeKey);
+    heroChartStatus && (heroChartStatus.textContent = `Cached · ${range.label}`);
   } else {
-    loadHeroHistoryFrom(fallbackHistory);
-    if (heroChartStatus) {
-      heroChartStatus.textContent = 'Fallback view';
-    }
+    const fallback = getFallbackHistory(rangeKey);
+    loadHeroHistoryFrom(fallback, rangeKey);
+    heroChartStatus && (heroChartStatus.textContent = `Fallback · ${range.label}`);
   }
 
   try {
-    const liveHistory = await fetchCoinGeckoHistory();
-    persistHistory(liveHistory);
-    loadHeroHistoryFrom(liveHistory);
+    const liveHistory = await fetchCoinGeckoHistory(range.days);
+    const normalizedHistory = rangeKey === 'full' ? extendHistoryTo2009(liveHistory) : liveHistory;
+    persistHistory(normalizedHistory, range.cacheKey);
+    loadHeroHistoryFrom(normalizedHistory, rangeKey);
     if (heroChartStatus) {
-      heroChartStatus.textContent = `Through ${formatMonthDay(liveHistory[liveHistory.length - 1].time)}`;
+      heroChartStatus.textContent = `Through ${formatMonthDay(normalizedHistory[normalizedHistory.length - 1].time)} · ${range.label}`;
     }
   } catch (error) {
-    // already rendered cached or fallback
     if (heroChartStatus) {
-      heroChartStatus.textContent = 'Offline fallback';
+      heroChartStatus.textContent = `Offline fallback · ${range.label}`;
     }
   }
+}
+
+function bootstrapHeroHistory() {
+  updateHeroZoomButton();
+  loadHeroHistory(currentHeroRange);
 }
 
 function calculateDca(event) {
