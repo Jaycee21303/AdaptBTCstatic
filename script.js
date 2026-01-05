@@ -456,6 +456,13 @@ function drawHeroChart(points) {
   ctx.scale(deviceRatio, deviceRatio);
   ctx.clearRect(0, 0, width, height);
 
+  const backgroundGradient = ctx.createLinearGradient(0, 0, 0, height);
+  backgroundGradient.addColorStop(0, 'rgba(12, 99, 255, 0.05)');
+  backgroundGradient.addColorStop(0.6, 'rgba(12, 22, 43, 0.03)');
+  backgroundGradient.addColorStop(1, 'rgba(12, 22, 43, 0.01)');
+  ctx.fillStyle = backgroundGradient;
+  ctx.fillRect(0, 0, width, height);
+
   const padding = { top: 14, right: 16, bottom: 28, left: 56 };
   const chartWidth = width - padding.left - padding.right;
   const chartHeight = height - padding.top - padding.bottom;
@@ -470,8 +477,9 @@ function drawHeroChart(points) {
   const toX = (index) => padding.left + (index / Math.max(1, points.length - 1)) * chartWidth;
   const toY = (price) => padding.top + (1 - (price - minWithPadding) / range) * chartHeight;
 
-  ctx.strokeStyle = 'rgba(12, 22, 43, 0.08)';
+  ctx.strokeStyle = 'rgba(12, 22, 43, 0.07)';
   ctx.lineWidth = 1;
+  ctx.setLineDash([3, 5]);
   const gridLines = 4;
   for (let i = 0; i <= gridLines; i += 1) {
     const y = padding.top + (i / gridLines) * chartHeight;
@@ -481,7 +489,8 @@ function drawHeroChart(points) {
     ctx.stroke();
   }
 
-  ctx.fillStyle = 'rgba(12, 22, 43, 0.32)';
+  ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(12, 22, 43, 0.55)';
   ctx.font = '12px Inter, system-ui, sans-serif';
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
@@ -491,7 +500,7 @@ function drawHeroChart(points) {
     ctx.fillText(formatShortPrice(value), padding.left - 12, y);
   }
 
-  ctx.strokeStyle = 'rgba(12, 22, 43, 0.06)';
+  ctx.strokeStyle = 'rgba(12, 22, 43, 0.08)';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
   const verticalLines = 4;
@@ -509,7 +518,8 @@ function drawHeroChart(points) {
   }
 
   const gradient = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
-  gradient.addColorStop(0, 'rgba(12, 99, 255, 0.28)');
+  gradient.addColorStop(0, 'rgba(12, 99, 255, 0.35)');
+  gradient.addColorStop(0.55, 'rgba(12, 99, 255, 0.14)');
   gradient.addColorStop(1, 'rgba(12, 99, 255, 0)');
 
   ctx.beginPath();
@@ -524,7 +534,15 @@ function drawHeroChart(points) {
   ctx.fill();
 
   const linePoints = points.map((p, index) => ({ x: toX(index), y: toY(p.price) }));
-  drawSmoothLine(ctx, linePoints, '#0c63ff', 3.6);
+  const lineGradient = ctx.createLinearGradient(padding.left, padding.top, padding.left, height - padding.bottom);
+  lineGradient.addColorStop(0, '#0f6fff');
+  lineGradient.addColorStop(1, '#0a4dc2');
+
+  ctx.shadowColor = 'rgba(12, 99, 255, 0.28)';
+  ctx.shadowBlur = 14;
+  ctx.shadowOffsetY = 2;
+  drawSmoothLine(ctx, linePoints, lineGradient, 3.8);
+  ctx.shadowColor = 'transparent';
 
   heroHoverPoints = points.map((point, index) => ({
     x: linePoints[index].x,
@@ -535,8 +553,8 @@ function drawHeroChart(points) {
 
   const lastPoint = linePoints[linePoints.length - 1];
   ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = '#0c63ff';
-  ctx.lineWidth = 3;
+  ctx.strokeStyle = '#0f6fff';
+  ctx.lineWidth = 3.2;
   ctx.beginPath();
   ctx.arc(lastPoint.x, lastPoint.y, 5, 0, Math.PI * 2);
   ctx.fill();
@@ -544,8 +562,8 @@ function drawHeroChart(points) {
 
   const markerInterval = Math.max(1, Math.floor(points.length / 10));
   ctx.fillStyle = '#ffffff';
-  ctx.strokeStyle = 'rgba(12, 99, 255, 0.75)';
-  ctx.lineWidth = 2.5;
+  ctx.strokeStyle = 'rgba(12, 99, 255, 0.68)';
+  ctx.lineWidth = 2.4;
   linePoints.forEach((point, index) => {
     if (index % markerInterval !== 0 || index === linePoints.length - 1) return;
     ctx.beginPath();
