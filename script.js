@@ -114,12 +114,9 @@ function formatShortPrice(value) {
   return formatPrice(value);
 }
 
-function formatDebtTrillions(value) {
-  if (!Number.isFinite(value)) return '$-- T';
-  return `$${(value / 1_000_000_000_000).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })} T`;
+function formatDebtFull(value) {
+  if (!Number.isFinite(value)) return '$--';
+  return `$${Math.round(value).toLocaleString()}`;
 }
 
 function formatDebtChange(value) {
@@ -263,8 +260,8 @@ setInterval(updateTicker, 30000);
 function renderDebtEstimate() {
   if (!debtValue || debtBaseline === null) return;
   const elapsedSeconds = (Date.now() - debtStartTime) / 1000;
-  const estimatedDebt = debtBaseline + debtPerSecond * elapsedSeconds;
-  debtValue.textContent = formatDebtTrillions(estimatedDebt);
+  const estimatedDebt = Math.floor(debtBaseline + debtPerSecond * elapsedSeconds);
+  debtValue.textContent = formatDebtFull(estimatedDebt);
   if (debtStatus) debtStatus.textContent = 'Live';
 }
 
