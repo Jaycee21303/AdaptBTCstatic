@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="AdaptBTC learning portal coming soon.">
   <title>AdaptBTC | Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="page-header">
     <div class="container header-grid">
-      <a class="brand" href="index.html" aria-label="AdaptBTC home"><span>BTC</span></a>
+      <a class="brand" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
         <span></span>
         <span></span>
         <span></span>
@@ -23,6 +25,12 @@
         <a href="get-involved.html">Get Involved</a>
         <a href="learning.html" aria-current="page">Education</a>
       </nav>
+      <div class="header-meta">
+        <a class="ticker-chip" href="index.html" aria-live="polite">
+          <span class="ticker-label">BTC</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
+        </a>
+      </div>
     </div>
   </header>
   <main class="container">
