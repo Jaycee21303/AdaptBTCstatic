@@ -92,6 +92,29 @@ img {
   gap: 12px;
 }
 
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  gap: 5px;
+  padding: 10px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text);
+}
+
 .brand {
   font-weight: 800;
   font-size: 1.2rem;
@@ -1622,29 +1645,80 @@ main {
 }
 
 @media (max-width: 768px) {
-  .nav {
-    position: absolute;
-    top: 72px;
-    right: 0;
-    left: 0;
-    background: #ffffff;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem 1.2rem;
-    border-bottom: 1px solid var(--border);
-    display: none;
+  .container {
+    width: min(1200px, 94%);
   }
 
-  .nav.open {
-    display: flex;
+  .header-grid {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .brand {
+    font-size: 1.05rem;
   }
 
   .nav-toggle {
     display: inline-flex;
+    margin-left: auto;
   }
 
-  .header-inner {
-    padding: 1rem 0;
+  .header-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .ticker-chip {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .hero {
+    padding: 3.25rem 0;
+  }
+
+  .hero-grid {
+    gap: 1.75rem;
+  }
+
+  .cta-group,
+  .cta-row {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .chart-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .card,
+  .hero-card,
+  .status-card,
+  .dca-hero-card {
+    padding: 1.25rem;
   }
 }
 
@@ -1653,11 +1727,23 @@ main {
     font-size: 2.2rem;
   }
 
+  .hero-text h1 {
+    font-size: 2.4rem;
+  }
+
   .panel-price {
     font-size: 2.2rem;
   }
 
   .chart-legend.rich {
     justify-content: flex-start;
+  }
+
+  .hero-card .plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .check-list {
+    gap: 0.5rem;
   }
 }
