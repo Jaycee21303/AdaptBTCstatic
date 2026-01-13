@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AdaptBTC learning portal coming soon.">
-  <title>AdaptBTC | Learning</title>
+  <meta name="description" content="AdaptBTC Education Hub — clear, practical Bitcoin lessons for everyday people and small businesses.">
+  <title>AdaptBTC | Education Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,21 +33,131 @@
       </div>
     </div>
   </header>
-  <main class="container">
-    <section class="coming-soon">
-      <div class="coming-panel">
-        <span class="pill">Education</span>
-        <h1>Learning Portal Coming Soon</h1>
-        <p class="lead">We're working hard to bring you educational content. Check back soon!</p>
-        <div class="coming-meta">
-          <div>
-            <p class="muted">Updates</p>
-            <p class="strong">Stay tuned for new lessons and walkthroughs</p>
-          </div>
+  <main class="container education-hub">
+    <section class="education-hero">
+      <span class="pill">Education Hub</span>
+      <h1>Education Hub</h1>
+      <p class="lead">Clear, practical Bitcoin lessons—built for everyday people and small businesses.</p>
+      <div class="education-search">
+        <div>
+          <label for="educationSearch" class="muted tiny">Search topics</label>
+          <input id="educationSearch" type="search" placeholder="Try: fees, custody, lightning" autocomplete="off">
+        </div>
+        <div class="education-count muted tiny" id="educationCount">10 topics</div>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <div class="education-section-header">
+        <h2>Explore the core tracks</h2>
+        <p class="muted">Each topic links to a dedicated lesson with sources and next steps.</p>
+      </div>
+      <div class="education-grid" id="educationCards"></div>
+      <p class="education-empty muted" id="educationEmpty" hidden>No topics match that search yet.</p>
+    </section>
+
+    <section class="education-section education-coming">
+      <div class="education-section-header">
+        <h2>Coming next</h2>
+        <p class="muted">Planned lessons to expand the hub over time.</p>
+      </div>
+      <div class="education-coming-grid">
+        <div class="education-card ghost">
+          <h3>Bitcoin for Small Business Accounting</h3>
+          <p class="muted">Policies and processes for invoicing, bookkeeping, and reporting.</p>
+        </div>
+        <div class="education-card ghost">
+          <h3>Payments Ops & Treasury Workflow</h3>
+          <p class="muted">How teams manage approvals, vendor payments, and internal controls.</p>
+        </div>
+        <div class="education-card ghost">
+          <h3>Running a Bitcoin Node</h3>
+          <p class="muted">What it takes to validate the network and contribute to decentralization.</p>
         </div>
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Adapt<span>BTC</span></div>
+        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
+        <span class="footer-status">Status: Full coverage</span>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Explore</p>
+        <a href="index.html">Home</a>
+        <a href="learning.html">Education</a>
+        <a href="tools/dca/">Tools</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Services</p>
+        <a href="consulting.html">Consulting</a>
+        <a href="get-involved.html">Get involved</a>
+        <a href="tools/dca/">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Connect</p>
+        <a href="consulting.html">Community</a>
+        <a href="consulting.html">Contact</a>
+        <a href="consulting.html">Press</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <div class="footer-social">
+        <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
+      </div>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/data/education-topics.js"></script>
+  <script>
+    const educationTopics = Array.isArray(window.educationTopics) ? window.educationTopics : [];
+    const cardsContainer = document.getElementById('educationCards');
+    const searchInput = document.getElementById('educationSearch');
+    const countLabel = document.getElementById('educationCount');
+    const emptyState = document.getElementById('educationEmpty');
+
+    const renderTopics = (topics) => {
+      if (!cardsContainer) return;
+      cardsContainer.innerHTML = topics.map((topic) => `
+        <article class="education-card">
+          <h3>${topic.title}</h3>
+          <p class="muted">${topic.description}</p>
+          <a class="link" href="education/${topic.slug}.html">Learn more →</a>
+        </article>
+      `).join('');
+      if (countLabel) {
+        countLabel.textContent = `${topics.length} topic${topics.length === 1 ? '' : 's'}`;
+      }
+      if (emptyState) {
+        emptyState.hidden = topics.length !== 0;
+      }
+    };
+
+    const filterTopics = () => {
+      const query = searchInput?.value.trim().toLowerCase() || '';
+      if (!query) {
+        renderTopics(educationTopics);
+        return;
+      }
+      const filtered = educationTopics.filter((topic) => {
+        const haystack = [topic.title, topic.description, ...(topic.keywords || [])]
+          .join(' ')
+          .toLowerCase();
+        return haystack.includes(query);
+      });
+      renderTopics(filtered);
+    };
+
+    renderTopics(educationTopics);
+    if (searchInput) {
+      searchInput.addEventListener('input', filterTopics);
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
