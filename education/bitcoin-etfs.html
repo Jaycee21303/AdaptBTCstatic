@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bitcoin ETFs — understand how spot bitcoin exchange-traded funds work and what they hold.">
+  <title>AdaptBTC | Education Hub | Bitcoin ETFs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="container header-grid">
+      <a class="brand" href="../index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../tools/dca/">Tools</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="../get-involved.html">Get Involved</a>
+        <a href="../learning.html" aria-current="page">Education</a>
+      </nav>
+      <div class="header-meta">
+        <a class="ticker-chip" href="../index.html" aria-live="polite">
+          <span class="ticker-label">BTC</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container education-page">
+    <section class="education-hero">
+      <span class="pill">Education Hub</span>
+      <h1>Bitcoin ETFs</h1>
+      <p class="lead">Learn how spot Bitcoin ETFs are structured, how they custody bitcoin, and what risks remain.</p>
+      <a class="link" href="../learning.html">← Back to Education Hub</a>
+      <p class="muted tiny">Last updated: January 13, 2026</p>
+    </section>
+
+    <section class="education-section">
+      <h2>What you’ll learn</h2>
+      <ul class="bullet-list">
+        <li>How spot Bitcoin ETFs hold BTC and issue shares.</li>
+        <li>The role of custodians, authorized participants, and sponsors.</li>
+        <li>How pricing works and why premiums or discounts can appear.</li>
+        <li>Key risks versus holding bitcoin directly.</li>
+      </ul>
+    </section>
+
+    <section class="education-section education-body">
+      <div>
+        <h2>What a spot Bitcoin ETF actually holds</h2>
+        <p>Spot Bitcoin ETFs are funds that hold bitcoin on behalf of shareholders. Shares represent a claim on the fund’s bitcoin holdings, minus fees and expenses. Shares trade on traditional exchanges, which can make access simpler for brokerage investors.</p>
+      </div>
+      <div>
+        <h2>Who does what</h2>
+        <h3>Custodian</h3>
+        <p>The custodian is responsible for securing the bitcoin held by the fund. This is usually a regulated institutional custody provider.</p>
+        <h3>Authorized participants</h3>
+        <p>Authorized participants create and redeem ETF shares by delivering bitcoin to the fund or receiving bitcoin back, helping keep the share price close to the net asset value (NAV).</p>
+      </div>
+      <div class="callout tip">
+        <p class="callout-title">Tip</p>
+        <p>Check each ETF’s prospectus for custody arrangements, fee schedules, and how NAV is calculated.</p>
+      </div>
+      <div>
+        <h2>Trade-offs vs direct ownership</h2>
+        <p>An ETF can be convenient within traditional brokerage accounts, but it doesn’t give you control over private keys. Investors should understand that ETF shares are not the same as holding bitcoin directly.</p>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <div class="key-takeaways">
+        <h2>Key takeaways</h2>
+        <ul class="bullet-list">
+          <li>Spot Bitcoin ETFs hold bitcoin on behalf of shareholders.</li>
+          <li>Custody, fees, and NAV calculations differ by product.</li>
+          <li>ETF ownership is not the same as self-custody.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <h2>Next up</h2>
+      <div class="education-next-grid">
+        <a class="education-card" href="investing-vs-trading.html">
+          <h3>Investing vs Trading</h3>
+          <p class="muted">Choose the right approach for your goals.</p>
+          <span class="link">Learn more →</span>
+        </a>
+        <a class="education-card" href="cold-vs-hot-storage.html">
+          <h3>Cold vs Hot Storage</h3>
+          <p class="muted">Understand custody options and trade-offs.</p>
+          <span class="link">Learn more →</span>
+        </a>
+        <a class="education-card" href="security-checklist.html">
+          <h3>Self-Custody Security Checklist</h3>
+          <p class="muted">Harden your personal custody setup.</p>
+          <span class="link">Learn more →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <h2>Sources</h2>
+      <ul class="sources-list">
+        <li><a href="https://www.sec.gov/oiea/investor-alerts-and-bulletins/ib_spot_bitcoin_etps">SEC Investor Bulletin — Spot Bitcoin ETPs</a></li>
+        <li><a href="https://www.sec.gov/news/statement/statement-spot-bitcoin-etps-2024-01-10">SEC Statement — Approval of spot Bitcoin ETPs</a></li>
+        <li><a href="https://www.cfbenchmarks.com/indices/BRR">CF Benchmarks — CME CF Bitcoin Reference Rate (BRR)</a></li>
+        <li><a href="https://www.ishares.com/us/products/333011/ishares-bitcoin-trust">iShares Bitcoin Trust (IBIT) product page</a></li>
+        <li><a href="https://www.coinbase.com/custody">Coinbase Institutional Custody overview</a></li>
+      </ul>
+    </section>
+
+    <p class="education-disclaimer">Educational only. Not financial advice.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Adapt<span>BTC</span></div>
+        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
+        <span class="footer-status">Status: Full coverage</span>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Explore</p>
+        <a href="../index.html">Home</a>
+        <a href="../learning.html">Education</a>
+        <a href="../tools/dca/">Tools</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Services</p>
+        <a href="../consulting.html">Consulting</a>
+        <a href="../get-involved.html">Get involved</a>
+        <a href="../tools/dca/">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Connect</p>
+        <a href="../consulting.html">Community</a>
+        <a href="../consulting.html">Contact</a>
+        <a href="../consulting.html">Press</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <div class="footer-social">
+        <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
+      </div>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

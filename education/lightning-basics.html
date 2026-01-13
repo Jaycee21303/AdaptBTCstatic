@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lightning Network Basics — learn how Bitcoin scales for fast, low-fee payments.">
+  <title>AdaptBTC | Education Hub | Lightning Network Basics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="container header-grid">
+      <a class="brand" href="../index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../tools/dca/">Tools</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="../get-involved.html">Get Involved</a>
+        <a href="../learning.html" aria-current="page">Education</a>
+      </nav>
+      <div class="header-meta">
+        <a class="ticker-chip" href="../index.html" aria-live="polite">
+          <span class="ticker-label">BTC</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container education-page">
+    <section class="education-hero">
+      <span class="pill">Education Hub</span>
+      <h1>Lightning Network Basics</h1>
+      <p class="lead">Discover how Lightning enables fast, low-fee payments while keeping Bitcoin’s base layer secure.</p>
+      <a class="link" href="../learning.html">← Back to Education Hub</a>
+      <p class="muted tiny">Last updated: January 13, 2026</p>
+    </section>
+
+    <section class="education-section">
+      <h2>What you’ll learn</h2>
+      <ul class="bullet-list">
+        <li>How payment channels move transactions off-chain.</li>
+        <li>Why routing and liquidity matter for Lightning payments.</li>
+        <li>What channel management looks like in practice.</li>
+        <li>How Lightning connects back to on-chain settlements.</li>
+      </ul>
+    </section>
+
+    <section class="education-section education-body">
+      <div>
+        <h2>Payment channels in a nutshell</h2>
+        <p>Lightning uses two-party payment channels that lock funds on-chain and allow many instant payments off-chain. Only the opening and closing transactions touch the base layer.</p>
+      </div>
+      <div>
+        <h2>Routing and liquidity</h2>
+        <p>Lightning payments often hop through multiple channels. Nodes need balanced liquidity to forward payments, so channel management is part of running a reliable Lightning setup.</p>
+      </div>
+      <div class="callout tip">
+        <p class="callout-title">Tip</p>
+        <p>Wallets can abstract Lightning complexity, but teams running their own nodes should plan for monitoring and liquidity management.</p>
+      </div>
+      <div>
+        <h2>Settlement and security</h2>
+        <p>Lightning relies on Bitcoin’s base layer for final settlement. If a dispute occurs, the protocol allows participants to close channels on-chain and enforce the latest valid balance.</p>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <div class="key-takeaways">
+        <h2>Key takeaways</h2>
+        <ul class="bullet-list">
+          <li>Lightning enables fast payments without changing Bitcoin’s base rules.</li>
+          <li>Liquidity and routing are key to successful payments.</li>
+          <li>On-chain settlement provides security backstop.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <h2>Next up</h2>
+      <div class="education-next-grid">
+        <a class="education-card" href="utxos-fees.html">
+          <h3>UTXOs &amp; Transaction Fees</h3>
+          <p class="muted">Understand the base layer that Lightning builds on.</p>
+          <span class="link">Learn more →</span>
+        </a>
+        <a class="education-card" href="whitepaper.html">
+          <h3>The Whitepaper</h3>
+          <p class="muted">Review the original protocol design.</p>
+          <span class="link">Learn more →</span>
+        </a>
+        <a class="education-card" href="bitcoin-basics.html">
+          <h3>Bitcoin Basics</h3>
+          <p class="muted">Refresh the fundamentals of the network.</p>
+          <span class="link">Learn more →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <h2>Sources</h2>
+      <ul class="sources-list">
+        <li><a href="https://github.com/lightning/bolts">Lightning Network Specifications (BOLTs)</a></li>
+        <li><a href="https://lightning.engineering/technology">Lightning Labs — How Lightning works</a></li>
+        <li><a href="https://bitcoin.org/en/lightning-network">Bitcoin.org — Lightning Network overview</a></li>
+        <li><a href="https://river.com/learn/what-is-the-lightning-network/">River Learn — Lightning Network explained</a></li>
+        <li><a href="https://developer.bitcoin.org/devguide/payment_channels.html">Bitcoin Core Developer Guide — Payment channels</a></li>
+      </ul>
+    </section>
+
+    <p class="education-disclaimer">Educational only. Not financial advice.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Adapt<span>BTC</span></div>
+        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
+        <span class="footer-status">Status: Full coverage</span>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Explore</p>
+        <a href="../index.html">Home</a>
+        <a href="../learning.html">Education</a>
+        <a href="../tools/dca/">Tools</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Services</p>
+        <a href="../consulting.html">Consulting</a>
+        <a href="../get-involved.html">Get involved</a>
+        <a href="../tools/dca/">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Connect</p>
+        <a href="../consulting.html">Community</a>
+        <a href="../consulting.html">Contact</a>
+        <a href="../consulting.html">Press</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <div class="footer-social">
+        <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
+      </div>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
