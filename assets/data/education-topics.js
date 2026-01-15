@@ -11,7 +11,14 @@ window.educationTopics = [
     slug: 'whitepaper',
     description: 'A guided walkthrough of Satoshi Nakamoto’s 2008 paper and the design choices that still matter today.',
     keywords: ['satoshi', 'paper', 'consensus', 'proof of work'],
-    related: ['bitcoin-basics', 'utxos-fees', 'lightning-basics'],
+    related: ['bitcoin-basics', 'proof-of-work', 'utxos-fees'],
+  },
+  {
+    title: 'Proof of Work',
+    slug: 'proof-of-work',
+    description: 'Learn how proof of work secures Bitcoin, aligns incentives, and anchors the history of transactions.',
+    keywords: ['mining', 'hashrate', 'difficulty', 'security', 'consensus'],
+    related: ['whitepaper', 'bitcoin-basics', 'utxos-fees'],
   },
   {
     title: 'Investing vs Trading',
