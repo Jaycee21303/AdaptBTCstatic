@@ -51,6 +51,25 @@ const dcaStartPriceLabel = document.getElementById('dcaStartPriceLabel');
 const dcaChart = document.getElementById('dcaChart');
 
 const CACHE_KEY = 'adaptbtc_price_cache_v1';
+const TICKER_REFRESH_MS = 60_000;
+const PRICE_ENDPOINTS = [
+  {
+    name: 'coingecko',
+    url: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
+    parse: (data) => ({
+      value: Number(data?.bitcoin?.usd),
+      change: Number(data?.bitcoin?.usd_24h_change),
+    }),
+  },
+  {
+    name: 'coincap',
+    url: 'https://api.coincap.io/v2/assets/bitcoin',
+    parse: (data) => ({
+      value: Number(data?.data?.priceUsd),
+      change: Number(data?.data?.changePercent24Hr),
+    }),
+  },
+];
 const HERO_HISTORY_RANGES = {
   sixMonths: { cacheKey: 'adaptbtc_history_cache_v1_6m', days: 180, label: '6-month view' },
   full: { cacheKey: 'adaptbtc_history_cache_v1_full', days: 'max', label: '2009 on' },
@@ -231,16 +250,22 @@ function renderPrice(value, change) {
 }
 
 async function fetchLivePrice() {
-  const response = await fetch('https://api.coincap.io/v2/assets/bitcoin', { cache: 'no-store' });
+  let lastError = null;
 
-  if (!response.ok) throw new Error('Price request failed');
+  for (const endpoint of PRICE_ENDPOINTS) {
+    try {
+      const response = await fetch(endpoint.url, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`${endpoint.name} price request failed`);
+      const data = await response.json();
+      const parsed = endpoint.parse(data);
+      if (!Number.isFinite(parsed.value)) throw new Error(`${endpoint.name} invalid price data`);
+      return { value: parsed.value, change: Number.isFinite(parsed.change) ? parsed.change : 0 };
+    } catch (error) {
+      lastError = error;
+    }
+  }
 
-  const data = await response.json();
-  const value = Number(data?.data?.priceUsd);
-  const change = Number(data?.data?.changePercent24Hr);
-
-  if (!Number.isFinite(value)) throw new Error('Invalid price data');
-  return { value, change: Number.isFinite(change) ? change : 0 };
+  throw lastError || new Error('All price requests failed');
 }
 
 async function updateTicker() {
@@ -265,7 +290,7 @@ async function updateTicker() {
 
 updateTicker();
 bootstrapHeroHistory();
-setInterval(updateTicker, 30000);
+setInterval(updateTicker, TICKER_REFRESH_MS);
 
 function renderDebtEstimate() {
   if (!debtValue || debtBaseline === null) return;
@@ -931,4 +956,3 @@ window.addEventListener('resize', () => {
 });
 
 setTimeout(() => bootstrapDcaWhenReady(), 500);
-
