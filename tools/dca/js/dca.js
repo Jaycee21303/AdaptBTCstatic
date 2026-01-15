@@ -166,10 +166,21 @@ function chartGridColors() {
   };
 }
 
+function createBalanceGradient(ctx, chartArea) {
+  const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+  gradient.addColorStop(0, 'rgba(11, 191, 99, 0.35)');
+  gradient.addColorStop(1, 'rgba(11, 191, 99, 0.02)');
+  return gradient;
+}
+
 function updateChart(labels, holdings, projectedPrices, label) {
   if (!chartCanvas) return;
+  const ctx = chartCanvas.getContext('2d');
+  if (!ctx) return;
   const grid = chartGridColors();
   const textColor = '#0f172a';
+  const chartArea = chartInstance?.chartArea;
+  const balanceFill = chartArea ? createBalanceGradient(ctx, chartArea) : 'rgba(11, 191, 99, 0.12)';
   const data = {
     labels,
     datasets: [
@@ -177,10 +188,17 @@ function updateChart(labels, holdings, projectedPrices, label) {
         label: 'BTC balance',
         data: holdings,
         borderColor: '#0bbf63',
-        backgroundColor: 'rgba(11, 191, 99, 0.12)',
+        backgroundColor: balanceFill,
         yAxisID: 'y',
-        borderWidth: 3,
-        tension: 0.25,
+        borderWidth: 4,
+        borderCapStyle: 'round',
+        borderJoinStyle: 'round',
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        pointHitRadius: 12,
+        fill: true,
+        cubicInterpolationMode: 'monotone',
+        tension: 0.35,
       },
       {
         label: `${label} price`,
@@ -190,7 +208,8 @@ function updateChart(labels, holdings, projectedPrices, label) {
         borderWidth: 2,
         pointRadius: 0,
         yAxisID: 'y1',
-        tension: 0.25,
+        cubicInterpolationMode: 'monotone',
+        tension: 0.35,
       },
     ],
   };
