@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Proof of Work — the security engine behind Bitcoin’s consensus and monetary policy.">
+  <title>AdaptBTC | Education Hub | Proof of Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="container header-grid">
+      <a class="brand" href="../index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../tools/dca/">Tools</a>
+        <a href="../consulting.html">Consulting</a>
+        <a href="../get-involved.html">Get Involved</a>
+        <a href="../learning.html" aria-current="page">Education</a>
+      </nav>
+      <div class="header-meta">
+        <a class="ticker-chip" href="../index.html" aria-live="polite">
+          <span class="ticker-label">BTC</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container education-page">
+    <section class="education-hero">
+      <span class="pill">Education Hub</span>
+      <h1>Proof of Work</h1>
+      <p class="lead">Proof of work is the energy-backed mechanism that lets Bitcoin agree on history without a central authority.</p>
+      <a class="link" href="../learning.html">← Back to Education Hub</a>
+      <p class="muted tiny">Last updated: January 13, 2026</p>
+    </section>
+
+    <section class="education-section">
+      <h2>What you’ll learn</h2>
+      <ul class="bullet-list">
+        <li>Why proof of work is essential to Bitcoin’s consensus and security model.</li>
+        <li>How miners compete to add blocks and why the longest valid chain wins.</li>
+        <li>What difficulty adjustments do and how they stabilize issuance.</li>
+        <li>How proof of work ties real-world energy costs to digital scarcity.</li>
+      </ul>
+    </section>
+
+    <section class="education-section education-body">
+      <div>
+        <h2>Why Bitcoin needs proof of work</h2>
+        <p>Bitcoin is an open network where anyone can run a node or broadcast transactions. To prevent double-spending without a central authority, Bitcoin needs a way for nodes to agree on a single transaction history. Proof of work solves this by making it expensive to create blocks, so the chain with the most accumulated work represents the strongest consensus.</p>
+        <p>In short: anyone can propose blocks, but only the chain that required the most real-world energy is accepted as the source of truth.</p>
+      </div>
+      <div class="callout note">
+        <p class="callout-title">Quick definition</p>
+        <p>Proof of work is a computational lottery where miners repeatedly hash block data until they find a valid result below the network target.</p>
+      </div>
+      <div>
+        <h2>How mining secures the ledger</h2>
+        <p>Miners assemble transactions into blocks and compete to solve a hashing puzzle. The first miner to find a valid hash broadcasts the block. Other nodes verify the work, validate the transactions, and extend the chain. Each new block makes earlier blocks harder to replace because an attacker would need to redo the work for that block and every block that follows.</p>
+        <h3>Longer chain = more work</h3>
+        <p>Bitcoin does not choose the “longest” chain by block count alone—it chooses the chain with the most cumulative proof of work. This makes it costly to rewrite history and keeps consensus objective.</p>
+      </div>
+      <div>
+        <h2>Difficulty adjustments and predictable issuance</h2>
+        <p>Every 2,016 blocks, the network adjusts difficulty to keep the average block interval close to 10 minutes. When more hash power joins, difficulty rises; when hash power leaves, difficulty falls. This stabilizes issuance and maintains security even as mining hardware improves.</p>
+      </div>
+      <div>
+        <h2>Incentives that keep the network honest</h2>
+        <p>Miners earn new BTC (the block subsidy) plus transaction fees when they produce valid blocks. These rewards align miners with the health of the network. Attacking the chain would require massive energy costs and would undermine the value of the very asset miners are paid in.</p>
+        <h3>Energy as a security budget</h3>
+        <p>The energy spent on proof of work is not waste; it is the cost of keeping Bitcoin’s history tamper-resistant. It replaces the trust that would otherwise be placed in a central intermediary.</p>
+      </div>
+      <div>
+        <h2>Why proof of work matters for Bitcoin</h2>
+        <p>Bitcoin’s value proposition is a neutral, censorship-resistant monetary network. Proof of work is the mechanism that anchors that promise. It ensures that no single actor can arbitrarily rewrite the ledger, and it ties digital scarcity to physical resources.</p>
+        <p>For everyday users, this means that transactions become final over time and that the 21 million BTC supply schedule can be enforced by anyone running a node.</p>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <div class="key-takeaways">
+        <h2>Key takeaways</h2>
+        <ul class="bullet-list">
+          <li>Proof of work makes it economically expensive to rewrite Bitcoin’s history.</li>
+          <li>Mining incentives align network security with the value of BTC.</li>
+          <li>Difficulty adjustments keep issuance and security steady as hash power changes.</li>
+          <li>Energy costs replace the need for centralized trust.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <h2>Next up</h2>
+      <div class="education-next-grid">
+        <a class="education-card" href="whitepaper.html">
+          <h3>The Whitepaper</h3>
+          <p class="muted">See where proof of work fits into Bitcoin’s original design.</p>
+          <span class="link">Learn more →</span>
+        </a>
+        <a class="education-card" href="bitcoin-basics.html">
+          <h3>Bitcoin Basics</h3>
+          <p class="muted">Review the fundamentals before diving deeper.</p>
+          <span class="link">Learn more →</span>
+        </a>
+        <a class="education-card" href="utxos-fees.html">
+          <h3>UTXOs &amp; Transaction Fees</h3>
+          <p class="muted">Explore how transactions are structured on-chain.</p>
+          <span class="link">Learn more →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="education-section">
+      <h2>Sources</h2>
+      <ul class="sources-list">
+        <li><a href="https://bitcoin.org/bitcoin.pdf">Satoshi Nakamoto — Bitcoin: A Peer-to-Peer Electronic Cash System (PDF)</a></li>
+        <li><a href="https://developer.bitcoin.org/devguide/block_chain.html">Bitcoin Core Developer Guide — The block chain</a></li>
+        <li><a href="https://developer.bitcoin.org/devguide/mining.html">Bitcoin Core Developer Guide — Mining</a></li>
+        <li><a href="https://developer.bitcoin.org/reference/rpc/getblockchaininfo.html">Bitcoin Core RPC Reference — getblockchaininfo</a></li>
+      </ul>
+    </section>
+
+    <p class="education-disclaimer">Educational only. Not financial advice.</p>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Adapt<span>BTC</span></div>
+        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
+        <span class="footer-status">Status: Full coverage</span>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Explore</p>
+        <a href="../index.html">Home</a>
+        <a href="../learning.html">Education</a>
+        <a href="../tools/dca/">Tools</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Services</p>
+        <a href="../consulting.html">Consulting</a>
+        <a href="../get-involved.html">Get involved</a>
+        <a href="../tools/dca/">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Connect</p>
+        <a href="../consulting.html">Community</a>
+        <a href="../consulting.html">Contact</a>
+        <a href="../consulting.html">Press</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <div class="footer-social">
+        <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
+      </div>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
