@@ -55,7 +55,7 @@
       <div class="container">
         <div class="shell">
           <div class="shell__grid shell__grid--balanced">
-            <form class="dca-form" aria-label="Bitcoin DCA inputs">
+            <form class="dca-form grid-form" aria-label="Bitcoin DCA inputs">
               <div class="form-grid">
                 <label class="input-group">
                   <span>Contribution per buy (USD)</span>
@@ -90,7 +90,7 @@
               <p class="muted tiny">Math uses raw contributions only — no compounding, no yield, no added logic.</p>
             </form>
 
-            <div class="side-stack">
+            <div class="side-stack grid-results">
               <div class="results" aria-live="polite">
                 <div class="result-grid">
                   <div class="stat">
@@ -112,22 +112,22 @@
                 </div>
                 <div class="scenario-note" id="scenarioRange">Moderate outlook · 30% CAGR assumption over 5 years.</div>
               </div>
+            </div>
 
-              <div class="chart-card compact">
-                <div class="chart-header">
-                  <div>
-                    <p class="muted tiny">Projection chart</p>
-                    <h4>BTC balance vs projected price</h4>
-                  </div>
-                  <p class="muted tiny">Accumulation uses the exact math provided. Price paths use annual growth assumptions.</p>
+            <div class="chart-card compact grid-chart">
+              <div class="chart-header">
+                <div>
+                  <p class="muted tiny">Projection chart</p>
+                  <h4>BTC balance vs projected price</h4>
                 </div>
-                <div class="chart-area">
-                  <canvas id="dcaChart" aria-label="BTC accumulation chart" role="img"></canvas>
-                </div>
-                <div class="legend">
-                  <span class="legend-pill dark">BTC balance</span>
-                  <span class="legend-pill dashed accent" id="priceLegend">Projected price</span>
-                </div>
+                <p class="muted tiny">Accumulation uses the exact math provided. Price paths use annual growth assumptions.</p>
+              </div>
+              <div class="chart-area">
+                <canvas id="dcaChart" aria-label="BTC accumulation chart" role="img"></canvas>
+              </div>
+              <div class="legend">
+                <span class="legend-pill dark">BTC balance</span>
+                <span class="legend-pill dashed accent" id="priceLegend">Projected price</span>
               </div>
             </div>
           </div>

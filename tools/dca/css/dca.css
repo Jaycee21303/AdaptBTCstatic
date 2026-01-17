@@ -231,6 +231,23 @@ h2, h3, h4 {
 .shell__grid--balanced {
   grid-template-columns: minmax(360px, 1.1fr) 1fr;
   align-items: start;
+  grid-template-areas:
+    "form results"
+    "chart chart";
+}
+
+.shell__grid--balanced .grid-form {
+  grid-area: form;
+}
+
+.shell__grid--balanced .grid-results {
+  grid-area: results;
+}
+
+.shell__grid--balanced .grid-chart {
+  grid-area: chart;
+  width: 100%;
+  justify-self: stretch;
 }
 
 .side-stack {
@@ -423,6 +440,13 @@ body.theme-dark .input-group select {
   .shell__grid,
   .shell__grid--balanced {
     grid-template-columns: 1fr;
+  }
+
+  .shell__grid--balanced {
+    grid-template-areas:
+      "form"
+      "results"
+      "chart";
   }
 
   .side-stack {
