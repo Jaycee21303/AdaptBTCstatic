@@ -3,24 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AdaptBTC provides practical Bitcoin education, consulting playbooks, and live tooling for teams and operators.">
-  <meta property="og:title" content="AdaptBTC | Bitcoin Education & Infrastructure">
-  <meta property="og:description" content="Practical Bitcoin education, consulting playbooks, and live tooling for teams and operators.">
-  <meta property="og:url" content="https://adaptbtc.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://adaptbtc.com/assets/hero-graphic.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AdaptBTC | Bitcoin Education & Infrastructure">
-  <meta name="twitter:description" content="Practical Bitcoin education, consulting playbooks, and live tooling for teams and operators.">
-  <title>AdaptBTC | Bitcoin Education & Infrastructure</title>
+  <meta name="description" content="AdaptBTC — Enterprise Bitcoin infrastructure.">
+  <title>AdaptBTC | Bitcoin Infrastructure</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="modulepreload" href="/src/main.js">
-  <script type="application/ld+json">\n    {\n      \"@context\": \"https://schema.org\",\n      \"@type\": \"Organization\",\n      \"name\": \"AdaptBTC\",\n      \"url\": \"https://adaptbtc.com/\",\n      \"logo\": \"https://adaptbtc.com/assets/hero-graphic.svg\",\n      \"sameAs\": [\"https://x.com/AdaptB11755\"]\n    }\n  </script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
   <header class="page-header">
     <div class="container header-grid">
       <a class="brand" href="index.html">Adapt<span>BTC</span></a>
@@ -36,16 +26,15 @@
             <a href="learning.html">Education</a>
       </nav>
       <div class="header-meta">
-        <a class="ticker-chip" href="index.html">
+        <a class="ticker-chip" href="index.html" aria-live="polite">
           <span class="ticker-label">BTC</span>
-          <span class="ticker-price" id="btcPrice" aria-live="polite" aria-atomic="true">$--</span>
-          <span class="ticker-status" id="btcStatus" hidden>Delayed</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
         </a>
       </div>
     </div>
   </header>
 
-  <main id="main">
+  <main>
     <section id="hero" class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
@@ -61,15 +50,15 @@
             <li><span class="check-icon-svg" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8.4 6.3 12l7-8.2"/></svg></span>DCA planner with live price inputs for real deployment</li>
           </ul>
         </div>
-        <div class="hero-card glass dca-hero-card">
+        <div class="hero-card glass dca-hero-card" aria-hidden="true">
           <div class="card-header">
             <div>
               <p class="muted tiny">Live view</p>
               <h3>Bitcoin price – last 6 months</h3>
             </div>
             <div class="price-chip">
-              <span id="heroPrice" aria-live="polite" aria-atomic="true">$--</span>
-              <span id="heroChange" class="muted tiny" aria-live="polite" aria-atomic="true">--</span>
+              <span id="heroPrice">$--</span>
+              <span id="heroChange" class="muted tiny">--</span>
             </div>
           </div>
           <div class="chart-wrapper real-chart">
@@ -128,16 +117,16 @@
             </div>
             <span class="legend-pill accent" id="debtStatus">Loading…</span>
           </div>
-          <div class="debt-value" id="debtValue" aria-live="polite" aria-atomic="true">$--</div>
+          <div class="debt-value" id="debtValue">$--</div>
           <p class="muted">Updating with the latest published total and an estimated intraday climb.</p>
           <div class="debt-meta">
             <div>
               <p class="muted tiny">24h change</p>
-              <p id="debtChange" aria-live="polite" aria-atomic="true">--</p>
+              <p id="debtChange">--</p>
             </div>
             <div>
               <p class="muted tiny">Last Treasury update</p>
-              <p id="debtUpdated" aria-live="polite" aria-atomic="true">--</p>
+              <p id="debtUpdated">--</p>
             </div>
             <div>
               <p class="muted tiny">Bitcoin supply</p>
@@ -248,9 +237,6 @@
     </div>
     <div class="container footer-bottom">
       <p class="muted tiny">Powered by AdaptBTC</p>
-      <div class="footer-utility">
-        <button class="contrast-toggle" id="contrastToggle" type="button" aria-pressed="false">High contrast</button>
-      </div>
       <div class="footer-social">
         <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
       </div>
@@ -258,6 +244,7 @@
     </div>
   </footer>
 
-  <script type="module" src="/src/main.js"></script>
+  <script src="btcChartData.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

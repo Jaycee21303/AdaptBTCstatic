@@ -4,33 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Common Scams & How to Avoid Them — protect yourself from Bitcoin fraud.">
-  <meta property="og:title" content="AdaptBTC | Education Hub | Common Scams & How to Avoid Them">
-  <meta property="og:description" content="Common Scams & How to Avoid Them — protect yourself from Bitcoin fraud.">
-  <meta property="og:url" content="https://adaptbtc.com/education/scams.html">
-  <meta property="og:type" content="article">
-  <meta property="og:image" content="https://adaptbtc.com/assets/hero-graphic.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AdaptBTC | Education Hub | Common Scams & How to Avoid Them">
-  <meta name="twitter:description" content="Common Scams & How to Avoid Them — protect yourself from Bitcoin fraud.">
   <title>AdaptBTC | Education Hub | Common Scams & How to Avoid Them</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="modulepreload" href="/src/main.js">
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LearningResource",
-      "headline": "Common Scams &amp; How to Avoid Them",
-      "dateModified": "2026-01-13",
-      "author": {"@type": "Organization", "name": "AdaptBTC", "url": "https://adaptbtc.com/"},
-      "publisher": {"@type": "Organization", "name": "AdaptBTC", "url": "https://adaptbtc.com/"},
-      "url": "https://adaptbtc.com/education/scams.html"
-    }
-  </script>
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
   <header class="page-header">
     <div class="container header-grid">
       <a class="brand" href="../index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
@@ -46,16 +26,15 @@
         <a href="../learning.html" aria-current="page">Education</a>
       </nav>
       <div class="header-meta">
-        <a class="ticker-chip" href="../index.html">
+        <a class="ticker-chip" href="../index.html" aria-live="polite">
           <span class="ticker-label">BTC</span>
-          <span class="ticker-price" id="btcPrice" aria-live="polite" aria-atomic="true">$--</span>
-          <span class="ticker-status" id="btcStatus" hidden>Delayed</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
         </a>
       </div>
     </div>
   </header>
 
-  <main id="main" class="container education-page">
+  <main class="container education-page">
     <section class="education-hero">
       <span class="pill">Education Hub</span>
       <h1>Common Scams &amp; How to Avoid Them</h1>
@@ -172,9 +151,6 @@
     </div>
     <div class="container footer-bottom">
       <p class="muted tiny">Powered by AdaptBTC</p>
-      <div class="footer-utility">
-        <button class="contrast-toggle" id="contrastToggle" type="button" aria-pressed="false">High contrast</button>
-      </div>
       <div class="footer-social">
         <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
       </div>
@@ -182,6 +158,6 @@
     </div>
   </footer>
 
-  <script type="module" src="/src/main.js"></script>
+  <script src="../script.js"></script>
 </body>
 </html>
