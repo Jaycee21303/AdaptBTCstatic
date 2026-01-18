@@ -3,15 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AdaptBTC Bitcoin DCA calculator with live pricing, scenario projections, and accumulation insights.">
+  <meta property="og:title" content="AdaptBTC | Bitcoin DCA Calculator">
+  <meta property="og:description" content="Model recurring Bitcoin buys with live pricing, scenario projections, and accumulation insights.">
+  <meta property="og:url" content="https://adaptbtc.com/tools/dca/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://adaptbtc.com/assets/hero-graphic.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AdaptBTC | Bitcoin DCA Calculator">
+  <meta name="twitter:description" content="Model recurring Bitcoin buys with live pricing, scenario projections, and accumulation insights.">
   <title>AdaptBTC | Bitcoin DCA Calculator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/dca.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
-  <script src="js/dca.js" defer></script>
+  <link rel="modulepreload" href="/src/dca/main.js">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="page-header">
     <div class="container header-grid">
       <a class="brand" href="../../index.html">Adapt<span>BTC</span></a>
@@ -27,15 +35,16 @@
         <a href="../../index.html#learning">Education</a>
       </nav>
       <div class="header-meta">
-        <a class="ticker-chip" href="../../index.html" aria-live="polite">
+        <a class="ticker-chip" href="../../index.html">
           <span class="ticker-label">BTC</span>
-          <span class="ticker-price" id="btcPrice">$--</span>
+          <span class="ticker-price" id="btcPrice" aria-live="polite" aria-atomic="true">$--</span>
+          <span class="ticker-status" id="btcStatus" hidden>Delayed</span>
         </a>
       </div>
     </div>
   </header>
 
-  <main class="main">
+  <main id="main" class="main">
     <section class="hero">
       <div class="container hero-grid">
         <div>
@@ -45,7 +54,7 @@
         </div>
         <div class="price-card" aria-live="polite">
           <p class="muted tiny">Live BTC price</p>
-          <h2 id="livePrice">$--</h2>
+          <h2 id="livePrice" aria-live="polite" aria-atomic="true">$--</h2>
           <p class="muted tiny" id="priceTimestamp">Fetching latest price from CoinGecko…</p>
         </div>
       </div>
@@ -135,5 +144,15 @@
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <button class="contrast-toggle" id="contrastToggle" type="button" aria-pressed="false">High contrast</button>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/dca/main.js"></script>
 </body>
 </html>

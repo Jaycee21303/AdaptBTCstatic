@@ -4,11 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0;url=tools/dca/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AdaptBTC tools redirect to the Bitcoin DCA calculator.">
+  <meta property="og:title" content="AdaptBTC | Tools">
+  <meta property="og:description" content="Redirecting to the AdaptBTC Bitcoin DCA calculator.">
+  <meta property="og:url" content="https://adaptbtc.com/tools.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://adaptbtc.com/assets/hero-graphic.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AdaptBTC | Tools">
+  <meta name="twitter:description" content="Redirecting to the AdaptBTC Bitcoin DCA calculator.">
   <title>AdaptBTC | Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="modulepreload" href="/src/main.js">
   <style>
     body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f7f9fc; color: #0f172a; }
     .redirect-card { max-width: 460px; padding: 32px; border-radius: 16px; background: #fff; box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12); text-align: center; }
@@ -18,11 +27,15 @@
   </style>
 </head>
 <body>
-  <div class="redirect-card">
-    <p class="logo" style="font-weight:700; font-size:1.05rem; margin-bottom:12px;">Adapt<span>BTC</span></p>
-    <h1>Redirecting to the DCA tool…</h1>
-    <p>If you are not redirected automatically, <a href="tools/dca/">open the Bitcoin DCA planner.</a></p>
-  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main">
+    <div class="redirect-card">
+      <p class="logo" style="font-weight:700; font-size:1.05rem; margin-bottom:12px;">Adapt<span>BTC</span></p>
+      <h1>Redirecting to the DCA tool…</h1>
+      <p>If you are not redirected automatically, <a href="tools/dca/">open the Bitcoin DCA planner.</a></p>
+    </div>
+  </main>
+  <script type="module" src="/src/main.js"></script>
   <script>window.location.replace('tools/dca/');</script>
 </body>
 </html>

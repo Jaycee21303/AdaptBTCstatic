@@ -1,79 +1,180 @@
 window.educationTopics = [
   {
-    title: 'Bitcoin Basics',
-    slug: 'bitcoin-basics',
-    description: 'Understand how Bitcoin works, why it exists, and the core concepts behind a decentralized monetary network.',
-    keywords: ['intro', 'network', 'decentralization', 'money', 'blockchain'],
-    related: ['whitepaper', 'cold-vs-hot-storage', 'seed-phrases'],
+    "title": "Bitcoin Basics",
+    "slug": "bitcoin-basics",
+    "description": "Understand how Bitcoin works, why it exists, and the core concepts behind a decentralized monetary network.",
+    "keywords": [
+      "intro",
+      "network",
+      "decentralization",
+      "money",
+      "blockchain"
+    ],
+    "related": [
+      "whitepaper",
+      "cold-vs-hot-storage",
+      "seed-phrases"
+    ]
   },
   {
-    title: 'The Whitepaper',
-    slug: 'whitepaper',
-    description: 'A guided walkthrough of Satoshi Nakamoto’s 2008 paper and the design choices that still matter today.',
-    keywords: ['satoshi', 'paper', 'consensus', 'proof of work'],
-    related: ['bitcoin-basics', 'proof-of-work', 'utxos-fees'],
+    "title": "The Whitepaper",
+    "slug": "whitepaper",
+    "description": "A guided walkthrough of Satoshi Nakamoto’s 2008 paper and the design choices that still matter today.",
+    "keywords": [
+      "satoshi",
+      "paper",
+      "consensus",
+      "proof of work"
+    ],
+    "related": [
+      "bitcoin-basics",
+      "proof-of-work",
+      "utxos-fees"
+    ]
   },
   {
-    title: 'Proof of Work',
-    slug: 'proof-of-work',
-    description: 'Learn how proof of work secures Bitcoin, aligns incentives, and anchors the history of transactions.',
-    keywords: ['mining', 'hashrate', 'difficulty', 'security', 'consensus'],
-    related: ['whitepaper', 'bitcoin-basics', 'utxos-fees'],
+    "title": "Proof of Work",
+    "slug": "proof-of-work",
+    "description": "Learn how proof of work secures Bitcoin, aligns incentives, and anchors the history of transactions.",
+    "keywords": [
+      "mining",
+      "hashrate",
+      "difficulty",
+      "security",
+      "consensus"
+    ],
+    "related": [
+      "whitepaper",
+      "bitcoin-basics",
+      "utxos-fees"
+    ]
   },
   {
-    title: 'Investing vs Trading',
-    slug: 'investing-vs-trading',
-    description: 'Learn the difference between long-term allocation and short-term trading, plus the risks each approach carries.',
-    keywords: ['allocation', 'risk', 'time horizon', 'volatility'],
-    related: ['bitcoin-etfs', 'scams', 'bitcoin-basics'],
+    "title": "Investing vs Trading",
+    "slug": "investing-vs-trading",
+    "description": "Learn the difference between long-term allocation and short-term trading, plus the risks each approach carries.",
+    "keywords": [
+      "allocation",
+      "risk",
+      "time horizon",
+      "volatility"
+    ],
+    "related": [
+      "bitcoin-etfs",
+      "scams",
+      "bitcoin-basics"
+    ]
   },
   {
-    title: 'Bitcoin ETFs',
-    slug: 'bitcoin-etfs',
-    description: 'See how spot Bitcoin ETFs are structured, how they custody BTC, and what investors should know.',
-    keywords: ['etf', 'custody', 'regulated', 'funds'],
-    related: ['investing-vs-trading', 'cold-vs-hot-storage', 'security-checklist'],
+    "title": "Bitcoin ETFs",
+    "slug": "bitcoin-etfs",
+    "description": "See how spot Bitcoin ETFs are structured, how they custody BTC, and what investors should know.",
+    "keywords": [
+      "etf",
+      "custody",
+      "regulated",
+      "funds"
+    ],
+    "related": [
+      "investing-vs-trading",
+      "cold-vs-hot-storage",
+      "security-checklist"
+    ]
   },
   {
-    title: 'Cold vs Hot Storage',
-    slug: 'cold-vs-hot-storage',
-    description: 'Compare storage methods, tradeoffs, and when it makes sense to use each type of wallet.',
-    keywords: ['wallets', 'custody', 'hardware', 'risk'],
-    related: ['security-checklist', 'seed-phrases', 'bitcoin-basics'],
+    "title": "Cold vs Hot Storage",
+    "slug": "cold-vs-hot-storage",
+    "description": "Compare storage methods, tradeoffs, and when it makes sense to use each type of wallet.",
+    "keywords": [
+      "wallets",
+      "custody",
+      "hardware",
+      "risk"
+    ],
+    "related": [
+      "security-checklist",
+      "seed-phrases",
+      "bitcoin-basics"
+    ]
   },
   {
-    title: 'Self-Custody Security Checklist',
-    slug: 'security-checklist',
-    description: 'A practical checklist for protecting keys, devices, and recovery paths when holding your own Bitcoin.',
-    keywords: ['security', 'self-custody', 'backup', 'practice'],
-    related: ['cold-vs-hot-storage', 'seed-phrases', 'scams'],
+    "title": "Self-Custody Security Checklist",
+    "slug": "security-checklist",
+    "description": "A practical checklist for protecting keys, devices, and recovery paths when holding your own Bitcoin.",
+    "keywords": [
+      "security",
+      "self-custody",
+      "backup",
+      "practice"
+    ],
+    "related": [
+      "cold-vs-hot-storage",
+      "seed-phrases",
+      "scams"
+    ]
   },
   {
-    title: 'Seed Phrases & Backups',
-    slug: 'seed-phrases',
-    description: 'Understand how seed phrases work, how to back them up safely, and what to avoid.',
-    keywords: ['seed phrase', 'backup', 'bip39', 'recovery'],
-    related: ['security-checklist', 'cold-vs-hot-storage', 'bitcoin-basics'],
+    "title": "Seed Phrases & Backups",
+    "slug": "seed-phrases",
+    "description": "Understand how seed phrases work, how to back them up safely, and what to avoid.",
+    "keywords": [
+      "seed phrase",
+      "backup",
+      "bip39",
+      "recovery"
+    ],
+    "related": [
+      "security-checklist",
+      "cold-vs-hot-storage",
+      "bitcoin-basics"
+    ]
   },
   {
-    title: 'UTXOs & Transaction Fees',
-    slug: 'utxos-fees',
-    description: 'Learn how Bitcoin transactions are structured, what UTXOs are, and why fees fluctuate.',
-    keywords: ['fees', 'mempool', 'utxo', 'transactions'],
-    related: ['whitepaper', 'lightning-basics', 'bitcoin-basics'],
+    "title": "UTXOs & Transaction Fees",
+    "slug": "utxos-fees",
+    "description": "Learn how Bitcoin transactions are structured, what UTXOs are, and why fees fluctuate.",
+    "keywords": [
+      "fees",
+      "mempool",
+      "utxo",
+      "transactions"
+    ],
+    "related": [
+      "whitepaper",
+      "lightning-basics",
+      "bitcoin-basics"
+    ]
   },
   {
-    title: 'Lightning Network Basics',
-    slug: 'lightning-basics',
-    description: 'Discover how Lightning enables fast, low-fee payments and how it connects to the base layer.',
-    keywords: ['layer 2', 'payments', 'channels', 'lightning'],
-    related: ['utxos-fees', 'whitepaper', 'bitcoin-basics'],
+    "title": "Lightning Network Basics",
+    "slug": "lightning-basics",
+    "description": "Discover how Lightning enables fast, low-fee payments and how it connects to the base layer.",
+    "keywords": [
+      "layer 2",
+      "payments",
+      "channels",
+      "lightning"
+    ],
+    "related": [
+      "utxos-fees",
+      "whitepaper",
+      "bitcoin-basics"
+    ]
   },
   {
-    title: 'Common Scams & How to Avoid Them',
-    slug: 'scams',
-    description: 'Identify common Bitcoin scams and learn concrete steps to protect yourself and your team.',
-    keywords: ['fraud', 'phishing', 'social engineering', 'risk'],
-    related: ['security-checklist', 'investing-vs-trading', 'seed-phrases'],
-  },
-];
+    "title": "Common Scams & How to Avoid Them",
+    "slug": "scams",
+    "description": "Identify common Bitcoin scams and learn concrete steps to protect yourself and your team.",
+    "keywords": [
+      "fraud",
+      "phishing",
+      "social engineering",
+      "risk"
+    ],
+    "related": [
+      "security-checklist",
+      "investing-vs-trading",
+      "seed-phrases"
+    ]
+  }
+];\n
