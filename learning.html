@@ -3,23 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore the AdaptBTC Education Hub for clear Bitcoin lessons, security guides, and practical playbooks.">
-  <meta property="og:title" content="AdaptBTC | Education Hub">
-  <meta property="og:description" content="Clear Bitcoin lessons, security guides, and practical playbooks for teams and learners.">
-  <meta property="og:url" content="https://adaptbtc.com/learning.html">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://adaptbtc.com/assets/hero-graphic.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AdaptBTC | Education Hub">
-  <meta name="twitter:description" content="Clear Bitcoin lessons, security guides, and practical playbooks for teams and learners.">
+  <meta name="description" content="AdaptBTC Education Hub — clear, practical Bitcoin lessons for everyday people and small businesses.">
   <title>AdaptBTC | Education Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="modulepreload" href="/src/main.js">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
   <header class="page-header">
     <div class="container header-grid">
       <a class="brand" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
@@ -35,15 +26,14 @@
         <a href="learning.html" aria-current="page">Education</a>
       </nav>
       <div class="header-meta">
-        <a class="ticker-chip" href="index.html">
+        <a class="ticker-chip" href="index.html" aria-live="polite">
           <span class="ticker-label">BTC</span>
-          <span class="ticker-price" id="btcPrice" aria-live="polite" aria-atomic="true">$--</span>
-          <span class="ticker-status" id="btcStatus" hidden>Delayed</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
         </a>
       </div>
     </div>
   </header>
-  <main id="main" class="container education-hub">
+  <main class="container education-hub">
     <section class="education-hero">
       <h1>Education Hub</h1>
       <p class="lead">Clear, practical Bitcoin lessons—built for everyday people and small businesses.</p>
@@ -51,11 +41,8 @@
         <div>
           <label for="educationSearch" class="muted tiny">Search topics</label>
           <input id="educationSearch" type="search" placeholder="Try: fees, custody, lightning" autocomplete="off">
-          <noscript>
-            <p class="muted tiny">Search requires JavaScript, but topics are listed below.</p>
-          </noscript>
         </div>
-        <div class="education-count muted tiny" id="educationCount">11 topics</div>
+        <div class="education-count muted tiny" id="educationCount">10 topics</div>
       </div>
     </section>
 
@@ -64,54 +51,7 @@
         <h2>Explore the core tracks</h2>
         <p class="muted">Each topic links to a dedicated lesson with sources and next steps.</p>
       </div>
-      <div class="education-grid" id="educationCards">
-        <!-- EDUCATION_CARDS_START -->
-      <a class="education-card" href="education/bitcoin-basics.html" data-title="Bitcoin Basics" data-description="Understand how Bitcoin works, why it exists, and the core concepts behind a decentralized monetary network." data-keywords="intro network decentralization money blockchain">
-        <h3>Bitcoin Basics</h3>
-        <p class="muted">Understand how Bitcoin works, why it exists, and the core concepts behind a decentralized monetary network.</p>
-      </a>
-      <a class="education-card" href="education/whitepaper.html" data-title="The Whitepaper" data-description="A guided walkthrough of Satoshi Nakamoto’s 2008 paper and the design choices that still matter today." data-keywords="satoshi paper consensus proof of work">
-        <h3>The Whitepaper</h3>
-        <p class="muted">A guided walkthrough of Satoshi Nakamoto’s 2008 paper and the design choices that still matter today.</p>
-      </a>
-      <a class="education-card" href="education/proof-of-work.html" data-title="Proof of Work" data-description="Learn how proof of work secures Bitcoin, aligns incentives, and anchors the history of transactions." data-keywords="mining hashrate difficulty security consensus">
-        <h3>Proof of Work</h3>
-        <p class="muted">Learn how proof of work secures Bitcoin, aligns incentives, and anchors the history of transactions.</p>
-      </a>
-      <a class="education-card" href="education/investing-vs-trading.html" data-title="Investing vs Trading" data-description="Learn the difference between long-term allocation and short-term trading, plus the risks each approach carries." data-keywords="allocation risk time horizon volatility">
-        <h3>Investing vs Trading</h3>
-        <p class="muted">Learn the difference between long-term allocation and short-term trading, plus the risks each approach carries.</p>
-      </a>
-      <a class="education-card" href="education/bitcoin-etfs.html" data-title="Bitcoin ETFs" data-description="See how spot Bitcoin ETFs are structured, how they custody BTC, and what investors should know." data-keywords="etf custody regulated funds">
-        <h3>Bitcoin ETFs</h3>
-        <p class="muted">See how spot Bitcoin ETFs are structured, how they custody BTC, and what investors should know.</p>
-      </a>
-      <a class="education-card" href="education/cold-vs-hot-storage.html" data-title="Cold vs Hot Storage" data-description="Compare storage methods, tradeoffs, and when it makes sense to use each type of wallet." data-keywords="wallets custody hardware risk">
-        <h3>Cold vs Hot Storage</h3>
-        <p class="muted">Compare storage methods, tradeoffs, and when it makes sense to use each type of wallet.</p>
-      </a>
-      <a class="education-card" href="education/security-checklist.html" data-title="Self-Custody Security Checklist" data-description="A practical checklist for protecting keys, devices, and recovery paths when holding your own Bitcoin." data-keywords="security self-custody backup practice">
-        <h3>Self-Custody Security Checklist</h3>
-        <p class="muted">A practical checklist for protecting keys, devices, and recovery paths when holding your own Bitcoin.</p>
-      </a>
-      <a class="education-card" href="education/seed-phrases.html" data-title="Seed Phrases &amp; Backups" data-description="Understand how seed phrases work, how to back them up safely, and what to avoid." data-keywords="seed phrase backup bip39 recovery">
-        <h3>Seed Phrases &amp; Backups</h3>
-        <p class="muted">Understand how seed phrases work, how to back them up safely, and what to avoid.</p>
-      </a>
-      <a class="education-card" href="education/utxos-fees.html" data-title="UTXOs &amp; Transaction Fees" data-description="Learn how Bitcoin transactions are structured, what UTXOs are, and why fees fluctuate." data-keywords="fees mempool utxo transactions">
-        <h3>UTXOs &amp; Transaction Fees</h3>
-        <p class="muted">Learn how Bitcoin transactions are structured, what UTXOs are, and why fees fluctuate.</p>
-      </a>
-      <a class="education-card" href="education/lightning-basics.html" data-title="Lightning Network Basics" data-description="Discover how Lightning enables fast, low-fee payments and how it connects to the base layer." data-keywords="layer 2 payments channels lightning">
-        <h3>Lightning Network Basics</h3>
-        <p class="muted">Discover how Lightning enables fast, low-fee payments and how it connects to the base layer.</p>
-      </a>
-      <a class="education-card" href="education/scams.html" data-title="Common Scams &amp; How to Avoid Them" data-description="Identify common Bitcoin scams and learn concrete steps to protect yourself and your team." data-keywords="fraud phishing social engineering risk">
-        <h3>Common Scams &amp; How to Avoid Them</h3>
-        <p class="muted">Identify common Bitcoin scams and learn concrete steps to protect yourself and your team.</p>
-      </a>
-      <!-- EDUCATION_CARDS_END -->
-      </div>
+      <div class="education-grid" id="educationCards"></div>
       <p class="education-empty muted" id="educationEmpty" hidden>No topics match that search yet.</p>
     </section>
 
@@ -165,9 +105,6 @@
     </div>
     <div class="container footer-bottom">
       <p class="muted tiny">Powered by AdaptBTC</p>
-      <div class="footer-utility">
-        <button class="contrast-toggle" id="contrastToggle" type="button" aria-pressed="false">High contrast</button>
-      </div>
       <div class="footer-social">
         <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
       </div>
@@ -175,6 +112,51 @@
     </div>
   </footer>
 
-  <script type="module" src="/src/main.js"></script>
+  <script src="assets/data/education-topics.js"></script>
+  <script>
+    const educationTopics = Array.isArray(window.educationTopics) ? window.educationTopics : [];
+    const cardsContainer = document.getElementById('educationCards');
+    const searchInput = document.getElementById('educationSearch');
+    const countLabel = document.getElementById('educationCount');
+    const emptyState = document.getElementById('educationEmpty');
+
+    const renderTopics = (topics) => {
+      if (!cardsContainer) return;
+      cardsContainer.innerHTML = topics.map((topic) => `
+        <article class="education-card">
+          <h3>${topic.title}</h3>
+          <p class="muted">${topic.description}</p>
+          <a class="link" href="education/${topic.slug}.html">Learn more →</a>
+        </article>
+      `).join('');
+      if (countLabel) {
+        countLabel.textContent = `${topics.length} topic${topics.length === 1 ? '' : 's'}`;
+      }
+      if (emptyState) {
+        emptyState.hidden = topics.length !== 0;
+      }
+    };
+
+    const filterTopics = () => {
+      const query = searchInput?.value.trim().toLowerCase() || '';
+      if (!query) {
+        renderTopics(educationTopics);
+        return;
+      }
+      const filtered = educationTopics.filter((topic) => {
+        const haystack = [topic.title, topic.description, ...(topic.keywords || [])]
+          .join(' ')
+          .toLowerCase();
+        return haystack.includes(query);
+      });
+      renderTopics(filtered);
+    };
+
+    renderTopics(educationTopics);
+    if (searchInput) {
+      searchInput.addEventListener('input', filterTopics);
+    }
+  </script>
+  <script src="script.js"></script>
 </body>
 </html>

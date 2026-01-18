@@ -26,43 +26,6 @@ body {
   min-height: 100vh;
 }
 
-body.contrast-high {
-  --muted: #1f2a44;
-  --border: #b9c3d6;
-  --primary: #0a4fcc;
-  --accent: #0a4fcc;
-  --accent-2: #0aa056;
-  --shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
-}
-
-.skip-link {
-  position: absolute;
-  left: -999px;
-  top: 12px;
-  padding: 0.6rem 1rem;
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  box-shadow: var(--shadow);
-  z-index: 1000;
-}
-
-.skip-link:focus {
-  left: 16px;
-}
-
-.sr-only {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -173,12 +136,6 @@ a {
   font-variant-numeric: tabular-nums;
 }
 
-.ticker-status {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-}
-
 .pill {
   display: inline-flex;
   align-items: center;
@@ -199,36 +156,6 @@ a {
 
 .main {
   padding: 20px 0 40px;
-}
-
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 24px 0 32px;
-  margin-top: 32px;
-}
-
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  color: var(--muted);
-}
-
-.contrast-toggle {
-  border: none;
-  background: none;
-  color: var(--muted);
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0;
-  font-size: 0.85rem;
-}
-
-.contrast-toggle:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 3px;
 }
 
 .hero {
