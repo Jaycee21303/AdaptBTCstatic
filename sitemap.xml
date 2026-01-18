@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://adaptbtc.com/</loc></url>
-  <url><loc>https://adaptbtc.com/tools</loc></url>
-  <url><loc>https://adaptbtc.com/consulting.html</loc></url>
   <url><loc>https://adaptbtc.com/learning.html</loc></url>
+  <url><loc>https://adaptbtc.com/consulting.html</loc></url>
+  <url><loc>https://adaptbtc.com/get-involved.html</loc></url>
+  <url><loc>https://adaptbtc.com/tools/dca/</loc></url>
+  <url><loc>https://adaptbtc.com/tools.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/bitcoin-basics.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/bitcoin-etfs.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/cold-vs-hot-storage.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/investing-vs-trading.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/lightning-basics.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/proof-of-work.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/scams.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/security-checklist.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/seed-phrases.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/utxos-fees.html</loc></url>
+  <url><loc>https://adaptbtc.com/education/whitepaper.html</loc></url>
 </urlset>

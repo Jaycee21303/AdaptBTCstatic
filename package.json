@@ -1,0 +1,20 @@
+{
+  "name": "adaptbtc-static",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build:education": "node scripts/build-education-hub.mjs",
+    "build:sitemap": "node scripts/build-sitemap.mjs",
+    "optimize:svg": "svgo -i assets/hero-graphic.svg -o assets/hero-graphic.svg",
+    "build": "npm run build:education && npm run build:sitemap && npm run optimize:svg && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "svgo": "^3.3.2",
+    "vite": "^5.4.6"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.3"
+  }
+}
