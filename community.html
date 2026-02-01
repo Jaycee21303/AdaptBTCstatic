@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AdaptBTC community directory of local businesses accepting Bitcoin.">
+  <title>AdaptBTC | Community Directory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="container header-grid">
+      <a class="brand" href="index.html" aria-label="AdaptBTC home">Adapt<span>BTC</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="tools/dca/">Tools</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="get-involved.html">Get Involved</a>
+        <a href="learning.html">Education</a>
+      </nav>
+      <div class="header-meta">
+        <a class="ticker-chip" href="index.html" aria-live="polite">
+          <span class="ticker-label">BTC</span>
+          <span class="ticker-price" id="btcPrice">$--</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <span class="hero-pill">Community Directory</span>
+          <h1>Find local businesses that accept Bitcoin.</h1>
+          <p class="lead">AdaptBTC is building a searchable database of shops, services, and community hubs that support Bitcoin. Explore by city today and help us grow the directory by adding your business.</p>
+          <div class="cta-group">
+            <a class="btn primary" href="#directory-search">Search the directory</a>
+            <a class="btn secondary" href="#add-business">Add a business</a>
+          </div>
+          <ul class="check-list">
+            <li><span class="check-icon-svg" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8.4 6.3 12l7-8.2"/></svg></span>Local-first discovery by city, neighborhood, and category.</li>
+            <li><span class="check-icon-svg" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8.4 6.3 12l7-8.2"/></svg></span>Verification tags for Lightning, on-chain, and merchant tools.</li>
+            <li><span class="check-icon-svg" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2.5 8.4 6.3 12l7-8.2"/></svg></span>Community-run updates to keep listings accurate.</li>
+          </ul>
+        </div>
+        <div class="hero-card glass">
+          <div class="card-header">
+            <div>
+              <p class="muted tiny">Directory pulse</p>
+              <h3>Bitcoin-friendly locations</h3>
+            </div>
+            <span class="status neutral">Beta</span>
+          </div>
+          <p class="muted">A living map of merchants, meetups, and service providers that actively support Bitcoin payments.</p>
+          <div class="metrics condensed">
+            <div class="metric">
+              <p class="muted">Cities mapped</p>
+              <h4>24</h4>
+            </div>
+            <div class="metric">
+              <p class="muted">Listings</p>
+              <h4>180+</h4>
+            </div>
+            <div class="metric">
+              <p class="muted">Lightning ready</p>
+              <h4>78%</h4>
+            </div>
+          </div>
+          <div class="plan-highlight">
+            <div>
+              <p class="muted tiny">Next milestone</p>
+              <p><strong>Add 10 new cities this quarter</strong></p>
+            </div>
+            <span class="legend-pill accent">In progress</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="directory-search" class="section surface">
+      <div class="container section-header">
+        <p class="eyebrow">Search the directory</p>
+        <h2>Find Bitcoin-friendly businesses near you.</h2>
+        <p class="muted">Filter by location, category, and payment support. Listings are curated with community input and refreshed weekly.</p>
+      </div>
+      <div class="container cta-grid">
+        <form class="card form" aria-label="Search the community directory">
+          <label for="city">City or region</label>
+          <input id="city" name="city" type="text" placeholder="Austin, TX">
+          <label for="category">Business category</label>
+          <select id="category" name="category">
+            <option>All categories</option>
+            <option>Cafés & restaurants</option>
+            <option>Retail & shops</option>
+            <option>Professional services</option>
+            <option>Events & community</option>
+          </select>
+          <label for="payment">Payment support</label>
+          <select id="payment" name="payment">
+            <option>Lightning + on-chain</option>
+            <option>Lightning only</option>
+            <option>On-chain only</option>
+          </select>
+          <button class="btn primary full" type="button">Run search</button>
+        </form>
+        <div class="card">
+          <div class="card-icon">☆</div>
+          <h3>Request a new city</h3>
+          <p class="muted">We’ll prioritize the cities that community members ask for most. Share the next location to research.</p>
+          <div class="cta-actions">
+            <a class="btn secondary" href="#add-business">Submit a lead</a>
+            <a class="btn tertiary" href="get-involved.html">Volunteer</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container section-header">
+        <p class="eyebrow">Featured listings</p>
+        <h2>Highlights from the directory.</h2>
+        <p class="muted">Spotlighted locations are verified by the AdaptBTC community and reviewed for payment readiness.</p>
+      </div>
+      <div class="container card-grid">
+        <div class="card">
+          <div class="card-icon">☕</div>
+          <h3>Blocktime Coffee</h3>
+          <p class="muted">Austin, TX · Café</p>
+          <p class="muted">Lightning POS with daily updates on the menu board.</p>
+          <span class="legend-pill accent">Lightning ready</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">🛠️</div>
+          <h3>Proof Hardware</h3>
+          <p class="muted">Denver, CO · Retail</p>
+          <p class="muted">On-chain invoices with same-day pickup.</p>
+          <span class="legend-pill">On-chain supported</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎧</div>
+          <h3>Stacked Studios</h3>
+          <p class="muted">Nashville, TN · Services</p>
+          <p class="muted">Monthly memberships paid via Lightning.</p>
+          <span class="legend-pill accent">Lightning ready</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌿</div>
+          <h3>Sat Shop Co-op</h3>
+          <p class="muted">Miami, FL · Retail</p>
+          <p class="muted">Accepts both BTC and Lightning in-store.</p>
+          <span class="legend-pill accent">Dual support</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">📚</div>
+          <h3>Hashrate Library</h3>
+          <p class="muted">Seattle, WA · Community</p>
+          <p class="muted">Meetup venue with Lightning donation kiosks.</p>
+          <span class="legend-pill accent">Community hub</span>
+        </div>
+        <div class="card">
+          <div class="card-icon">🚲</div>
+          <h3>Satoshi Cycles</h3>
+          <p class="muted">Portland, OR · Retail</p>
+          <p class="muted">Bike services with on-chain invoices.</p>
+          <span class="legend-pill">On-chain supported</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="add-business" class="section surface">
+      <div class="container section-header">
+        <p class="eyebrow">Add a business</p>
+        <h2>Help grow the Bitcoin economy.</h2>
+        <p class="muted">Share business details, payment support, and location so we can review and add new listings to the community directory.</p>
+      </div>
+      <div class="container cta-grid">
+        <form class="card form" aria-label="Submit a business to the directory">
+          <label for="businessName">Business name</label>
+          <input id="businessName" name="businessName" type="text" placeholder="Merchant or venue name">
+          <label for="businessCity">City</label>
+          <input id="businessCity" name="businessCity" type="text" placeholder="City, State">
+          <label for="businessType">Category</label>
+          <select id="businessType" name="businessType">
+            <option>Café or restaurant</option>
+            <option>Retail shop</option>
+            <option>Professional services</option>
+            <option>Events or community</option>
+            <option>Other</option>
+          </select>
+          <label for="businessNotes">Payment details</label>
+          <textarea id="businessNotes" name="businessNotes" placeholder="Lightning, on-chain, wallet provider, etc."></textarea>
+          <button class="btn primary full" type="button">Send listing</button>
+        </form>
+        <div class="card">
+          <div class="card-icon">✅</div>
+          <h3>Review process</h3>
+          <p class="muted">Listings are verified for accuracy, payment support, and relevance before going live.</p>
+          <ul class="checklist">
+            <li>Confirm payment method.</li>
+            <li>Validate address and hours.</li>
+            <li>Tag Lightning-ready merchants.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Adapt<span>BTC</span></div>
+        <p class="muted">Making AdaptBTC accessible, practical, and trustworthy for every learner.</p>
+        <span class="footer-status">Status: Full coverage</span>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Explore</p>
+        <a href="index.html">Home</a>
+        <a href="learning.html">Education</a>
+        <a href="tools/dca/">Tools</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Services</p>
+        <a href="consulting.html">Consulting</a>
+        <a href="get-involved.html">Get involved</a>
+        <a href="community.html">About</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-title">Connect</p>
+        <a href="community.html">Community</a>
+        <a href="consulting.html">Contact</a>
+        <a href="consulting.html">Press</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p class="muted tiny">Powered by AdaptBTC</p>
+      <div class="footer-social">
+        <a href="https://x.com/AdaptB11755" aria-label="Follow AdaptBTC on X">X</a>
+      </div>
+      <p class="muted tiny">© 2024 AdaptBTC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
